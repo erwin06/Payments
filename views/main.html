@@ -1,0 +1,117 @@
+<div class="container">
+    <!-- <div class="box-card"> -->
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="panel-data">
+                    <label class="title">Para pagar</label> <br/>
+                    <label class="amount">$100</label>
+                </div>
+              <!--   <div class="panel panel-blue">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-12 text-right">
+                                <div class="huge font-open bold">$ 10.000</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer color-b bold">
+                        <span class="pull-left">Sueldo</span><div class="clearfix"></div>
+                    </div>
+                </div> -->
+            </div>
+            <div class="col-lg-3 col-md-6">
+            <div class="panel-data">
+                    <label class="title">Para pagar</label> <br/>
+                    <label class="amount">$100</label>
+                </div>
+                <!-- <div class="panel panel-green">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-12 text-right">
+                                <div class="huge font-open bold">$ 4.502</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer color-b bold">
+                        <span class="pull-left">Total a pagar este mes</span>
+                        <div class="clearfix"></div>
+                    </div>
+                </div> -->
+            </div>
+            <div class="col-lg-3 col-md-6">
+            <div class="panel-data">
+                    <label class="title">Para pagar</label> <br/>
+                    <label class="amount">$100</label>
+                </div>
+               <!--  <div class="panel panel-red">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-12 text-right font-open bold">
+                                <div class="huge">$ 4.000</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer color-b bold">
+                        <span class="pull-left">Resta pagar</span>
+                        <div class="clearfix"></div>
+                    </div>
+                </div> -->
+            </div>
+            <div class="col-lg-3 col-md-6">
+            <div class="panel-data">
+                    <label class="title">Para pagar</label> <br/>
+                     <label class="amount">$100</label>
+                </div>
+                <!-- <div class="panel panel-orange">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-12 text-right font-open bold">
+                                <div class="huge">$ 1.000</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer color-b bold">
+                        <span class="pull-left">Para comprar caramelos</span>
+                        <div class="clearfix"></div>
+                    </div>
+                </div> -->
+            </div>
+        <!-- </div> -->
+    </div>
+    <div class="color-b">
+        <div ng-repeat="comp in store.payments" class="box-card">
+            <div class="div-title">
+                <label>{{comp.name}}</label>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <th class="col-xs-1 text-center">
+                        AÑO
+                    </th>
+                    <th class="col-xs-1 text-center">
+                        MES
+                    </th>
+                    <th ng-repeat="prod in comp.pays" class="text-center">
+                        {{ prod.name.toUpperCase() }}
+                    </th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="month in comp.months">
+                        <td class="text-center">
+                            {{ month.year }}
+                        </td>
+                        <td class="text-center">
+                            {{ getMonthName(month.number)}}
+                        </td>
+                        <td  class="text-center" ng-repeat="index in comp.pays" ng-model="item" >
+                           <span ng-class="getClass(item.status)"> </span> {{
+                            item = getPrice($index, comp, month.number, month.year);
+                            item != "" ? "$ " + item.price : "";
+                            }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
