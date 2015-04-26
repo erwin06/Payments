@@ -1,152 +1,92 @@
 angular.module('Main', []).controller('main', function ($scope, $cookies, $location, $http) {
 
-    $scope.store = {};
+    var toPay = [PAYING,T_PAID_ME];
+    var payed = [I_PAID,I_PAID_T_N_PAID_ME];
 
+    $scope.store = {};
+    $scope.pay = {};
+    $scope.payOrder = "companyName";
+    $scope.personalData = {
+        salary: 10000
+    }
     $scope.store.payments = [
         {
+            idProduct:1,
+            productName: "aTest",
+            payNumber: 1,
+            totalPays: 12,
+            amount: 123.33,
+            status: 1,
             idCompany: 1,
-            name: "Nevada",
-            usePrice: 75.62,
-            minMonth: 9,
-            minYear: 2014,
-            maxMonth: 8,
-            maxYear: 2015,
-            months: [],
-            pays: [
-                {
-                    idProduct: 1,
-                    name: "Horno",
-                    payments: [
-                        {idPayment: 1, price: 144.08, status: I_PAID, owner: -1, nameOwner: "", month: 9, year: 2014},
-                        {idPayment: 2, price: 144.08, status: I_PAID, owner: -1, nameOwner: "", month: 10, year: 2014},
-                        {idPayment: 3, price: 144.08, status: I_PAID, owner: -1, nameOwner: "", month: 11, year: 2014},
-                        {idPayment: 4, price: 144.08, status: I_PAID, owner: -1, nameOwner: "", month: 12, year: 2014},
-                        {idPayment: 5, price: 144.08, status: I_PAID, owner: -1, nameOwner: "", month: 1, year: 2015},
-                        {idPayment: 6, price: 144.08, status: I_PAID, owner: -1, nameOwner: "", month: 2, year: 2015},
-                        {idPayment: 7, price: 144.08, status: I_PAID, owner: -1, nameOwner: "", month: 3, year: 2015},
-                        {idPayment: 8, price: 144.08, status: PAYING, owner: -1, nameOwner: "", month: 4, year: 2015},
-                        {idPayment: 9, price: 144.08, status: PAYING, owner: -1, nameOwner: "", month: 5, year: 2015},
-                        {idPayment: 10, price: 144.08, status: PAYING, owner: -1, nameOwner: "", month: 6, year: 2015},
-                        {idPayment: 11, price: 144.08, status: PAYING, owner: -1, nameOwner: "", month: 7, year: 2015},
-                        {idPayment: 12, price: 144.08, status: PAYING, owner: -1, nameOwner: "", month: 8, year: 2015}
-                    ]
-                }, {
-                    idProduct: 2,
-                    name: "Celular",
-                    payments: [
-                        {idPayment: 13, price: 291.33, status: I_PAID, owner: 1, nameOwner: "Natti", month: 11, year: 2014},
-                        {idPayment: 14, price: 291.33, status: I_PAID, owner: 1, nameOwner: "Natti", month: 12, year: 2014},
-                        {idPayment: 15, price: 291.33, status: I_PAID, owner: 1, nameOwner: "Natti", month: 1, year: 2015},
-                        {idPayment: 16, price: 291.33, status: I_PAID, owner: 1, nameOwner: "Natti", month: 2, year: 2015},
-                        {idPayment: 17, price: 291.33, status: I_PAID, owner: 1, nameOwner: "Natti", month: 3, year: 2015},
-                        {idPayment: 18, price: 291.33, status: T_N_PAID_ME, owner: 1, nameOwner: "Natti", month: 4, year: 2015}
-                    ]
-                }, {
-                    idProduct: 3,
-                    name: "Celular",
-                    payments: [
-                        {idPayment: 19, price: 416.50, status: I_PAID, owner: 1, nameOwner: "Natti", month: 12, year: 2015},
-                        {idPayment: 20, price: 416.50, status: I_PAID, owner: 1, nameOwner: "Natti", month: 1, year: 2015},
-                        {idPayment: 21, price: 416.50, status: I_PAID, owner: 1, nameOwner: "Natti", month: 2, year: 2015},
-                        {idPayment: 22, price: 416.50, status: I_PAID, owner: 1, nameOwner: "Natti", month: 3, year: 2015},
-                        {idPayment: 23, price: 416.50, status: T_PAID_ME, owner: 1, nameOwner: "Natti", month: 4, year: 2015},
-                        {idPayment: 24, price: 416.50, status: T_N_PAID_ME, owner: 1, nameOwner: "Natti", month: 5, year: 2015},
-                    ]
-                }
-            ]
-        }, 
-        {
+            companyName: "Garbarino",
+            idOwner: 1
+        },{
+            idProduct:2,
+            productName: "bTest",
+            payNumber: 1,
+            totalPays: 12,
+            amount: 123.33,
+            status: 2,
+            idCompany: 1,
+            companyName: "Garbarino",
+            idOwner: 1
+        },{
+            idProduct:3,
+            productName: "cTest",
+            payNumber: 1,
+            totalPays: 12,
+            amount: 123.33,
+            status: 3,
             idCompany: 2,
-            name: "Naranja",
-            usePrice: 75.62,
-            minMonth: 9,
-            minYear: 2014,
-            maxMonth: 8,
-            maxYear: 2015,
-            months: [],
-            pays: [
-                {
-                    idProduct: 1,
-                    name: "Horno",
-                    payments: [
-                        {idPayment: 1, price: 144.08, status: I_PAID, owner: -1, nameOwner: "", month: 9, year: 2014},
-                        {idPayment: 2, price: 144.08, status: I_PAID, owner: -1, nameOwner: "", month: 10, year: 2014},
-                        {idPayment: 3, price: 144.08, status: I_PAID, owner: -1, nameOwner: "", month: 11, year: 2014},
-                        {idPayment: 4, price: 144.08, status: I_PAID, owner: -1, nameOwner: "", month: 12, year: 2014},
-                        {idPayment: 5, price: 144.08, status: I_PAID, owner: -1, nameOwner: "", month: 1, year: 2015},
-                        {idPayment: 6, price: 144.08, status: I_PAID, owner: -1, nameOwner: "", month: 2, year: 2015},
-                        {idPayment: 7, price: 144.08, status: I_PAID, owner: -1, nameOwner: "", month: 3, year: 2015},
-                        {idPayment: 8, price: 144.08, status: PAYING, owner: -1, nameOwner: "", month: 4, year: 2015},
-                        {idPayment: 9, price: 144.08, status: PAYING, owner: -1, nameOwner: "", month: 5, year: 2015},
-                        {idPayment: 10, price: 144.08, status: PAYING, owner: -1, nameOwner: "", month: 6, year: 2015},
-                        {idPayment: 11, price: 144.08, status: PAYING, owner: -1, nameOwner: "", month: 7, year: 2015},
-                        {idPayment: 12, price: 144.08, status: PAYING, owner: -1, nameOwner: "", month: 8, year: 2015}
-                    ]
-                }, {
-                    idProduct: 2,
-                    name: "Celular",
-                    payments: [
-                        {idPayment: 13, price: 291.33, status: I_PAID, owner: 1, nameOwner: "Natti", month: 11, year: 2014},
-                        {idPayment: 14, price: 291.33, status: I_PAID, owner: 1, nameOwner: "Natti", month: 12, year: 2014},
-                        {idPayment: 15, price: 291.33, status: I_PAID, owner: 1, nameOwner: "Natti", month: 1, year: 2015},
-                        {idPayment: 16, price: 291.33, status: I_PAID, owner: 1, nameOwner: "Natti", month: 2, year: 2015},
-                        {idPayment: 17, price: 291.33, status: I_PAID, owner: 1, nameOwner: "Natti", month: 3, year: 2015},
-                        {idPayment: 18, price: 291.33, status: T_N_PAID_ME, owner: 1, nameOwner: "Natti", month: 4, year: 2015}
-                    ]
-                }, {
-                    idProduct: 3,
-                    name: "Celular",
-                    payments: [
-                        {idPayment: 19, price: 416.50, status: I_PAID, owner: 1, nameOwner: "Natti", month: 12, year: 2015},
-                        {idPayment: 20, price: 416.50, status: I_PAID, owner: 1, nameOwner: "Natti", month: 1, year: 2015},
-                        {idPayment: 21, price: 416.50, status: I_PAID, owner: 1, nameOwner: "Natti", month: 2, year: 2015},
-                        {idPayment: 22, price: 416.50, status: I_PAID, owner: 1, nameOwner: "Natti", month: 3, year: 2015},
-                        {idPayment: 23, price: 416.50, status: T_PAID_ME, owner: 1, nameOwner: "Natti", month: 4, year: 2015},
-                        {idPayment: 24, price: 416.50, status: T_N_PAID_ME, owner: 1, nameOwner: "Natti", month: 5, year: 2015},
-                    ]
-                },{
-                    idProduct: 1,
-                    name: "Horno",
-                    payments: [
-                        {idPayment: 1, price: 144.08, status: I_PAID, owner: -1, nameOwner: "", month: 9, year: 2014},
-                        {idPayment: 2, price: 144.08, status: I_PAID, owner: -1, nameOwner: "", month: 10, year: 2014},
-                        {idPayment: 3, price: 144.08, status: I_PAID, owner: -1, nameOwner: "", month: 11, year: 2014},
-                        {idPayment: 4, price: 144.08, status: I_PAID, owner: -1, nameOwner: "", month: 12, year: 2014},
-                        {idPayment: 5, price: 144.08, status: I_PAID, owner: -1, nameOwner: "", month: 1, year: 2015},
-                        {idPayment: 6, price: 144.08, status: I_PAID, owner: -1, nameOwner: "", month: 2, year: 2015},
-                        {idPayment: 7, price: 144.08, status: I_PAID, owner: -1, nameOwner: "", month: 3, year: 2015},
-                        {idPayment: 8, price: 144.08, status: PAYING, owner: -1, nameOwner: "", month: 4, year: 2015},
-                        {idPayment: 9, price: 144.08, status: PAYING, owner: -1, nameOwner: "", month: 5, year: 2015},
-                        {idPayment: 10, price: 144.08, status: PAYING, owner: -1, nameOwner: "", month: 6, year: 2015},
-                        {idPayment: 11, price: 144.08, status: PAYING, owner: -1, nameOwner: "", month: 7, year: 2015},
-                        {idPayment: 12, price: 144.08, status: PAYING, owner: -1, nameOwner: "", month: 8, year: 2015}
-                    ]
-                }, {
-                    idProduct: 2,
-                    name: "Celular",
-                    payments: [
-                        {idPayment: 13, price: 291.33, status: I_PAID, owner: 1, nameOwner: "Natti", month: 11, year: 2014},
-                        {idPayment: 14, price: 291.33, status: I_PAID, owner: 1, nameOwner: "Natti", month: 12, year: 2014},
-                        {idPayment: 15, price: 291.33, status: I_PAID, owner: 1, nameOwner: "Natti", month: 1, year: 2015},
-                        {idPayment: 16, price: 291.33, status: I_PAID, owner: 1, nameOwner: "Natti", month: 2, year: 2015},
-                        {idPayment: 17, price: 291.33, status: I_PAID, owner: 1, nameOwner: "Natti", month: 3, year: 2015},
-                        {idPayment: 18, price: 291.33, status: T_N_PAID_ME, owner: 1, nameOwner: "Natti", month: 4, year: 2015}
-                    ]
-                }, {
-                    idProduct: 3,
-                    name: "Celular",
-                    payments: [
-                        {idPayment: 19, price: 416.50, status: I_PAID, owner: 1, nameOwner: "Natti", month: 12, year: 2015},
-                        {idPayment: 20, price: 416.50, status: I_PAID, owner: 1, nameOwner: "Natti", month: 1, year: 2015},
-                        {idPayment: 21, price: 416.50, status: I_PAID, owner: 1, nameOwner: "Natti", month: 2, year: 2015},
-                        {idPayment: 22, price: 416.50, status: I_PAID, owner: 1, nameOwner: "Natti", month: 3, year: 2015},
-                        {idPayment: 23, price: 416.50, status: T_PAID_ME, owner: 1, nameOwner: "Natti", month: 4, year: 2015},
-                        {idPayment: 24, price: 416.50, status: T_N_PAID_ME, owner: 1, nameOwner: "Natti", month: 5, year: 2015},
-                    ]
-                }
-            ]
+            companyName: "Frávega",
+            idOwner: 1
+        },{
+            idProduct:4,
+            productName: "dTest",
+            payNumber: 1,
+            totalPays: 12,
+            amount: 123.33,
+            status: 1,
+            idCompany: 3,
+            companyName: "Frávega",
+            idOwner: 1
+        },{
+            idProduct:5,
+            productName: "eTest",
+            payNumber: 1,
+            totalPays: 12,
+            amount: 123.33,
+            status: 4,
+            idCompany: 3,
+            companyName: "Amazon",
+            idOwner: 2
         }
     ];
+
+    $scope.store.owners = [
+        {idOwner: 1, name: "Yo"},
+        {idOwner: 2, name: "Otra persona"}
+    ]
+
+    $scope.getCompanyName = function(id){
+        var count = $scope.store.companies.length;
+        for(var i = 0; i < count; i++){
+            if($scope.store.companies[i].idCompany == id)
+                return $scope.store.companies[i].name
+        }
+
+        return "Desconocido";
+    }
+
+    $scope.getOwnerName = function(id){
+        var count = $scope.store.owners.length;
+        for(var i = 0; i < count; i++){
+            if($scope.store.owners[i].idOwner == id)
+                return $scope.store.owners[i].name
+        }
+
+        return "Desconocido";
+    }
 
     function setMonths(payment) {
         payment.months = [];
@@ -168,7 +108,7 @@ angular.module('Main', []).controller('main', function ($scope, $cookies, $locat
     setMonths($scope.store.payments[0]);
     setMonths($scope.store.payments[1]);
 
-    $scope.getClass = function (status) {
+    $scope.getStatusClass = function (status) {
         switch (status) {
             case PAYING:
                 return "bg-ligth-green";
@@ -181,43 +121,61 @@ angular.module('Main', []).controller('main', function ($scope, $cookies, $locat
             case I_PAID_T_N_PAID_ME:
                 return "bg-ligth-yellow";
 
+
         }
         return "";
     };
 
-//    $scope.getProducts = function (company) {
-//        var pays = company.pays;
-//        var pC = pays.length;
-//
-//        var result = [];
-//        for (var i = 0; i < pC; i++) {
-//            result.push({
-//                name: pays[i].name
-//            });
-//        }
-//        console.log("prd");
-//        return result;
-//    };
+    $scope.totalToPay = function (){
+        var total = 0;
 
-//    $scope.ll = $scope.getProducts($scope.store.payments[0]);
+        if(!$scope.store.payments)
+            return total;
 
-    $scope.getMonthName = function (number) {
-        return MONTH[number];
-    };
-
-    $scope.getPrice = function (index, comp, month, year) {
-        var payments = comp.pays[index];
-        if (payments) {
-            payments = payments.payments;
-            var cPays = payments.length;
-            for (var i = 0; i < cPays; i++) {
-                if (payments[i].month == month && payments[i].year == year) {
-                    return payments[i];
-                }
+        var count = $scope.store.payments.length;
+        for(var i = 0; i < count; i++){
+            if(toPay.indexOf($scope.store.payments[i].status) != -1){
+                total += $scope.store.payments[i].amount;
             }
         }
+        return total;
+    }
 
+    $scope.totalToPayFromOthers = function() {
+        var total = 0;
+
+        if(!$scope.store.payments)
+            return total;
+
+        var count = $scope.store.payments.length;
+        for(var i = 0; i < count; i++){
+            var pay = $scope.store.payments[i];
+            if(pay.status == T_N_PAID_ME){
+                total += $scope.store.payments[i].amount;
+            }
+        }
+        return total;
+    }
+
+    $scope.totalToPayFromMe = function(){
+        var total = 0;
+        if(!$scope.store.payments)
+            return total;
+
+        var count = $scope.store.payments.length;
+        for(var i = 0; i < count; i++){
+            var pay = $scope.store.payments[i];
+            if(pay.status == PAYING){
+                total += $scope.store.payments[i].amount;
+            }
+        }
+        return total;
+    }
+
+    $scope.isSelected = function(status){
+        if(status)
+            return "tr-selected";
         return "";
-    };
+    }
 
 });

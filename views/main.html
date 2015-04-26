@@ -1,114 +1,121 @@
 <div class="container">
-    <!-- <div class="box-card"> -->
         <div class="row">
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-4 col-xs-12">
                 <div class="panel-data">
-                    <label class="title">Para pagar</label> <br/>
-                    <label class="amount">$100</label>
+                    <div class="title title-ligth">
+                        <label>Total a pagar</label>
+                    </div>
+                    <div  class="amount">
+                        <label>$ {{ totalToPay() }}</label>
+                    </div>
                 </div>
-              <!--   <div class="panel panel-blue">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-12 text-right">
-                                <div class="huge font-open bold">$ 10.000</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel-footer color-b bold">
-                        <span class="pull-left">Sueldo</span><div class="clearfix"></div>
-                    </div>
-                </div> -->
             </div>
-            <div class="col-lg-3 col-md-6">
-            <div class="panel-data">
-                    <label class="title">Para pagar</label> <br/>
-                    <label class="amount">$100</label>
+            <div class="col-lg-4 col-md-4 col-xs-12">
+                <div class="panel-data">
+                    <div class="title title-ligth">
+                        <label>Pagos de otros</label>
+                    </div>
+                    <div  class="amount">
+                        <label>{{ totalToPayFromOthers() }}</label>
+                    </div>
                 </div>
-                <!-- <div class="panel panel-green">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-12 text-right">
-                                <div class="huge font-open bold">$ 4.502</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel-footer color-b bold">
-                        <span class="pull-left">Total a pagar este mes</span>
-                        <div class="clearfix"></div>
-                    </div>
-                </div> -->
             </div>
-            <div class="col-lg-3 col-md-6">
-            <div class="panel-data">
-                    <label class="title">Para pagar</label> <br/>
-                    <label class="amount">$100</label>
+            <div class="col-lg-4 col-md-4 col-xs-12">
+                <div class="panel-data">
+                    <div class="title title-ligth">
+                        <label>Mis pagos</label>
+                    </div>
+                    <div  class="amount">
+                        <label>{{ totalToPayFromMe() }}</label>
+                    </div>
                 </div>
-               <!--  <div class="panel panel-red">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-12 text-right font-open bold">
-                                <div class="huge">$ 4.000</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel-footer color-b bold">
-                        <span class="pull-left">Resta pagar</span>
-                        <div class="clearfix"></div>
-                    </div>
-                </div> -->
             </div>
-            <div class="col-lg-3 col-md-6">
-            <div class="panel-data">
-                    <label class="title">Para pagar</label> <br/>
-                     <label class="amount">$100</label>
-                </div>
-                <!-- <div class="panel panel-orange">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-12 text-right font-open bold">
-                                <div class="huge">$ 1.000</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel-footer color-b bold">
-                        <span class="pull-left">Para comprar caramelos</span>
-                        <div class="clearfix"></div>
-                    </div>
-                </div> -->
-            </div>
-        <!-- </div> -->
+        </div>
     </div>
-    <div class="color-b">
-        <div ng-repeat="comp in store.payments" class="box-card">
-            <div class="div-title">
-                <label>{{comp.name}}</label>
+</div>
+<br/>
+<br/>
+
+<div class="container">
+    <span class="span-status bg-ligth-green">&nbsp;&nbsp;&nbsp; </span>Para pagar &nbsp;
+    <span class="span-status bg-ligth-blue">&nbsp;&nbsp;&nbsp; </span>Pagado &nbsp;
+    <span class="span-status bg-ligth-red">&nbsp;&nbsp;&nbsp; </span>Me pagaron pero no pagué &nbsp;
+    <span class="span-status bg-ligth-violete">&nbsp;&nbsp;&nbsp; </span>No me pagaron &nbsp;
+    <span class="span-status bg-ligth-yellow">&nbsp;&nbsp;&nbsp; </span>Pagué pero no me pagaron            
+    <br/><br/>
+    <div class="panel-data">
+        <div class="title">
+            <label> 
+            <small>
+                <span class="glyphicon glyphicon-arrow-left cursor-pointer"></span>
+                </small>
+                        Enero 2015
+                 <small>
+                <span class="glyphicon glyphicon-arrow-right cursor-pointer"></span>
+                </small>
+            </label>
+        </div>
+        <div class="margin-box">
+            <input class="form-control no-border-radius" placeholder="Filtrar..." ng-model="payFilter">
+            <br/>
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" 
+                    data-toggle="dropdown" aria-expanded="true">
+                    Marcas todos como...
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu cursor-pointer" role="menu" aria-labelledby="dropdownMenu1">
+                    <li role="presentation"><a role="menuitem">
+                        <span class="span-status bg-ligth-green">&nbsp;&nbsp;&nbsp; </span>Para pagar &nbsp;
+                    </a></li>
+                    <li role="presentation"><a role="menuitem">
+                        <span class="span-status bg-ligth-blue">&nbsp;&nbsp;&nbsp; </span>Pagado &nbsp;
+                    </a></li>
+                    <li role="presentation"><a role="menuitem">
+                        <span class="span-status bg-ligth-red">&nbsp;&nbsp;&nbsp; </span>Me pagaron pero no pagué &nbsp;
+                    </a></li>
+                    <li role="presentation"><a role="menuitem">
+                        <span class="span-status bg-ligth-violete">&nbsp;&nbsp;&nbsp; </span>No me pagaron &nbsp;
+                    </a></li>
+                     <li role="presentation"><a role="menuitem">
+                        <span class="span-status bg-ligth-yellow">&nbsp;&nbsp;&nbsp; </span>Pagué pero no me pagaron 
+                    </a></li>
+                </ul>
             </div>
-            <table class="table table-bordered">
+            <table class="table table-hover">
                 <thead>
-                    <th class="col-xs-1 text-center">
-                        AÑO
+                    <th class="col-xs-3">
+                        Producto 
+                        <small>
+                            <span class="glyphicon glyphicon-chevron-up"></span>
+                        </small>
                     </th>
-                    <th class="col-xs-1 text-center">
-                        MES
+                    <th class="col-xs-2">
+                        Monto
                     </th>
-                    <th ng-repeat="prod in comp.pays" class="text-center">
-                        {{ prod.name.toUpperCase() }}
+                    <th class="col-xs-2">
+                        Cuota
+                    </th>
+                    <th class="col-xs-3">
+                        Empresa
+                    </th>
+                    <th class="col-xs-2">
+                        Responsable
                     </th>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="month in comp.months">
-                        <td class="text-center">
-                            {{ month.year }}
+                    <tr ng-repeat="pay in store.payments | filter:payFilter | orderBy:payOrder" class="cursor-pointer" ng-class="isSelected(pay.selected)" ng-click="pay.selected =! pay.selected">
+                        <td class="text-left">
+                            <span class="span-status" ng-class="getStatusClass(pay.status)"
+                             >
+                                &nbsp;&nbsp;&nbsp;
+                            </span>
+                            {{ pay.productName }}
                         </td>
-                        <td class="text-center">
-                            {{ getMonthName(month.number)}}
-                        </td>
-                        <td  class="text-center" ng-repeat="index in comp.pays" ng-model="item" >
-                           <span ng-class="getClass(item.status)"> </span> {{
-                            item = getPrice($index, comp, month.number, month.year);
-                            item != "" ? "$ " + item.price : "";
-                            }}
-                        </td>
+                        <td>${{ pay.amount }}</td>
+                        <td>{{ pay.payNumber + "/" + pay.totalPays }}</td>
+                        <td>{{ pay.companyName }}</td>
+                        <td>{{ getOwnerName(pay.idOwner) }}</td>
                     </tr>
                 </tbody>
             </table>
