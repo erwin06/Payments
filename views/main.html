@@ -16,7 +16,7 @@
                         <label>Pagos de otros</label>
                     </div>
                     <div  class="amount">
-                        <label>{{ totalToPayFromOthers() }}</label>
+                        <label>$ {{ totalToPayFromOthers() }}</label>
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                         <label>Mis pagos</label>
                     </div>
                     <div  class="amount">
-                        <label>{{ totalToPayFromMe() }}</label>
+                        <label>$ {{ totalToPayFromMe() }}</label>
                     </div>
                 </div>
             </div>
@@ -81,6 +81,12 @@
                         <span class="span-status bg-ligth-yellow">&nbsp;&nbsp;&nbsp; </span>Pagué pero no me pagaron 
                     </a></li>
                 </ul>
+                <button class="btn btn-default" type="button">
+                    Seleccionar todos
+                </button>
+                 <button class="btn btn-default" type="button">
+                    Deseleccionar todos
+                </button>
             </div>
             <table class="table table-hover">
                 <thead>
