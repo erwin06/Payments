@@ -92,28 +92,39 @@
                 <thead>
                     <th class="col-xs-3">
                         Producto 
-                        <small>
+                        <small ng-if="payOrder='productName'">
                             <span class="glyphicon glyphicon-chevron-up"></span>
                         </small>
                     </th>
                     <th class="col-xs-2">
                         Monto
+                        <small ng-if="payOrder='amount'">
+                            <span class="glyphicon glyphicon-chevron-up"></span>
+                        </small>
                     </th>
                     <th class="col-xs-2">
                         Cuota
+                        <small ng-if="payOrder='payNumber'">
+                            <span class="glyphicon glyphicon-chevron-up"></span>
+                        </small>
                     </th>
                     <th class="col-xs-3">
                         Empresa
+                        <small ng-if="payOrder='companyName'">
+                            <span class="glyphicon glyphicon-chevron-up"></span>
+                        </small>
                     </th>
                     <th class="col-xs-2">
                         Responsable
+                        <small ng-if="payOrder='responsible'">
+                            <span class="glyphicon glyphicon-chevron-up"></span>
+                        </small>
                     </th>
                 </thead>
                 <tbody>
                     <tr ng-repeat="pay in store.payments | filter:payFilter | orderBy:payOrder" class="cursor-pointer" ng-class="isSelected(pay.selected)" ng-click="pay.selected =! pay.selected">
                         <td class="text-left">
-                            <span class="span-status" ng-class="getStatusClass(pay.status)"
-                             >
+                            <span class="span-status" ng-class="getStatusClass(pay.status)">
                                 &nbsp;&nbsp;&nbsp;
                             </span>
                             {{ pay.productName }}
