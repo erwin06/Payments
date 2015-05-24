@@ -1,141 +1,144 @@
 <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-xs-12">
-                <div class="panel-data">
-                    <div class="title title-ligth">
-                        <label>Total a pagar</label>
-                    </div>
-                    <div  class="amount">
-                        <label>$ {{ totalToPay() }}</label>
-                    </div>
+    <div class="text-right">
+    <br/>
+        <button class="btn btn-default" ng-click="goTo('/config')">Configuración</button>
+        <button class="btn btn-default" ng-click="goTo('/help')">Ayuda</button>
+    </div>
+    <h1>Administrador de pagos </h1>
+    <br/>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-xs-12">
+            <div class="box box-blue">
+                <div  class="amount">
+                    <label>$ {{ totalToPay() }}</label>
                 </div>
+                <label>Total a pagar</label>
             </div>
-            <div class="col-lg-4 col-md-4 col-xs-12">
-                <div class="panel-data">
-                    <div class="title title-ligth">
-                        <label>Pagos de otros</label>
-                    </div>
-                    <div  class="amount">
-                        <label>$ {{ totalToPayFromOthers() }}</label>
-                    </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-xs-12">
+            <div class="box box-green">
+                <div  class="amount">
+                    <label>$ {{ totalToPayFromOthers() }}</label>
                 </div>
+                <label>Pagos de otros</label>
             </div>
-            <div class="col-lg-4 col-md-4 col-xs-12">
-                <div class="panel-data">
-                    <div class="title title-ligth">
-                        <label>Mis pagos</label>
-                    </div>
-                    <div  class="amount">
-                        <label>$ {{ totalToPayFromMe() }}</label>
-                    </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-xs-12">
+            <div class="box box-red">
+                <div  class="amount">
+                    <label>$ {{ totalToPayFromMe() }}</label>
                 </div>
+                <label>Mis pagos</label>
             </div>
         </div>
     </div>
 </div>
+</div>
 <br/>
 <br/>
-
 <div class="container">
-    <span class="span-status bg-ligth-green">&nbsp;&nbsp;&nbsp; </span>Para pagar &nbsp;
-    <span class="span-status bg-ligth-blue">&nbsp;&nbsp;&nbsp; </span>Pagado &nbsp;
-    <span class="span-status bg-ligth-red">&nbsp;&nbsp;&nbsp; </span>Me pagaron pero no pagué &nbsp;
-    <span class="span-status bg-ligth-violete">&nbsp;&nbsp;&nbsp; </span>No me pagaron &nbsp;
-    <span class="span-status bg-ligth-yellow">&nbsp;&nbsp;&nbsp; </span>Pagué pero no me pagaron            
-    <br/><br/>
-    <div class="panel-data">
-        <div class="title">
-            <label> 
+<span class="span-status bg-dark-green">&nbsp;&nbsp;&nbsp; </span>Para pagar &nbsp;
+<span class="span-status bg-dark-blue">&nbsp;&nbsp;&nbsp; </span>Pagado &nbsp;
+<span class="span-status bg-red">&nbsp;&nbsp;&nbsp; </span>Me pagaron pero no pagué &nbsp;
+<span class="span-status bg-dark-violete">&nbsp;&nbsp;&nbsp; </span>No me pagaron &nbsp;
+<span class="span-status bg-dark-orange">&nbsp;&nbsp;&nbsp; </span>Pagué pero no me pagaron
+<br/><br/>
+<div class="panel-data">
+    <div class="title">
+        <label>
             <small>
-                <span class="glyphicon glyphicon-arrow-left cursor-pointer"></span>
-                </small>
-                        Enero 2015
-                 <small>
-                <span class="glyphicon glyphicon-arrow-right cursor-pointer"></span>
-                </small>
-            </label>
+            <span class="glyphicon glyphicon-arrow-left cursor-pointer"></span>
+            </small>
+            Enero 2015
+            <small>
+            <span class="glyphicon glyphicon-arrow-right cursor-pointer"></span>
+            </small>
+        </label>
+    </div>
+    <div class="margin-box">
+        <input class="form-control no-border-radius" placeholder="Filtrar..." ng-model="payFilter">
+        <br/>
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button"
+            data-toggle="dropdown" aria-expanded="true">
+            Marcas todos como...
+            <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu cursor-pointer" role="menu" aria-labelledby="dropdownMenu1">
+                <li role="presentation"><a role="menuitem">
+                    <span class="span-status bg-ligth-green">&nbsp;&nbsp;&nbsp; </span>Para pagar &nbsp;
+                </a></li>
+                <li role="presentation"><a role="menuitem">
+                    <span class="span-status bg-ligth-blue">&nbsp;&nbsp;&nbsp; </span>Pagado &nbsp;
+                </a></li>
+                <li role="presentation"><a role="menuitem">
+                    <span class="span-status bg-ligth-red">&nbsp;&nbsp;&nbsp; </span>Me pagaron pero no pagué &nbsp;
+                </a></li>
+                <li role="presentation"><a role="menuitem">
+                    <span class="span-status bg-ligth-violete">&nbsp;&nbsp;&nbsp; </span>No me pagaron &nbsp;
+                </a></li>
+                <li role="presentation"><a role="menuitem">
+                    <span class="span-status bg-ligth-yellow">&nbsp;&nbsp;&nbsp; </span>Pagué pero no me pagaron
+                </a></li>
+            </ul>
+            <button class="btn btn-default" type="button">
+            Seleccionar todos
+            </button>
+            <button class="btn btn-default" type="button">
+            Deseleccionar todos
+            </button>
+            <br/><br/>
         </div>
-        <div class="margin-box">
-            <input class="form-control no-border-radius" placeholder="Filtrar..." ng-model="payFilter">
-            <br/>
-            <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" 
-                    data-toggle="dropdown" aria-expanded="true">
-                    Marcas todos como...
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu cursor-pointer" role="menu" aria-labelledby="dropdownMenu1">
-                    <li role="presentation"><a role="menuitem">
-                        <span class="span-status bg-ligth-green">&nbsp;&nbsp;&nbsp; </span>Para pagar &nbsp;
-                    </a></li>
-                    <li role="presentation"><a role="menuitem">
-                        <span class="span-status bg-ligth-blue">&nbsp;&nbsp;&nbsp; </span>Pagado &nbsp;
-                    </a></li>
-                    <li role="presentation"><a role="menuitem">
-                        <span class="span-status bg-ligth-red">&nbsp;&nbsp;&nbsp; </span>Me pagaron pero no pagué &nbsp;
-                    </a></li>
-                    <li role="presentation"><a role="menuitem">
-                        <span class="span-status bg-ligth-violete">&nbsp;&nbsp;&nbsp; </span>No me pagaron &nbsp;
-                    </a></li>
-                     <li role="presentation"><a role="menuitem">
-                        <span class="span-status bg-ligth-yellow">&nbsp;&nbsp;&nbsp; </span>Pagué pero no me pagaron 
-                    </a></li>
-                </ul>
-                <button class="btn btn-default" type="button">
-                    Seleccionar todos
-                </button>
-                 <button class="btn btn-default" type="button">
-                    Deseleccionar todos
-                </button>
-            </div>
-            <table class="table table-hover">
-                <thead>
-                    <th class="col-xs-3">
-                        Producto 
-                        <small ng-if="payOrder='productName'">
-                            <span class="glyphicon glyphicon-chevron-up"></span>
-                        </small>
-                    </th>
-                    <th class="col-xs-2">
-                        Monto
-                        <small ng-if="payOrder='amount'">
-                            <span class="glyphicon glyphicon-chevron-up"></span>
-                        </small>
-                    </th>
-                    <th class="col-xs-2">
-                        Cuota
-                        <small ng-if="payOrder='payNumber'">
-                            <span class="glyphicon glyphicon-chevron-up"></span>
-                        </small>
-                    </th>
-                    <th class="col-xs-3">
-                        Empresa
-                        <small ng-if="payOrder='companyName'">
-                            <span class="glyphicon glyphicon-chevron-up"></span>
-                        </small>
-                    </th>
-                    <th class="col-xs-2">
-                        Responsable
-                        <small ng-if="payOrder='responsible'">
-                            <span class="glyphicon glyphicon-chevron-up"></span>
-                        </small>
-                    </th>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="pay in store.payments | filter:payFilter | orderBy:payOrder" class="cursor-pointer" ng-class="isSelected(pay.selected)" ng-click="pay.selected =! pay.selected">
-                        <td class="text-left">
-                            <span class="span-status" ng-class="getStatusClass(pay.status)">
-                                &nbsp;&nbsp;&nbsp;
-                            </span>
-                            {{ pay.productName }}
-                        </td>
-                        <td>${{ pay.amount }}</td>
-                        <td>{{ pay.payNumber + "/" + pay.totalPays }}</td>
-                        <td>{{ pay.companyName }}</td>
-                        <td>{{ getOwnerName(pay.idOwner) }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <table class="table table-hover">
+            <thead>
+                <th class="col-xs-3" ng-click="payOrder='productName'">
+                    Producto
+                    <small ng-if="payOrder=='productName'">
+                    <span class="glyphicon glyphicon-certificate"></span>
+                    </small>
+                </th>
+                <th class="col-xs-2" ng-click="payOrder='amount'">
+                    Monto
+                    <small ng-if="payOrder=='amount'">
+                    <span class="glyphicon glyphicon-certificate"></span>
+                    </small>
+                </th>
+                <th class="col-xs-2" ng-click="payOrder='payNumber'">
+                    Cuota
+                    <small ng-if="payOrder=='payNumber'">
+                    <span class="glyphicon glyphicon-certificate"></span>
+                    </small>
+                </th>
+                <th class="col-xs-3" ng-click="payOrder='companyName'">
+                    Empresa
+                    <small ng-if="payOrder=='companyName'">
+                    <span class="glyphicon glyphicon-certificate"></span>
+                    </small>
+                </th>
+                <th class="col-xs-2" ng-click="payOrder='ownerName'">
+                    Responsable
+                    <small ng-if="payOrder=='ownerName'">
+                    <span class="glyphicon glyphicon-certificate"></span>
+                    </small>
+                </th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="pay in store.payments | filter:payFilter | orderBy:payOrder" class="cursor-pointer" ng-class="isSelected(pay.selected)" ng-click="pay.selected =! pay.selected">
+                    <td class="text-left">
+                        <span class="span-status" ng-class="getStatusClass(pay.status)">
+                            &nbsp;&nbsp;&nbsp;
+                        </span>
+                        {{ pay.productName }}
+                    </td>
+                    <td>${{ pay.amount }}</td>
+                    <td>{{ pay.payNumber + "/" + pay.totalPays }}</td>
+                    <td>{{ pay.companyName }}</td>
+                    <td>{{ pay.ownerName }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
+<br/>
+<br/>
+<br/>

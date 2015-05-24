@@ -16,4 +16,11 @@ class Error {
         return $messageReturn->getResponse();
     }
 
+    static function genericError() {
+        $arr = array();
+        $arr["errorid"] = 3;
+        $messageReturn = new Response(false, "Ups! Algo no salió como esperabamos", $arr);
+        return $messageReturn->getResponse();
+    }
+
 }

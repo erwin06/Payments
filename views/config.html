@@ -1,0 +1,16 @@
+<div class="container">
+	<h1 ng-click="back()" class="cursor-pointer"><span class="glyphicon glyphicon-arrow-left"></span></h1>
+	<div class="login-form">
+		<h1>Configuración</h1>
+		<br/>
+		<form ng-submit="save()">
+			<div class="form-group">
+				<label>Sueldo</label>
+				<input type="number" class="form-control" ng-model="sData.email" min="1" step="0.01" placeholder="Más que la mierd#"
+				requiered>
+			</div>
+			<button type="submit" class="btn btn-info">Guardar</button>
+		</form>
+		<hr/>
+	</div>
+</div>

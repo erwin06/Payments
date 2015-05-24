@@ -23,7 +23,7 @@
 
 html,body {
     height: 100%;
-    font-family: "Helvetica Neue";
+    font-family: "Open Sans" !important;
     /*font-family: 'Open Sans' !important;*/
     /*font-family: "Helvetica";*/
     background-color: whitesmoke;
@@ -31,7 +31,7 @@ html,body {
 }
 
 .font-open {
-    font-family: 'Open Sans';
+    /*font-family: 'Open Sans';*/
 }
 .bold {
     font-weight: bold;
@@ -44,6 +44,10 @@ html,body {
 .main-div {
     margin-top: 51px;
     height: 100%;
+}
+
+hr{
+    border-top: 1px solid darkgray;
 }
 
 .bg-color-ws{
@@ -110,11 +114,11 @@ html,body {
 
 .title {
     color: grey;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .title-ligth {
-    font-family: "Dosis"
+    /*font-family: "Dosis"*/
 }
 
 .title_r {
@@ -227,6 +231,22 @@ html,body {
 .bg-dark-beige {
     background-color: beige
 }
+.bg-dark-blue {
+    background-color: darkblue;
+}
+.bg-dark-orange {
+    background-color: darkorange;
+}
+.bg-dark-green {
+    background-color: darkgreen;
+}
+.bg-dark-violete{
+    background-color: darkviolet;
+}
+.bg-red{
+    background-color: red;
+}
+
 
 .th-main {
     padding: 10px;
@@ -256,7 +276,7 @@ html,body {
 }
 
 .panel-data > .title {
-    background-color: darkcyan;
+    background-color: #303946;
     color: white;
     font-weight: lighter;
     padding: 5px 5px 5px 14px;
@@ -287,4 +307,35 @@ html,body {
 
 .tr-selected{
     background-color: whitesmoke;
+}
+
+.login-form{
+    padding: 20px;
+    max-width: 500px;
+    margin: auto;
+}
+
+.box-blue {
+    background-color: #29b6d8;
+    border: 1px solid #22b7bb;
+}
+.box-green {
+    background-color: #66c796;
+    border: 1px solid #53c077;
+}
+.box-red {
+    background-color: #df6a78;
+    border: 1px solid #da557b;
+}
+.box {
+    border-radius: 3px;
+    color: white;
+    padding: 10px;
+}
+.box > .amount {
+    font-size: 25px;
+}
+
+.form-control{
+    border-radius: 0;
 }

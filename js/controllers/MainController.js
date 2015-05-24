@@ -19,7 +19,8 @@ angular.module('Main', []).controller('main', function ($scope, $cookies, $locat
             status: 1,
             idCompany: 1,
             companyName: "Garbarino",
-            idOwner: 1
+            idOwner: 1,
+            ownerName: "Yo"
         },{
             idProduct:2,
             productName: "bTest",
@@ -29,7 +30,8 @@ angular.module('Main', []).controller('main', function ($scope, $cookies, $locat
             status: 2,
             idCompany: 1,
             companyName: "Garbarino",
-            idOwner: 1
+            idOwner: 1,
+            ownerName: "Yo"
         },{
             idProduct:3,
             productName: "cTest",
@@ -39,7 +41,8 @@ angular.module('Main', []).controller('main', function ($scope, $cookies, $locat
             status: 3,
             idCompany: 2,
             companyName: "Frávega",
-            idOwner: 1
+            idOwner: 1,
+            ownerName: "Yo"
         },{
             idProduct:4,
             productName: "dTest",
@@ -49,7 +52,8 @@ angular.module('Main', []).controller('main', function ($scope, $cookies, $locat
             status: 1,
             idCompany: 3,
             companyName: "Frávega",
-            idOwner: 1
+            idOwner: 1,
+            ownerName: "Yo"
         },{
             idProduct:5,
             productName: "eTest",
@@ -59,7 +63,8 @@ angular.module('Main', []).controller('main', function ($scope, $cookies, $locat
             status: 4,
             idCompany: 3,
             companyName: "Amazon",
-            idOwner: 2
+            idOwner: 2,
+            ownerName: "Otra persona"
         }
     ];
 
@@ -111,15 +116,15 @@ angular.module('Main', []).controller('main', function ($scope, $cookies, $locat
     $scope.getStatusClass = function (status) {
         switch (status) {
             case PAYING:
-                return "bg-ligth-green";
+                return "bg-dark-green";
             case I_PAID:
-                return "bg-ligth-blue";
+                return "bg-dark-blue";
             case T_PAID_ME:
-                return "bg-ligth-red";
+                return "bg-red";
             case T_N_PAID_ME:
-                return "bg-ligth-violete";
+                return "bg-dark-violete";
             case I_PAID_T_N_PAID_ME:
-                return "bg-ligth-yellow";
+                return "bg-dark-orange";
 
 
         }
@@ -176,6 +181,14 @@ angular.module('Main', []).controller('main', function ($scope, $cookies, $locat
         if(status)
             return "tr-selected";
         return "";
+    }
+
+    // -------------------------------------------------------------------------
+    // -------- Funciones reales -----------------------------------------------
+    // -------------------------------------------------------------------------
+    
+    $scope.goTo = function(a){
+        $location.path(a)
     }
 
 });

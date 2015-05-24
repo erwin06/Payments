@@ -1,7 +1,8 @@
 var errorManager = {
     errorsList: {
         noPermission: 1,
-        noLogged: 2
+        noLogged: 2,
+        genericError: 3
     },
     proccessError: function (data, $location, $cookies) {
         alert.hide();
@@ -18,6 +19,8 @@ var errorManager = {
                         
                     }
                     $location.path('/login');
+                case errorManager.errorsList.genericError:
+                    $location.path('/error');
             }
 
 

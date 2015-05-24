@@ -12,14 +12,27 @@ class Connection {
 
     static public function getInstance() {
         if (self::$instancia == null) {
-//            self::$instancia = new Connection("topolog.com.ar", "cavecedo_menus", "xfC8ctc9", "cavecedo_menus");
-            self::$instancia = new Connection("127.0.0.1", "root", "", "menu");
+            self::$instancia = new Connection("127.0.0.1", "root", "", "payments");
         }
         return self::$instancia;
     }
 
-    public function insert($query) {
+    static public function getDB(){
+        return self::$mysqli;
+    }
+
+    public function insert($query, $params) {
         $result = self::$mysqli->query($query);
+
+        // Prepara la consulta
+        if ($stmt = $mysqli->prepare($query)) {
+
+            $stmt->bind_param("s", $city);
+            /* ejecutar la consulta */
+            $stmt->execute();
+        }
+
+
         $arr = array();
         $arr['result'] = $result;
         if ($result == true) {
@@ -29,9 +42,9 @@ class Connection {
     }
 
     public function update($query) {
-        logg::loggInfo($query, "Update");
         $result = self::$mysqli->query($query);
         $arr = array();
+        var_dump(self::$mysqli->error);
         $arr['result'] = $result;
         $arr['affected_rows'] = self::$mysqli->affected_rows;
         return $arr;
