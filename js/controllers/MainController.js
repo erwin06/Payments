@@ -1,11 +1,11 @@
-angular.module('Main', []).controller('main', function ($scope, $cookies, $location, $http) {
+inApp.controller('main', function ($scope, $cookies, $location, $http) {
 
     var toPay = [PAYING,T_PAID_ME];
     var payed = [I_PAID,I_PAID_T_N_PAID_ME];
 
     $scope.store = {};
     $scope.pay = {};
-    $scope.payOrder = "companyName";
+    $scope.payOrder = "productName";
     $scope.personalData = {
         salary: 10000
     }
@@ -49,7 +49,7 @@ angular.module('Main', []).controller('main', function ($scope, $cookies, $locat
             payNumber: 1,
             totalPays: 12,
             amount: 123.33,
-            status: 1,
+            status: 5,
             idCompany: 3,
             companyName: "Frávega",
             idOwner: 1,
@@ -116,15 +116,15 @@ angular.module('Main', []).controller('main', function ($scope, $cookies, $locat
     $scope.getStatusClass = function (status) {
         switch (status) {
             case PAYING:
-                return "bg-dark-green";
+                return "bg-green";
             case I_PAID:
                 return "bg-dark-blue";
             case T_PAID_ME:
                 return "bg-red";
             case T_N_PAID_ME:
-                return "bg-dark-violete";
+                return "bg-violette";
             case I_PAID_T_N_PAID_ME:
-                return "bg-dark-orange";
+                return "bg-orange";
 
 
         }
@@ -189,6 +189,23 @@ angular.module('Main', []).controller('main', function ($scope, $cookies, $locat
     
     $scope.goTo = function(a){
         $location.path(a)
+    }
+
+    $scope.getStatusWording = function(status){
+
+         switch (status) {
+            case PAYING:
+                return "Pagar";
+            case I_PAID:
+                return "Pagado";
+            case T_PAID_ME:
+                return "No pagué, me pagaron";
+            case T_N_PAID_ME:
+                return "No me pagaron";
+            case I_PAID_T_N_PAID_ME:
+                return "Pagué, pero me deben";
+        }
+        return "Wtf?";
     }
 
 });

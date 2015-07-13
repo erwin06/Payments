@@ -10,14 +10,11 @@ var T_N_PAID_ME = 4; // no me pagaron
 var I_PAID_T_N_PAID_ME = 5; // Pagué pero no me pagaron
 
 
-angular.module('inApp', [
+var inApp = angular.module('inApp', [
     'ngRoute',
     'ui.bootstrap',
-    'ngCookies',
-    'Main',
-    'MenuController',
-    'Register',
-    'Login'
+    'ui.bootstrap.modal',
+    'ngCookies'
 ]).config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider
@@ -30,11 +27,7 @@ angular.module('inApp', [
                     controller: 'main'
                 })
                 .when('/login', {
-                    templateUrl: 'views/login.html',
-                    controller: 'Login'
-                })
-                .when('/error', {
-                    templateUrl: 'views/error.html'
+                    templateUrl: 'views/login.html'
                 })
                 .when('/config', {
                     templateUrl: 'views/config.html'
@@ -42,8 +35,8 @@ angular.module('inApp', [
                 .when('/help', {
                     templateUrl: 'views/help.html'
                 })
-                .when('/pres', {
-                    templateUrl: 'views/pres.html'
+                .when('/new-pay', {
+                    templateUrl: 'views/new-pay.html'
                 })
                 .otherwise({
                     redirectTo: '/login'

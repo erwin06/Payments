@@ -1,0 +1,59 @@
+<div ng-include src="'views/nav-bar.html'"></div>
+<div class="container" ng-controller="newPay">
+	<div class="center-div">
+		<h1>Nuevo Pago</h1>
+		<form ng-submit="savePay()">
+			<div class="form-group">
+				<label>Producto</label>
+				<input type="text" class="form-control" ng-model="data.product" placeholder="Guitarra"
+				required>
+			</div>
+			<div class="form-group">
+				<label>Empresa</label>
+				<select class="form-control" ng-model="data.company" required>
+					<option value="">Selecciona una empresa</option>
+					<option ng-repeat="company in companies" value="{{company.id}}">{{company.name}}</option>
+				</select>
+				<div class="text-right">
+					<label class="cursor-pointer" ng-click="addCompany()">Agrega una empesa</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Precio</label>
+				<input type="number" step="0.01" min="1" class="form-control" ng-model="data.amount" placeholder="3000"
+				required>
+			</div>
+			<div class="form-group">
+				<label>Cantidad de cuotas</label>
+				<input type="number" step="1" min="1" class="form-control" ng-model="data.count" placeholder="12"
+				required>
+			</div>
+			<div class="form-group">
+				<label>Mes comienzo</label>
+				<select class="form-control" ng-model="data.month" required>
+					<option value="">Selecciona un mes</option>
+					<option ng-repeat="month in months" value="{{month.number}}">{{month.text}}</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label>Año de comienzo</label>
+				<select class="form-control" ng-model="data.year" required>
+				<option value="">Selecciona un año</option>
+					<option ng-repeat="year in years" value="{{year}}">{{year}}</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label>Reponsable</label>
+				<select class="form-control" ng-model="data.owner" required>
+					<option value="">Selecciona un responsable</option>
+					<option ng-repeat="owner in owners" value="{{owner.id}}">{{owner.name}}</option>
+				</select>
+				<div class="text-right">
+					<label class="cursor-pointer" ng-click="addOwner()">Agrega un responsable</label>
+				</div>
+			</div>
+			<button type="submit" class="btn btn-info">Guardar pago</button>
+		</form>
+	</div>
+</div>
+<div class="div-spacer-small"></div>

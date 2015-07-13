@@ -32,18 +32,18 @@ function replaceAll(text, search, newstring ){
 }
 
 var _MONTHS = [];
-_MONTHS.push('Enero');
-_MONTHS.push('Febrero');
-_MONTHS.push('Marzo');
-_MONTHS.push('Abril');
-_MONTHS.push('Mayo');
-_MONTHS.push('Junio');
-_MONTHS.push('Julio');
-_MONTHS.push('Agosto');
-_MONTHS.push('Septiembre');
-_MONTHS.push('Octubre');
-_MONTHS.push('Noviembre');
-_MONTHS.push('Diciembre');
+_MONTHS.push({number:1,text:'Enero'});
+_MONTHS.push({number:2,text:'Febrero'});
+_MONTHS.push({number:3,text:'Marzo'});
+_MONTHS.push({number:4,text:'Abril'});
+_MONTHS.push({number:5,text:'Mayo'});
+_MONTHS.push({number:6,text:'Junio'});
+_MONTHS.push({number:7,text:'Julio'});
+_MONTHS.push({number:8,text:'Agosto'});
+_MONTHS.push({number:9,text:'Septiembre'});
+_MONTHS.push({number:10,text:'Octubre'});
+_MONTHS.push({number:11,text:'Noviembre'});
+_MONTHS.push({number:12,text:'Diciembre'});
 
 var _STATUS = [];
 _STATUS.push('no status');

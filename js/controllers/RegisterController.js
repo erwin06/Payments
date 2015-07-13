@@ -1,4 +1,4 @@
-angular.module('Register', ['ui.bootstrap.modal']).controller('Register', function ($scope, $http, $location,$cookies, $rootScope) {
+inApp.controller('Register', function ($scope, $http, $location,$cookies, $rootScope) {
 
 	$scope.sData = {}
 

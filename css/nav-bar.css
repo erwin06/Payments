@@ -1,0 +1,14 @@
+.navbar-default {
+	background-color: #34495E;
+	border-radius: 0px;
+	border-color: #34495E;
+	color: white; 
+}
+
+.navbar-default .navbar-nav>li>a {
+	color: white;
+}
+
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+	color: whitesmoke;
+}
