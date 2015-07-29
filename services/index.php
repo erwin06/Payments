@@ -2,11 +2,13 @@
 
 include("misc/logg.php");
 include("misc/response.php");
-
-
-include("controllers/connection.php");
-include("controllers/user.php");
 include("controllers/error.php");
+include("controllers/connection.php");
+
+include("controllers/user.php");
+include("controllers/company.php");
+include("controllers/owner.php");
+
 // include("controllers/menu.php");
 
 
@@ -22,13 +24,27 @@ switch ($operation) {
     case 'checkSession':
         $messageReturn = User::checkSession($input->userData);
         break;
+    // =========================================================================
     case 'register':
         $messageReturn = User::register($data);
         break;
     case 'login':
         $messageReturn = User::login($data);
         break;
-
+    //  ========================================================================
+    case 'addCompany':
+        $messageReturn = Company::addCompany($data, $input->userData);      
+        break;
+    case 'getCompanies':
+        $messageReturn = Company::getCompanies($input->userData);
+        break;
+    //  ========================================================================
+    case 'addOwner':
+        $messageReturn = Owner::addOwner($data, $input->userData);      
+        break;
+    case 'getOwners':
+        $messageReturn = Owner::getOwners($input->userData);
+        break;
     // case 'login':
     //     $messageReturn = User::login($data);
     //     break;

@@ -1,18 +1,17 @@
 inApp.controller('Login', function ($scope, $http, $location,$cookies) {
 
-	$scope.sData = {}
+	$scope.sData = {
+		email: "erwin.bader06@gmail.com",
+		password: "him15425"
+	}
 
 	$scope.login = function (){
-
-		// $location.path('/main');
-
-		var data = $scope.sData;
 		
 		var json = {
 			operation: "login",
 			data: {
-				email: data.email,
-				password: data.password
+				email: $scope.sData.email,
+				password: $scope.sData.password
 			}
 		}
 

@@ -5,14 +5,14 @@
 		<form ng-submit="savePay()">
 			<div class="form-group">
 				<label>Producto</label>
-				<input type="text" class="form-control" ng-model="data.product" placeholder="Guitarra"
+				<input type="text" class="form-control" ng-model="data.name" placeholder="Guitarra"
 				required>
 			</div>
 			<div class="form-group">
 				<label>Empresa</label>
 				<select class="form-control" ng-model="data.company" required>
 					<option value="">Selecciona una empresa</option>
-					<option ng-repeat="company in companies" value="{{company.id}}">{{company.name}}</option>
+					<option ng-repeat="company in companies" value="{{company.idCompany}}">{{company.name}}</option>
 				</select>
 				<div class="text-right">
 					<label class="cursor-pointer" ng-click="addCompany()">Agrega una empesa</label>
@@ -25,7 +25,7 @@
 			</div>
 			<div class="form-group">
 				<label>Cantidad de cuotas</label>
-				<input type="number" step="1" min="1" class="form-control" ng-model="data.count" placeholder="12"
+				<input type="number" step="1" min="1" class="form-control" ng-model="data.totalPays" placeholder="12"
 				required>
 			</div>
 			<div class="form-group">
@@ -46,7 +46,7 @@
 				<label>Reponsable</label>
 				<select class="form-control" ng-model="data.owner" required>
 					<option value="">Selecciona un responsable</option>
-					<option ng-repeat="owner in owners" value="{{owner.id}}">{{owner.name}}</option>
+					<option ng-repeat="owner in owners" value="{{owner.idOwner}}">{{owner.name}}</option>
 				</select>
 				<div class="text-right">
 					<label class="cursor-pointer" ng-click="addOwner()">Agrega un responsable</label>

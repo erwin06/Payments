@@ -4,11 +4,12 @@
   	</div>
   	<form>
 	  	<div class="modal-body">
-	  		<input type="text" class="form-control" placeholder="Nombre de la empresa... Por ejemplo: Charlie y la pime de chocolate" required>
+	  		<input type="text" class="form-control" placeholder="Nombre de la empresa... Por ejemplo: Charlie y la pime de chocolate" 
+	  		ng-model="data.name" required>
 	  	</div>
 	  	<div class="modal-footer">
 	    	<button type="button" ng-click="cancel()" class="btn btn-default">Cancelar</button>
-	    	<button type="button" ng-click="ok()" class="btn btn-primary">Agregar</button>
+	    	<button type="button" ng-click="add()" class="btn btn-primary">Agregar</button>
 	  	</div>
   	</form>
 </div>
