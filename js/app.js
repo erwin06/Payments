@@ -21,47 +21,31 @@ var inApp = angular.module('inApp', [
                 .when('/register',{
                     templateUrl: 'views/register.html',
                     controller: "Register",
-                    resolve: {
-                        "check":function($cookies, $http, $location){isLogged($cookies, $http, $location)}
-                    }
+                    resolve: {"check":function($cookies, $http, $location){isLogged($cookies, $http, $location)}}
                 })
                 .when('/main', {
                     templateUrl: 'views/main.html',
-                    controller: 'main'
+                    controller: 'main',
+                    resolve: {"check":function($cookies, $http, $location){isLogged($cookies, $http, $location)}}
                 })
                 .when('/login', {
                     templateUrl: 'views/login.html'
                 })
                 .when('/config', {
-                    templateUrl: 'views/config.html'
+                    templateUrl: 'views/config.html',
+                    resolve: {"check":function($cookies, $http, $location){isLogged($cookies, $http, $location)}}
                 })
                 .when('/help', {
-                    templateUrl: 'views/help.html'
+                    templateUrl: 'views/help.html',
+                    resolve: {"check":function($cookies, $http, $location){isLogged($cookies, $http, $location)}}
                 })
                 .when('/new-pay', {
-                    templateUrl: 'views/new-pay.html'
+                    templateUrl: 'views/new-pay.html',
+                    resolve: {"check":function($cookies, $http, $location){isLogged($cookies, $http, $location)}}
                 })
                 .otherwise({
                     redirectTo: '/login'
                 });
     }]);
 
-function isLogged($cookies, $http, $location){
-    if($cookies.idSession){
-        var json = {
-            operation: "checkSession",
-            userData: {
-                idSession: $cookies.idSession,
-                idUser: $cookies.idUser
-            }
-        }
-        $http.post(__URL__, json)
-        .success(function (response) {
-            if (!response) { $location.path("/login")}
-        }).error(function(response){
-            $location.path("/login")
-        });
-    } else {
-        $location.path("/login")
-    }
-}
+function isLogged($cookies, $http, $location){$cookies.idSession?$http.post(__URL__,{operation:"checkSession",userData:{idSession:$cookies.idSession,idUser:$cookies.idUser}}).success(function(a){a||$location.path("/login")}).error(function(){$location.path("/login")}):$location.path("/login");}
