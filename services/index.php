@@ -6,19 +6,22 @@ include("misc/response.php");
 
 include("controllers/connection.php");
 include("controllers/user.php");
-// include("controllers/error.php");
+include("controllers/error.php");
 // include("controllers/menu.php");
 
 
 // Obtengo los datos
 $input = json_decode(file_get_contents("php://input"));
 $operation = $input->operation ? $input->operation : "__";
-$data = $input->data ? $input->data : null;
+$data = isset($input->data) ? $input->data : null;
 
 $messageReturn = null;
 
 
 switch ($operation) {
+    case 'checkSession':
+        $messageReturn = User::checkSession($input->userData);
+        break;
     case 'register':
         $messageReturn = User::register($data);
         break;

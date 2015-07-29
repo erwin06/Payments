@@ -4,33 +4,36 @@ inApp.controller('Login', function ($scope, $http, $location,$cookies) {
 
 	$scope.login = function (){
 
-		$location.path('/main');
+		// $location.path('/main');
 
-		// var data = $scope.sData;
+		var data = $scope.sData;
 		
-		// var json = {
-		// 	operation: "login",
-		// 	data: {
-		// 		email: data.email,
-		// 		password: data.password
-		// 	}
-		// }
+		var json = {
+			operation: "login",
+			data: {
+				email: data.email,
+				password: data.password
+			}
+		}
 
-		// notification.info("Ingresando...")
+		console.log("Login")
+		console.log(json)
 
-		// $http.post(__URL__, json)
-  //           .success(function (response) {
-  //           	console.log(response);
-  //               if (response.success) {
-  //               	$scope.sData = {}
-  //               	$cookies.userId = response.optional.userId;
-  //               	$cookies.sessionId = response.optional.sessionId;
-  //               	alert.hide();
-  //               	$location.path('/main');
-  //               } else {
-  //                   errorManager.proccessError(response, $location, $cookies);
-  //               }
-  //           }).error(server_error);
+		notification.info("Ingresando...")
+
+		$http.post(__URL__, json)
+            .success(function (response) {
+            	console.log(response);
+                if (response.success) {
+                	$scope.sData = {}
+                	$cookies.idUser = response.optional.idUser;
+                	$cookies.idSession = response.optional.idSession;
+                	alert.hide();
+                	$location.path('/main');
+                } else {
+                    errorManager.proccessError(response, $location, $cookies);
+                }
+            }).error(server_error);
 	}
 
 });

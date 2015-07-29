@@ -20,7 +20,10 @@ var inApp = angular.module('inApp', [
         $routeProvider
                 .when('/register',{
                     templateUrl: 'views/register.html',
-                    controller: 'Register'
+                    controller: "Register",
+                    resolve: {
+                        "check":function($cookies, $http, $location){isLogged($cookies, $http, $location)}
+                    }
                 })
                 .when('/main', {
                     templateUrl: 'views/main.html',
@@ -42,3 +45,23 @@ var inApp = angular.module('inApp', [
                     redirectTo: '/login'
                 });
     }]);
+
+function isLogged($cookies, $http, $location){
+    if($cookies.idSession){
+        var json = {
+            operation: "checkSession",
+            userData: {
+                idSession: $cookies.idSession,
+                idUser: $cookies.idUser
+            }
+        }
+        $http.post(__URL__, json)
+        .success(function (response) {
+            if (!response) { $location.path("/login")}
+        }).error(function(response){
+            $location.path("/login")
+        });
+    } else {
+        $location.path("/login")
+    }
+}

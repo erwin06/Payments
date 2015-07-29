@@ -1,5 +1,7 @@
 inApp.controller('Register', function ($scope, $http, $location,$cookies, $rootScope) {
 
+	console.log("Register")
+
 	$scope.sData = {}
 
 	$scope.register = function(){

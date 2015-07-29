@@ -2,27 +2,21 @@
 
 class User {
 
-    // static function checkAdmin($data) {
-    //     $userid = $data->userid;
-    //     $sessionid = $data->sessionid;
-    //     return Connection::moreThanOne("SELECT * FROM user WHERE iduser = '$userid' AND sessionid = '$sessionid' AND isadmin = 1");
-    // }
-
     static function login($data) {
         $email = $data->email ? $data->email : null;
         $password = $data->password ? md5($data->password) : null;
 
         if(isset($email) && isset($password)){
             $mysqli = Connection::getInstance()->getDB();
-            if ($stmt = $mysqli->prepare("SELECT idUser,email, password FROM user WHERE email=? AND password=?")) {
+            if ($stmt = $mysqli->prepare("SELECT id_user, email, password FROM users WHERE email=? AND password=?")) {
                 $stmt->bind_param("ss", $email, $password);
                 if($stmt->execute()){
                     $stmt->bind_result($idUser, $email,$password);
                     if ($stmt->fetch()) { 
                         $sessionId = md5(date("Y-m-d h:m:s"));
-                        $stmt->prepare("UPDATE user SET sessionId = '$sessionId' WHERE idUser = '$idUser'");
+                        $stmt->prepare("UPDATE users SET id_session = '$sessionId' WHERE id_user = '$idUser'");
                         if($stmt->execute()){
-                            $arr['sessionId'] = $sessionId;
+                            $arr['idSession'] = $sessionId;
                             $arr['idUser'] = $idUser;
                             $response = new Response(true, "Loggin correcto", $arr);
                         }
@@ -32,30 +26,23 @@ class User {
                 }
             }
         }
-
         if(isset($stmt)) $stmt->close();
-
         return isset($response) ? $response->getResponse() : Error::genericError();
     }
 
-    // /**
-    //  * Checkea si un usuario tiene una session activa
-    //  * @param type $userdata
-    //  * @return boolean
-    //  */
-    // static function checkSession($userdata) {
-    //     $userid = $userdata->userid;
-    //     $sessionid = $userdata->sessionid;
-    //     $result = Connection::getInstance()->select("SELECT * FROM user WHERE idUser = '$userid' AND sessionid = '$sessionid'");
+    static function checkSession($userdata) {
+        $userid = $userdata->idUser;
+        $sessionid = $userdata->idSession;
+        $result = Connection::getInstance()->select("SELECT * FROM users WHERE id_user = '$userid' AND id_session = '$sessionid'");
 
-    //     if ($result['result'] == true) {
-    //         $count = $result['resultCount'];
-    //         if ($count > 0) {
-    //             return true;
-    //         }
-    //     }
-    //     return false;
-    // }
+        if ($result['result'] == true) {
+            $count = $result['resultCount'];
+            if ($count > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     // static function getUsers() {
     //     $select = array('iduser', 'user', 'name');
@@ -120,9 +107,9 @@ class User {
                     $response = new Response(false, "El Email ya fué registrado");
                 }else{
                     if($password == $newPassword){
-                        if(preg_match("/[a-zA-z0-9]{5,20}/",$password)){
+                        if(preg_match("/[a-zA-z0-9]{6,20}/",$password)){
                             $mysqli = Connection::getInstance()->getDB();
-                            if ($stmt = $mysqli->prepare("INSERT INTO user (email, password) VALUES (?, ?)")) {
+                            if ($stmt = $mysqli->prepare("INSERT INTO users (email, password) VALUES (?, ?)")) {
                                 $stmt->bind_param("ss", $sanitized_mail, md5($password));
                                 if($stmt->execute()){
                                     $response = new Response(true, "El usuario se registró correctamente");
@@ -146,7 +133,4 @@ class User {
     static function existsEmail ($mail) {
          return Connection::getInstance()->moreThanOne("SELECT * FROM user WHERE email = '$mail'");
     }
-
-
-
 }

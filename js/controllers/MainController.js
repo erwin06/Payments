@@ -6,11 +6,13 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
     $scope.store = {};
     $scope.pay = {};
     $scope.payOrder = "productName";
+    $scope.saveButton = false;
     $scope.personalData = {
         salary: 10000
     }
     $scope.store.payments = [
         {
+            idPayment: 1,
             idProduct:1,
             productName: "aTest",
             payNumber: 1,
@@ -22,6 +24,7 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
             idOwner: 1,
             ownerName: "Yo"
         },{
+            idPayment: 2,
             idProduct:2,
             productName: "bTest",
             payNumber: 1,
@@ -33,6 +36,7 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
             idOwner: 1,
             ownerName: "Yo"
         },{
+            idPayment: 3,
             idProduct:3,
             productName: "cTest",
             payNumber: 1,
@@ -44,6 +48,7 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
             idOwner: 1,
             ownerName: "Yo"
         },{
+            idPayment: 4,
             idProduct:4,
             productName: "dTest",
             payNumber: 1,
@@ -55,6 +60,7 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
             idOwner: 1,
             ownerName: "Yo"
         },{
+            idPayment: 5,
             idProduct:5,
             productName: "eTest",
             payNumber: 1,
@@ -130,6 +136,17 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
         }
         return "";
     };
+
+    $scope.changeStatus = function(idPayment){
+        var l = $scope.store.payments.length;
+        for(var i = 0; i < l; i++){
+            if($scope.store.payments[i].idPayment == idPayment){
+                $scope.store.payments[i].status == 5 ? $scope.store.payments[i].status = 1 : $scope.store.payments[i].status++;
+                $scope.saveButton = true;
+                return;
+            }
+        }
+    }
 
     $scope.totalToPay = function (){
         var total = 0;
