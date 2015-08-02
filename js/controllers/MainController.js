@@ -3,6 +3,8 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
     var toPay = [PAYING,T_PAID_ME];
     var payed = [I_PAID,I_PAID_T_N_PAID_ME];
 
+    $scope.currentMonth = new Date().getMonth();
+    $scope.currentYear = new Date().getFullYear();
     $scope.store = {};
     $scope.pay = {};
     $scope.payOrder = "productName";
@@ -10,74 +12,6 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
     $scope.personalData = {
         salary: 10000
     }
-    $scope.store.payments = [
-        {
-            idPayment: 1,
-            idProduct:1,
-            productName: "aTest",
-            payNumber: 1,
-            totalPays: 12,
-            amount: 123.33,
-            status: 1,
-            idCompany: 1,
-            companyName: "Garbarino",
-            idOwner: 1,
-            ownerName: "Yo"
-        },{
-            idPayment: 2,
-            idProduct:2,
-            productName: "bTest",
-            payNumber: 1,
-            totalPays: 12,
-            amount: 123.33,
-            status: 2,
-            idCompany: 1,
-            companyName: "Garbarino",
-            idOwner: 1,
-            ownerName: "Yo"
-        },{
-            idPayment: 3,
-            idProduct:3,
-            productName: "cTest",
-            payNumber: 1,
-            totalPays: 12,
-            amount: 123.33,
-            status: 3,
-            idCompany: 2,
-            companyName: "Frávega",
-            idOwner: 1,
-            ownerName: "Yo"
-        },{
-            idPayment: 4,
-            idProduct:4,
-            productName: "dTest",
-            payNumber: 1,
-            totalPays: 12,
-            amount: 123.33,
-            status: 5,
-            idCompany: 3,
-            companyName: "Frávega",
-            idOwner: 1,
-            ownerName: "Yo"
-        },{
-            idPayment: 5,
-            idProduct:5,
-            productName: "eTest",
-            payNumber: 1,
-            totalPays: 12,
-            amount: 123.33,
-            status: 4,
-            idCompany: 3,
-            companyName: "Amazon",
-            idOwner: 2,
-            ownerName: "Otra persona"
-        }
-    ];
-
-    $scope.store.owners = [
-        {idOwner: 1, name: "Yo"},
-        {idOwner: 2, name: "Otra persona"}
-    ]
 
     $scope.getCompanyName = function(id){
         var count = $scope.store.companies.length;
@@ -90,6 +24,7 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
     }
 
     $scope.getOwnerName = function(id){
+        if(id == 0) return "Yo mismo";
         var count = $scope.store.owners.length;
         for(var i = 0; i < count; i++){
             if($scope.store.owners[i].idOwner == id)
@@ -99,25 +34,6 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
         return "Desconocido";
     }
 
-    function setMonths(payment) {
-        payment.months = [];
-
-        while (payment.minMonth <= payment.maxMonth || payment.minYear < payment.maxYear) {
-            payment.months.push({
-                number: payment.minMonth,
-                year: payment.minYear
-            });
-
-            payment.minMonth++;
-            if (payment.minMonth == 13) {
-                payment.minMonth = 1;
-                payment.minYear++;
-            }
-        }
-    }
-
-    setMonths($scope.store.payments[0]);
-    setMonths($scope.store.payments[1]);
 
     $scope.getStatusClass = function (status) {
         switch (status) {
@@ -137,15 +53,41 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
         return "";
     };
 
-    $scope.changeStatus = function(idPayment){
-        var l = $scope.store.payments.length;
-        for(var i = 0; i < l; i++){
-            if($scope.store.payments[i].idPayment == idPayment){
-                $scope.store.payments[i].status == 5 ? $scope.store.payments[i].status = 1 : $scope.store.payments[i].status++;
-                $scope.saveButton = true;
-                return;
+    $scope.changeStatus = function(payment){
+        payment.changing = true;
+        
+        var idPayment =  payment.idPayment
+        var json = {
+            operation: "updatePay",
+            userData: {
+                idSession: $cookies.idSession,
+                idUser: $cookies.idUser
+            },
+            data: {
+                idPayment: payment.idPayment,
+                status: payment.status == 5 ? 1 : payment.status + 1
             }
         }
+
+        $http.post(__URL__, json)
+            .success(function (response) {
+                if (response.success) {
+                    payment.status = json.data.status
+                    payment.changing = false;
+                }
+            }).error(server_error);
+
+
+
+        
+        // var l = $scope.store.payments.length;
+        // for(var i = 0; i < l; i++){
+        //     if($scope.store.payments[i].idPayment == idPayment){
+        //         $scope.store.payments[i].status == 5 ? $scope.store.payments[i].status = 1 : $scope.store.payments[i].status++;
+        //         $scope.saveButton = true;
+        //         return;
+        //     }
+        // }
     }
 
     $scope.totalToPay = function (){
@@ -210,7 +152,7 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
 
     $scope.getStatusWording = function(status){
 
-         switch (status) {
+        switch (status) {
             case PAYING:
                 return "Pagar";
             case I_PAID:
@@ -224,5 +166,60 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
         }
         return "Wtf?";
     }
+
+    $scope.getMonthName = function(month){
+        return _MONTHS[month].text;
+    }
+
+    $scope.previusMonth = function(){
+        $scope.currentMonth--;
+        if($scope.currentMonth == -1){
+            $scope.currentMonth = 11;
+            $scope.currentYear--;
+        }
+        loadPays();
+    }
+
+    $scope.nextMonth = function(){
+        $scope.currentMonth++;
+        // Los meses van de 0 a 11
+        if($scope.currentMonth == 12){
+            $scope.currentMonth = 0;
+            $scope.currentYear++;
+        }
+        loadPays();
+    }
+
+    $scope.saveChanges = function(){
+        
+    }
+
+    function loadPays(){
+        
+        var json = {
+            operation: "getPays",
+            userData: {
+                idSession: $cookies.idSession,
+                idUser: $cookies.idUser
+            },
+            data: {
+                month:$scope.currentMonth,
+                year:$scope.currentYear
+            }
+        }
+
+        $http.post(__URL__, json)
+            .success(function (response) {
+                if (response.success) {
+                    $scope.store.companies = response.optional.companies;
+                    $scope.store.owners = response.optional.owners;
+                    $scope.store.payments =  response.optional.payments;
+                }
+            }).error(server_error);
+
+
+    }
+
+    loadPays();
 
 });

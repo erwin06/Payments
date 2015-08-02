@@ -26,11 +26,9 @@
 <div class="container">
 <div class="panel-data">
     <div class="title">
-        <label>
-            <small><span class="glyphicon glyphicon-arrow-left cursor-pointer"></span></small>
-            Enero 2015
-            <small><span class="glyphicon glyphicon-arrow-right cursor-pointer"></span></small>
-        </label>
+        <small ng-click="previusMonth()"><span class="glyphicon glyphicon-arrow-left cursor-pointer"></span></small>
+        <label style="min-width: 130px; text-align: center">{{getMonthName(currentMonth)}} {{currentYear}}</label>
+        <small ng-click="nextMonth()"><span class="glyphicon glyphicon-arrow-right cursor-pointer"></span></small>
     </div>
     <div class="margin-box">
         <table class="table table-hover">
@@ -78,14 +76,14 @@
                         <span class="span-status" >
                             &nbsp;&nbsp;&nbsp;
                         </span>
-                        {{ pay.productName }}
+                        {{ pay.description }}
                     </td>
                     <td>${{ pay.amount }}</td>
-                    <td>{{ pay.payNumber + "/" + pay.totalPays }}</td>
-                    <td>{{ pay.companyName }}</td>
-                    <td>{{ pay.ownerName }}</td>
+                    <td>{{ pay.paymentNumber + "/" + pay.totalPays }}</td>
+                    <td>{{ getCompanyName(pay.idCompany) }}</td>
+                    <td>{{ getOwnerName(pay.idOwner) }}</td>
                     <td>
-                        <label class="label-status" ng-class="getStatusClass(pay.status)" ng-click="changeStatus(pay.idPayment)">{{ getStatusWording(pay.status)}}</label>
+                        <label class="label-status" ng-class="getStatusClass(pay.status)" ng-click="changeStatus(pay)">{{ getStatusWording(pay.status)}} <span ng-if="pay.changing" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></label>
                     </td>
                 </tr>
             </tbody>
@@ -93,6 +91,6 @@
     </div>
 </div>
 <div class="text-right">
-    <button class="btn btn-primary" ng-if="saveButton == true">Guardar cambios </button> 
+    <button class="btn btn-primary" ng-click="saveChanges()" ng-if="saveButton == true">Guardar cambios </button> 
 </div>
 <div class="div-spacer-small"></div>

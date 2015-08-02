@@ -8,6 +8,8 @@ include("controllers/connection.php");
 include("controllers/user.php");
 include("controllers/company.php");
 include("controllers/owner.php");
+include("controllers/pay.php");
+include("controllers/product.php");
 
 // include("controllers/menu.php");
 
@@ -45,6 +47,17 @@ switch ($operation) {
     case 'getOwners':
         $messageReturn = Owner::getOwners($input->userData);
         break;
+    //  ========================================================================
+    case 'addPay': 
+        $messageReturn = Pay::addPay($data, $input->userData);
+        break;
+    case 'getPays':
+        $messageReturn = Pay::getPays($data, $input->userData);
+        break;
+    case 'updatePay':
+        $messageReturn = Pay::updatePay($data, $input->userData);
+        break;
+    
     // case 'login':
     //     $messageReturn = User::login($data);
     //     break;

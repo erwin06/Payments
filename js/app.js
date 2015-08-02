@@ -29,7 +29,8 @@ var inApp = angular.module('inApp', [
                     resolve: {"check":function($cookies, $http, $location){isLogged($cookies, $http, $location)}}
                 })
                 .when('/login', {
-                    templateUrl: 'views/login.html'
+                    templateUrl: 'views/login.html',
+                    resolve: {"check":function($cookies, $http, $location){isLogged($cookies, $http, $location)}}
                 })
                 .when('/config', {
                     templateUrl: 'views/config.html',
@@ -48,4 +49,12 @@ var inApp = angular.module('inApp', [
                 });
     }]);
 
-function isLogged($cookies, $http, $location){$cookies.idSession?$http.post(__URL__,{operation:"checkSession",userData:{idSession:$cookies.idSession,idUser:$cookies.idUser}}).success(function(a){a||$location.path("/login")}).error(function(){$location.path("/login")}):$location.path("/login");}
+function isLogged($cookies, $http, $location){
+    if($cookies.idSession){
+        $http.post(__URL__,{operation:"checkSession",userData:{idSession:$cookies.idSession,idUser:$cookies.idUser}})
+        .success(function(a){a?$location.path("/main"):$location.path("/login")})
+        .error(function(){$location.path("/login")})
+    } else {
+        $location.path("/login");
+    }
+}
