@@ -27,8 +27,6 @@ inApp.controller('addOwner', function ($scope, $modalInstance, $cookies, $http) 
                 	alert.error(response.message);
                 }
             }).error(server_error);
-
-	    $modalInstance.close();
 	};
 
 	$scope.cancel = function () {

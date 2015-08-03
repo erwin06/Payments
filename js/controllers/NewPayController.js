@@ -70,7 +70,7 @@ inApp.controller('newPay', function($scope, $location, $rootScope, $modal, $cook
             controller: 'addOwner'
         });
 
-        modalInstance.result.then(function(selectedItem) {
+        modalInstance.result.then(function() {
             loadOwners();
         });
 
