@@ -22,8 +22,9 @@ class Pay {
         for($i = 1; $i <= $data->totalPays; $i++){
 
             // Inserto los pagos
-            if ($stmt = $mysqli->prepare("INSERT INTO payments (amount, month, year, payment_number, id_product) VALUES (?,?,?,?,?)")) {
-                $stmt->bind_param("diiii", $data->amount, $data->month, $data->year,$i, $idProduct);
+            if ($stmt = $mysqli->prepare("INSERT INTO payments (amount, month, year, payment_number, id_product, status) VALUES (?,?,?,?,?,?)")) {
+                $status = $data->idOwner == 0 ? 1 : 4;
+                $stmt->bind_param("diiiii", $data->amount, $data->month, $data->year,$i, $idProduct, $status);
                 if($stmt->execute()){
                     $data->month++;
 

@@ -52,7 +52,11 @@ var inApp = angular.module('inApp', [
 function isLogged($cookies, $http, $location){
     if($cookies.idSession){
         $http.post(__URL__,{operation:"checkSession",userData:{idSession:$cookies.idSession,idUser:$cookies.idUser}})
-        .success(function(a){a?$location.path("/main"):$location.path("/login")})
+        .success(function(a){
+            console.log(a);
+            if(!a)
+                $location.path("/login")
+        })
         .error(function(){$location.path("/login")})
     } else {
         $location.path("/login");

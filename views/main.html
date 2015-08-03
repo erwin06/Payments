@@ -29,6 +29,7 @@
         <small ng-click="previusMonth()"><span class="glyphicon glyphicon-arrow-left cursor-pointer"></span></small>
         <label style="min-width: 130px; text-align: center">{{getMonthName(currentMonth)}} {{currentYear}}</label>
         <small ng-click="nextMonth()"><span class="glyphicon glyphicon-arrow-right cursor-pointer"></span></small>
+        <input type="text" class="form-control" style="max-width: 300px; float: right" placeholder="Filtrar..." ng-model="payFilter"/>
     </div>
     <div class="margin-box">
         <table class="table table-hover">

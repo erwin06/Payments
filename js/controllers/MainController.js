@@ -1,6 +1,6 @@
 inApp.controller('main', function ($scope, $cookies, $location, $http) {
 
-    var toPay = [PAYING,T_PAID_ME];
+    var toPay = [PAYING,T_N_PAID_ME];
     var payed = [I_PAID,I_PAID_T_N_PAID_ME];
 
     $scope.currentMonth = new Date().getMonth();
@@ -102,7 +102,7 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
                 total += $scope.store.payments[i].amount;
             }
         }
-        return total;
+        return total.toFixed(2);
     }
 
     $scope.totalToPayFromOthers = function() {
@@ -118,7 +118,7 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
                 total += $scope.store.payments[i].amount;
             }
         }
-        return total;
+        return total.toFixed(2);
     }
 
     $scope.totalToPayFromMe = function(){
@@ -133,7 +133,7 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
                 total += $scope.store.payments[i].amount;
             }
         }
-        return total;
+        return total.toFixed(2);
     }
 
     $scope.isSelected = function(status){
@@ -203,10 +203,12 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
                 idUser: $cookies.idUser
             },
             data: {
-                month:$scope.currentMonth,
+                month:$scope.currentMonth + 1,
                 year:$scope.currentYear
             }
         }
+
+        console.log(json);
 
         $http.post(__URL__, json)
             .success(function (response) {

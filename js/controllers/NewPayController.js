@@ -28,9 +28,6 @@ inApp.controller('newPay', function($scope, $location, $rootScope, $modal, $cook
             }
         }
 
-        console.log("SUPER JSON :O");
-        console.log(json);
-
         notification.info("Guardando...");
 
         $http.post(__URL__, json)
