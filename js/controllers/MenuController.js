@@ -1,7 +1,9 @@
-inApp.controller('menuController', function ($scope, $cookies) {
+inApp.controller('Menu', function ($scope, $cookieStore, $location) {
 
-	$scope.isLogged = function(){
-		return false
+	$scope.logOut = function(){
+		$cookieStore.remove('idUser');
+        $cookieStore.remove('idSession');
+        $location.path('/login');
 	}
 
 });
