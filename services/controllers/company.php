@@ -38,7 +38,7 @@ class Company {
 
         $idUser = $userData->idUser;
         $mysqli = Connection::getInstance()->getDB();
-        if ($stmt = $mysqli->prepare("SELECT id_company, name FROM companies WHERE id_user = $idUser")) {
+        if ($stmt = $mysqli->prepare("SELECT id_company, name FROM companies WHERE id_user = $idUser ORDER BY name ASC")) {
             if($stmt->execute()){
                 $stmt->bind_result($id_company, $name);
                 $result = array();

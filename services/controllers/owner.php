@@ -38,7 +38,7 @@ class Owner {
 
         $idUser = $userData->idUser;
         $mysqli = Connection::getInstance()->getDB();
-        if ($stmt = $mysqli->prepare("SELECT id_owner, name FROM owners WHERE id_user = $idUser")) {
+        if ($stmt = $mysqli->prepare("SELECT id_owner, name FROM owners WHERE id_user = $idUser ORDER BY name ASC")) {
             if($stmt->execute()){
                 $stmt->bind_result($id_owner, $name);
                 $result = array();
