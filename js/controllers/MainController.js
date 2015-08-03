@@ -7,7 +7,7 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
     $scope.currentYear = new Date().getFullYear();
     $scope.store = {};
     $scope.pay = {};
-    $scope.payOrder = "productName";
+    $scope.payOrder = "";
     $scope.saveButton = false;
     $scope.personalData = {
         salary: 10000

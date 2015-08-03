@@ -87,7 +87,7 @@ class Pay {
         }
         
         $payments = array();
-        if ($stmt = $mysqli->prepare("SELECT products.id_product, description, total_pays, id_owner,id_company, id_payment, amount, payment_number, status  FROM products, payments WHERE products.id_product = payments.id_product AND id_user = ? AND month = ? AND year = ?")) {
+        if ($stmt = $mysqli->prepare("SELECT products.id_product, description, total_pays, id_owner,id_company, id_payment, amount, payment_number, status  FROM products, payments WHERE products.id_product = payments.id_product AND id_user = ? AND month = ? AND year = ? ORDER BY products.id_company, products.description")) {
             $stmt->bind_param("iii", $userData->idUser, $data->month, $data->year);
             if($stmt->execute()){
                 $stmt->bind_result($id_product, $description, $total_pays,$id_owner,$id_company,$id_payment,$amount,$payment_number, $status);
