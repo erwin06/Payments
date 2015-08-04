@@ -12,6 +12,15 @@ class Pay {
         if(!isset($data->amount) || !isset($data->idCompany) || !isset($data->idOwner) || !isset($data->month) || !isset($data->name) || !isset($data->totalPays) || !isset($data->year))
             return Error::genericError();
 
+        // --- Valido los datos
+        if(!Connection::getInstance()->moreThanOne("SELECT * FROM companies WHERE id_user = '$userData->idUser' AND id_company = '$data->idCompany'")){
+            return Error::genericError(); 
+        }
+
+        if(!Connection::getInstance()->moreThanOne("SELECT * FROM owners WHERE id_user = '$userData->idUser' AND id_owner = '$data->idOwner'")){
+            return Error::genericError(); 
+        }
+
         $idProduct = Product::addProduct($data, $userData->idUser);
 
         if($idProduct == 0)
@@ -125,6 +134,10 @@ class Pay {
     static function updatePay($data, $userData){
         if(!User::checkSession($userData))
             return Error::noPermission();
+
+        if(!Connection::getInstance()->moreThanOne("SELECT * FROM payments, products, users WHERE users.id_user = '$userData->idUser' AND products.id_user = users.id_user AND payments.id_product = products.id_product AND payments.id_payment = '$data->idPayment'")){
+            return Error::genericError(); 
+        }
 
         $mysqli = Connection::getInstance()->getDB();
         
