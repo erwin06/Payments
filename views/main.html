@@ -5,17 +5,17 @@
     </div>
     <div class="div-spacer-small"></div>
     <div class="row">
-        <div class="col-lg-4 col-md-4 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-xs-4">
             <div class="box bg-green-sea">
                 <label>Total a pagar</label><hr/><label>$ {{ totalToPay() }}</label>
             </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-xs-4">
             <div class="box bg-light-blue">
                 <label>Pagos de otros</label><hr/><label>$ {{ totalToPayFromOthers() }}</label>
             </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-xs-4">
             <div class="box bg-orange">
                 <label>Mis pagos</label><hr/><label>$ {{ totalToPayFromMe() }}</label>
             </div>
@@ -89,6 +89,9 @@
                 </tr>
             </tbody>
         </table>
+        <div class="loading-pays" ng-if="loadingPays == true">
+            <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+        </div>
     </div>
 </div>
 <div class="text-right">

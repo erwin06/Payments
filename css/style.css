@@ -103,3 +103,8 @@ body {
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}
 }
+
+.loading-pays {
+    text-align: center;
+    margin: 50px;
+}

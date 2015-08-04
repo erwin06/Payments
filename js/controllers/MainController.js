@@ -9,6 +9,7 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
     $scope.pay = {};
     $scope.payOrder = "";
     $scope.saveButton = false;
+    $scope.loadingPays = true;
     $scope.personalData = {
         salary: 10000
     }
@@ -208,13 +209,15 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
             }
         }
 
-        console.log(json);
+        $scope.store.payments = [];
+        $scope.loadingPays = true;
 
         $http.post(__URL__, json)
             .success(function (response) {
                 if (response.success) {
                     $scope.store.companies = response.optional.companies;
                     $scope.store.owners = response.optional.owners;
+                    $scope.loadingPays = false;
                     $scope.store.payments =  response.optional.payments;
                 }
             }).error(server_error);
