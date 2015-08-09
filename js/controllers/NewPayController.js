@@ -32,7 +32,6 @@ inApp.controller('newPay', function($scope, $location, $rootScope, $modal, $cook
 
         $http.post(__URL__, json)
             .success(function(response) {
-                console.log(response);
                 if (response.success) {
                     confirm.info("Pago guardado... Desea agregar otro más?", function(result) {
                         if (result == yes_another) {
@@ -87,7 +86,6 @@ inApp.controller('newPay', function($scope, $location, $rootScope, $modal, $cook
 
         $http.post(__URL__, json)
             .success(function(response) {
-                console.log(response);
                 if (response.success) {
                     $scope.companies = response.optional;
                 }

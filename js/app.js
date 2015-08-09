@@ -44,6 +44,10 @@ var inApp = angular.module('inApp', [
                     templateUrl: 'views/new-pay.html',
                     resolve: {"check":function($cookies, $http, $location){isLogged($cookies, $http, $location)}}
                 })
+                .when('/pay-detail/:id', {
+                    templateUrl: 'views/pay-detail.html',
+                    resolve: {"check":function($cookies, $http, $location){isLogged($cookies, $http, $location)}}
+                })
                 .otherwise({
                     redirectTo: '/login'
                 });
@@ -53,7 +57,6 @@ function isLogged($cookies, $http, $location){
     if($cookies.idSession){
         $http.post(__URL__,{operation:"checkSession",userData:{idSession:$cookies.idSession,idUser:$cookies.idUser}})
         .success(function(a){
-            console.log(a);
             if(!a)
                 $location.path("/login")
         })

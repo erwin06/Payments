@@ -18,7 +18,6 @@ inApp.controller('addCompany', function ($scope, $modalInstance, $cookies, $http
 
 		$http.post(__URL__, json)
             .success(function (response) {
-            	console.log(response);
                 if (response.success) {
                 	alert.info(response.message);
                 	$modalInstance.close();
@@ -26,8 +25,6 @@ inApp.controller('addCompany', function ($scope, $modalInstance, $cookies, $http
                 	alert.error(response.message);
                 }
             }).error(server_error);
-
-	    // $modalInstance.close();
 	};
 
 	$scope.cancel = function () {

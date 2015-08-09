@@ -17,8 +17,9 @@ class Pay {
             return Error::genericError(); 
         }
 
-        if(!Connection::getInstance()->moreThanOne("SELECT * FROM owners WHERE id_user = '$userData->idUser' AND id_owner = '$data->idOwner'")){
+        if($data->idOwner != 0 && !Connection::getInstance()->moreThanOne("SELECT * FROM owners WHERE id_user = '$userData->idUser' AND id_owner = '$data->idOwner'")){
             return Error::genericError(); 
+
         }
 
         $idProduct = Product::addProduct($data, $userData->idUser);

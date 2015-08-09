@@ -108,3 +108,7 @@ body {
     text-align: center;
     margin: 50px;
 }
+
+.table-hover > tbody > tr:hover{
+    background-color: white;
+}

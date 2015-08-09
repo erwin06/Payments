@@ -12,14 +12,10 @@ inApp.controller('Login', function ($scope, $http, $location,$cookies) {
 			}
 		}
 
-		console.log("Login")
-		console.log(json)
-
 		notification.info("Ingresando...")
 
 		$http.post(__URL__, json)
             .success(function (response) {
-            	console.log(response);
                 if (response.success) {
                 	$scope.sData = {}
                 	$cookies.idUser = response.optional.idUser;

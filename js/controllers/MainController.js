@@ -191,8 +191,8 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
         loadPays();
     }
 
-    $scope.saveChanges = function(){
-        
+    $scope.payDetail = function(idProduct){
+        $location.path("/pay-detail/123")
     }
 
     function loadPays(){

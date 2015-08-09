@@ -73,7 +73,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="pay in store.payments | filter:payFilter | orderBy:payOrder" class="cursor-pointer" ng-class="isSelected(pay.selected)" ng-click="pay.selected =! pay.selected">
-                    <td class="text-left">
+                    <td class="text-left" ng-click="payDetail(pay.idProduct)">
                         <span class="span-status" >
                             &nbsp;&nbsp;&nbsp;
                         </span>

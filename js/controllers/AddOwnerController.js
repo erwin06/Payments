@@ -19,7 +19,6 @@ inApp.controller('addOwner', function ($scope, $modalInstance, $cookies, $http) 
 
 		$http.post(__URL__, json)
             .success(function (response) {
-            	console.log(response);
                 if (response.success) {
                 	alert.info(response.message);
                 	$modalInstance.close();
