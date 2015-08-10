@@ -30,7 +30,7 @@ var inApp = angular.module('inApp', [
                 })
                 .when('/login', {
                     templateUrl: 'views/login.html',
-                    resolve: {"check":function($cookies, $http, $location){isLogged($cookies, $http, $location)}}
+                    resolve: {"check":function($cookies, $http, $location){isLogged($cookies, $http, $location, "login")}}
                 })
                 .when('/config', {
                     templateUrl: 'views/config.html',
@@ -53,12 +53,17 @@ var inApp = angular.module('inApp', [
                 });
     }]);
 
-function isLogged($cookies, $http, $location){
+function isLogged($cookies, $http, $location, goTo){
     if($cookies.idSession){
         $http.post(__URL__,{operation:"checkSession",userData:{idSession:$cookies.idSession,idUser:$cookies.idUser}})
         .success(function(a){
-            if(!a)
+            if(!a){
                 $location.path("/login")
+            } else {
+                if(login == "login"){
+                    $location.path("/main")
+                }
+            }
         })
         .error(function(){$location.path("/login")})
     } else {
