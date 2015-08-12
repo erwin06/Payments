@@ -46,6 +46,7 @@ var inApp = angular.module('inApp', [
                 })
                 .when('/pay-detail/:id', {
                     templateUrl: 'views/pay-detail.html',
+                    controller: 'PayDetail',
                     resolve: {"check":function($cookies, $http, $location){isLogged($cookies, $http, $location)}}
                 })
                 .otherwise({
@@ -60,7 +61,7 @@ function isLogged($cookies, $http, $location, goTo){
             if(!a){
                 $location.path("/login")
             } else {
-                if(login == "login"){
+                if(goTo == "login"){
                     $location.path("/main")
                 }
             }

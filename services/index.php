@@ -57,6 +57,9 @@ switch ($operation) {
     case 'updatePay':
         $messageReturn = Pay::updatePay($data, $input->userData);
         break;
+    case 'getPayDetail':
+        $messageReturn = Pay::getPayDetail($data, $input->userData);
+        break;
     
     // case 'login':
     //     $messageReturn = User::login($data);

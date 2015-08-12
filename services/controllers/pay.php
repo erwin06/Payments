@@ -128,8 +128,6 @@ class Pay {
 
         if(isset($stmt)) $stmt->close();
         return isset($response) ? $response->getResponse() : Error::genericError();
-
-
     }
 
     static function updatePay($data, $userData){
@@ -151,7 +149,46 @@ class Pay {
 
         if(isset($stmt)) $stmt->close();
         return isset($response) ? $response->getResponse() : Error::genericError();
+    }
 
+    static function getPayDetail($data, $userData){
+        if(!User::checkSession($userData))
+            return Error::noPermission();
+
+        $productResult = Product::getProduct($data, $userData);
+      
+        $product = $productResult["success"] ? $productResult["optional"] : null;
+
+        if(!isset($product))
+            return Error::genericError();
+
+        $result = array();
+        $result["product"] = $product;
+        $mysqli = Connection::getInstance()->getDB();
+
+        if ($stmt = $mysqli->prepare("SELECT id_payment, amount, month, year, payment_number, status FROM payments WHERE id_product = ?")) {
+            $stmt->bind_param("i",$product["idProduct"]);
+            if($stmt->execute()){
+                $stmt->bind_result($id_payment, $amount, $month,$year,$payment_number,$status);
+                $pays = array();
+                while($stmt->fetch()){
+                    $pay = array();
+                    $pay["idPayment"] = $id_payment;
+                    $pay["paymentNumber"] = $payment_number;
+                    $pay["status"] = $status;
+                    $pay["amount"] = $amount;
+                    $pay["month"] = $month;
+                    $pay["year"] = $year;
+                    array_push($pays, $pay);
+                }
+
+                $result["payments"] = $pays;
+                $response = new Response(true, "Result OK", $result);
+            }
+        }
+
+        if(isset($stmt)) $stmt->close();
+        return isset($response) ? $response->getResponse() : Error::genericError();
     }
 
 }

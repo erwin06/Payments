@@ -24,74 +24,75 @@
 </div>
 <div class="div-spacer-small"></div>
 <div class="container">
-<div class="panel-data">
-    <div class="title">
-        <small ng-click="previusMonth()"><span class="glyphicon glyphicon-arrow-left cursor-pointer"></span></small>
-        <label style="min-width: 130px; text-align: center">{{getMonthName(currentMonth)}} {{currentYear}}</label>
-        <small ng-click="nextMonth()"><span class="glyphicon glyphicon-arrow-right cursor-pointer"></span></small>
-        <input type="text" class="form-control" style="max-width: 300px; float: right" placeholder="Filtrar por producto" ng-model="payFilter"/>
-    </div>
-    <div class="margin-box">
-        <table class="table table-hover">
-            <thead class="cursor-pointer">
-                <th class="col-xs-2" ng-click="payOrder='description'">
-                    Producto
-                    <small ng-if="payOrder=='description'">
-                    <span class="glyphicon glyphicon-menu-up"></span>
-                    </small>
-                </th>
-                <th class="col-xs-2" ng-click="payOrder='amount'">
-                    Monto
-                    <small ng-if="payOrder=='amount'">
-                    <span class="glyphicon glyphicon-menu-up"></span>
-                    </small>
-                </th>
-                <th class="col-xs-2" ng-click="payOrder='paymentNumber'">
-                    Cuota
-                    <small ng-if="payOrder=='paymentNumber'">
-                    <span class="glyphicon glyphicon-menu-up"></span>
-                    </small>
-                </th>
-                <th class="col-xs-2" ng-click="payOrder='idCompany'">
-                    Empresa
-                    <small ng-if="payOrder=='idCompany'">
-                    <span class="glyphicon glyphicon-menu-up"></span>
-                    </small>
-                </th>
-                <th class="col-xs-2" ng-click="payOrder='idOwner'">
-                    Responsable
-                    <small ng-if="payOrder=='idOwner'">
-                    <span class="glyphicon glyphicon-menu-up"></span>
-                    </small>
-                </th>
-                <th class="col-xs-2" ng-click="payOrder='status'">
-                    Estado
-                    <small ng-if="payOrder=='status'">
-                    <span class="glyphicon glyphicon-menu-up"></span>
-                    </small>
-                </th>
-            </thead>
-            <tbody>
-                <tr ng-repeat="pay in store.payments | filter:payFilter | orderBy:payOrder" class="cursor-pointer" ng-class="isSelected(pay.selected)" ng-click="pay.selected =! pay.selected">
-                    <td class="text-left" ng-click="payDetail(pay.idProduct)">
-                        <span class="span-status" >
-                            &nbsp;&nbsp;&nbsp;
-                        </span>
-                        {{ pay.description }}
-                    </td>
-                    <td>${{ pay.amount }}</td>
-                    <td>{{ pay.paymentNumber + "/" + pay.totalPays }}</td>
-                    <td>{{ getCompanyName(pay.idCompany) }}</td>
-                    <td>{{ getOwnerName(pay.idOwner) }}</td>
-                    <td>
-                        <label class="label-status" ng-class="getStatusClass(pay.status)" ng-click="changeStatus(pay)">{{ getStatusWording(pay.status)}} <span ng-if="pay.changing" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></label>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="loading-pays" ng-if="loadingPays == true">
-            <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+    <div class="panel-data">
+        <div class="title">
+            <small ng-click="previusMonth()"><span class="glyphicon glyphicon-arrow-left cursor-pointer"></span></small>
+            <label style="min-width: 130px; text-align: center">{{getMonthName(currentMonth)}} {{currentYear}}</label>
+            <small ng-click="nextMonth()"><span class="glyphicon glyphicon-arrow-right cursor-pointer"></span></small>
+            <input type="text" class="form-control" style="max-width: 300px; float: right" placeholder="Filtrar por producto" ng-model="payFilter"/>
         </div>
+    </div>
+</div>
+<div class="container">
+    <table class="table table-style">
+        <thead class="cursor-pointer">
+            <th class="col-xs-3" ng-click="payOrder='description'">
+                Producto
+                <span ng-if="payOrder=='description'" style="float:right">
+                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                </span>
+            </th>
+            <th class="col-xs-1" ng-click="payOrder='amount'">
+                Monto
+                <span ng-if="payOrder=='amount'" style="float:right">
+                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                </span>
+            </th>
+            <th class="col-xs-1" ng-click="payOrder='paymentNumber'">
+                Cuota
+                <span ng-if="payOrder=='paymentNumber'" style="float:right">
+                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                </span>
+            </th>
+            <th class="col-xs-2" ng-click="payOrder='idCompany'">
+                Empresa
+                <span ng-if="payOrder=='idCompany'" style="float:right">
+                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                </span>
+            </th>
+            <th class="col-xs-2" ng-click="payOrder='idOwner'">
+                Responsable
+                <span ng-if="payOrder=='idOwner'" style="float:right">
+                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                </span>
+            </th>
+            <th class="col-xs-3" ng-click="payOrder='status'">
+                Estado
+                <span ng-if="payOrder=='status'" style="float:right">
+                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                </span>
+            </th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="pay in store.payments | filter:payFilter | orderBy:payOrder" class="cursor-pointer" ng-class="isSelected(pay.selected)" ng-click="pay.selected =! pay.selected">
+                <td class="text-left" ng-click="payDetail(pay.idProduct)">
+                    <span class="span-status" >
+                        &nbsp;&nbsp;&nbsp;
+                    </span>
+                    {{ pay.description }}
+                </td>
+                <td>${{ pay.amount }}</td>
+                <td>{{ pay.paymentNumber + "/" + pay.totalPays }}</td>
+                <td>{{ getCompanyName(pay.idCompany) }}</td>
+                <td>{{ getOwnerName(pay.idOwner) }}</td>
+                <td>
+                    <label class="label-status" ng-class="getStatusClass(pay.status)" ng-click="changeStatus(pay)">{{ getStatusWording(pay.status)}} <span ng-if="pay.changing" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></label>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="loading-pays" ng-if="loadingPays == true">
+        <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
     </div>
 </div>
 <div class="text-right">

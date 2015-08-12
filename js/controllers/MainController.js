@@ -37,19 +37,18 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
 
 
     $scope.getStatusClass = function (status) {
+        console.log(status)
         switch (status) {
             case PAYING:
-                return "bg-green";
+                return "co-green";
             case I_PAID:
-                return "bg-dark-blue";
+                return "co-dark-blue";
             case T_PAID_ME:
-                return "bg-red";
+                return "co-red";
             case T_N_PAID_ME:
-                return "bg-violette";
+                return "co-violette";
             case I_PAID_T_N_PAID_ME:
-                return "bg-orange";
-
-
+                return "co-orange";
         }
         return "";
     };
@@ -192,7 +191,7 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
     }
 
     $scope.payDetail = function(idProduct){
-        $location.path("/pay-detail/123")
+        $location.path("/pay-detail/" + idProduct)
     }
 
     function loadPays(){

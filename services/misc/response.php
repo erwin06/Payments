@@ -17,5 +17,15 @@ class Response {
         global $arr;
         return $arr;
     }
+
+    public function getOptional(){
+        global $arr;
+        return $arr["optional"];
+    }
+
+    public function getSuccess(){
+        global $arr;
+        return $arr["success"];
+    }
     
 }
