@@ -85,8 +85,8 @@
                 <td>{{ pay.paymentNumber + "/" + pay.totalPays }}</td>
                 <td>{{ getCompanyName(pay.idCompany) }}</td>
                 <td>{{ getOwnerName(pay.idOwner) }}</td>
-                <td>
-                    <label class="label-status" ng-class="getStatusClass(pay.status)" ng-click="changeStatus(pay)">{{ getStatusWording(pay.status)}} <span ng-if="pay.changing" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></label>
+                <td ng-click="changeStatus(pay)">
+                    <label class="label-status" ng-class="getStatusClass(pay.status)">{{ getStatusWording(pay.status)}} <span ng-if="pay.changing" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></label>
                 </td>
             </tr>
         </tbody>

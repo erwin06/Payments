@@ -37,7 +37,6 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
 
 
     $scope.getStatusClass = function (status) {
-        console.log(status)
         switch (status) {
             case PAYING:
                 return "co-green";
@@ -55,8 +54,7 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
 
     $scope.changeStatus = function(payment){
         payment.changing = true;
-        
-        var idPayment =  payment.idPayment
+
         var json = {
             operation: "updatePay",
             userData: {
@@ -76,18 +74,6 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
                     payment.changing = false;
                 }
             }).error(server_error);
-
-
-
-        
-        // var l = $scope.store.payments.length;
-        // for(var i = 0; i < l; i++){
-        //     if($scope.store.payments[i].idPayment == idPayment){
-        //         $scope.store.payments[i].status == 5 ? $scope.store.payments[i].status = 1 : $scope.store.payments[i].status++;
-        //         $scope.saveButton = true;
-        //         return;
-        //     }
-        // }
     }
 
     $scope.totalToPay = function (){

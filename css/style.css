@@ -46,6 +46,10 @@ body {
     height: 50px;
 }
 
+.div-spacer-smaller{
+    height: 20px;
+}
+
 .cursor-pointer {
     cursor: pointer;
 }
@@ -182,4 +186,17 @@ body {
 .table-style > tbody > tr:hover {
     cursor: pointer;
     background-color: whitesmoke;
+}
+
+.box-info {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    padding-top: 10px;
+    box-shadow: 1px 1px 3px 0px;
+    background-color: whitesmoke;
+}
+
+.box-info > h3 {
+    color: darkslateblue;
 }

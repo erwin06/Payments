@@ -2,8 +2,27 @@
 <div class="loading-pays" ng-if="loading == true">
     <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
 </div>
-<div ng-if="loading == false">
-	<div class="text-center">
-	    <h3>{{sData.product.description}}</h3>
-	</div>
+<div ng-if="loading == false" class="container">
+	<div class="div-spacer-small"/>
+    <h3>{{sData.product.description}}</h3> 
+    <h4>{{sData.product.name}}</h4>
+    <div class="div-spacer-smaller"/>
+    <table class="table table-style">
+    <thead>
+    	<th class="col-xs-3">Cuota #</th>
+    	<th class="col-xs-3">Precio</th>
+    	<th class="col-xs-3">Fecha de cobro</th>
+    	<th class="col-xs-3">Estado</th>
+    </thead>
+    <tbody>
+    	<tr ng-repeat="pay in sData.payments">
+    		<td>{{pay.paymentNumber}}</td>
+    		<td>$ {{pay.amount}}</td>
+    		<td>{{pay.month + "/" + pay.year}}</td>
+    		<td ng-click="changeStatus(pay)">
+    		 	<label class="label-status" ng-class="getStatusClass(pay.status)">{{ getStatusWording(pay.status)}} <span ng-if="pay.changing" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></label>
+    		</td>
+    	</tr>
+    </tbody>
+    </table>
 </div>
