@@ -176,6 +176,13 @@ body {
     border: 1px solid #d9d9d9;
 }
 
+.input-amount {
+    margin: -10px 10px;
+    border: none;
+    background-color: transparent; 
+    max-width: 60px;
+}
+
 .table-style > tbody > tr > td {
     padding: 12px 6px;
     line-height: 0px;

@@ -9,15 +9,19 @@
     <div class="div-spacer-smaller"/>
     <table class="table table-style">
     <thead>
-    	<th class="col-xs-3">Cuota #</th>
-    	<th class="col-xs-3">Precio</th>
+    	<th class="col-xs-2">Cuota</th>
+    	<th class="col-xs-4">Precio</th>
     	<th class="col-xs-3">Fecha de cobro</th>
     	<th class="col-xs-3">Estado</th>
     </thead>
     <tbody>
     	<tr ng-repeat="pay in sData.payments">
     		<td>{{pay.paymentNumber}}</td>
-    		<td>$ {{pay.amount}}</td>
+    		<td>
+                <label style="display: inline">$</label> 
+                <input class="input-amount" ng-model="pay.amount" ng-enter="keyPress(pay)" ng-readonly="pay.amountChanging"/>
+                <span ng-if="pay.amountChanging" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+            </td>
     		<td>{{pay.month + "/" + pay.year}}</td>
     		<td ng-click="changeStatus(pay)">
     		 	<label class="label-status" ng-class="getStatusClass(pay.status)">{{ getStatusWording(pay.status)}} <span ng-if="pay.changing" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></label>

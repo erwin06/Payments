@@ -151,6 +151,34 @@ class Pay {
         return isset($response) ? $response->getResponse() : Error::genericError();
     }
 
+    static function updatePayAmount($data, $userData){
+
+        // if(!preg_match('[0-9](\.[0-9][0-9])?$',$data->amount)){
+        //     $response = new Response(false, "No es un monto válido");
+        //     return $response->getResponse();
+        // }
+
+        if(!User::checkSession($userData))
+            return Error::noPermission();
+
+        if(!Connection::getInstance()->moreThanOne("SELECT * FROM payments, products, users WHERE users.id_user = '$userData->idUser' AND products.id_user = users.id_user AND payments.id_product = products.id_product AND payments.id_payment = '$data->idPayment'")){
+            return Error::genericError(); 
+        }
+
+        $mysqli = Connection::getInstance()->getDB();
+        
+        if ($stmt = $mysqli->prepare("UPDATE payments SET amount = ? WHERE id_payment = ?")) {
+            $stmt->bind_param("di", $data->amount, $data->idPayment);
+            if($stmt->execute()){
+                $response = new Response(true, "OKs");
+            }   
+        }
+
+        if(isset($stmt)) $stmt->close();
+        return isset($response) ? $response->getResponse() : Error::genericError();
+
+    }
+
     static function getPayDetail($data, $userData){
         if(!User::checkSession($userData))
             return Error::noPermission();

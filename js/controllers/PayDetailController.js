@@ -57,6 +57,30 @@ inApp.controller('PayDetail', function ($scope, $http, $location,$routeParams, $
         return "Wtf?";
     }
 
+    $scope.keyPress = function(payment){
+        payment.amountChanging = true
+
+        var json = {
+            operation: "updatePayAmount",
+            userData: {
+                idSession: $cookies.idSession,
+                idUser: $cookies.idUser
+            },
+            data: {
+                idPayment: payment.idPayment,
+                amount: payment.amount
+            }
+        }
+
+        $http.post(__URL__, json)
+            .success(function (response) {
+                payment.amountChanging = false
+                if (!response.success) {
+                    errorManager.proccessError(response, $location, $cookies);
+                }
+            }).error(server_error);
+    }
+
 	$scope.loading = true;
 
 	var json = {
