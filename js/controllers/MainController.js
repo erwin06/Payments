@@ -1,6 +1,6 @@
 inApp.controller('main', function ($scope, $cookies, $location, $http) {
 
-    var toPay = [PAYING,T_N_PAID_ME,T_PAID_ME];
+    var toPay = [PAYING,T_N_PAID_ME];
     var payed = [I_PAID,I_PAID_T_N_PAID_ME];
 
     $scope.currentMonth = new Date().getMonth();
@@ -115,7 +115,7 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
         var count = $scope.store.payments.length;
         for(var i = 0; i < count; i++){
             var pay = $scope.store.payments[i];
-            if(pay.status == PAYING){
+            if(pay.status == PAYING || pay.status == T_PAID_ME){
                 total += $scope.store.payments[i].amount;
             }
         }
