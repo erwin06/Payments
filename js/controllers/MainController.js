@@ -1,6 +1,6 @@
 inApp.controller('main', function ($scope, $cookies, $location, $http) {
 
-    var toPay = [PAYING,T_N_PAID_ME];
+    var toPay = [PAYING,T_N_PAID_ME,T_PAID_ME];
     var payed = [I_PAID,I_PAID_T_N_PAID_ME];
 
     $scope.currentMonth = new Date().getMonth();
