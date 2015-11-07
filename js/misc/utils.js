@@ -52,3 +52,23 @@ _STATUS.push('Pagué');
 _STATUS.push('Pagué. Me debe');
 _STATUS.push('No pagué. Me pagaron');
 _STATUS.push('No pagué. No me pagaron');
+
+
+var log = {
+
+    active: true,
+
+    info: function(message){
+        if(!log.active) return;
+        try{
+            message = JSON.parse(message)
+        } catch (e){}
+        
+        console.info(message)
+    },
+
+    error: function(message){
+        if(!log.active) return;
+        console.error(message)
+    }
+}

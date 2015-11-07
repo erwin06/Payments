@@ -29,71 +29,33 @@
             <small ng-click="previusMonth()"><span class="glyphicon glyphicon-arrow-left cursor-pointer"></span></small>
             <label style="min-width: 130px; text-align: center">{{getMonthName(currentMonth)}} {{currentYear}}</label>
             <small ng-click="nextMonth()"><span class="glyphicon glyphicon-arrow-right cursor-pointer"></span></small>
-            <input type="text" class="form-control" style="max-width: 300px; float: right" placeholder="Filtrar por producto" ng-model="payFilter"/>
         </div>
     </div>
 </div>
 <div class="container">
-    <table class="table table-style">
-        <thead class="cursor-pointer">
-            <th class="col-xs-3" ng-click="payOrder='description'">
-                Producto
-                <span ng-if="payOrder=='description'" style="float:right">
-                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
-                </span>
-            </th>
-            <th class="col-xs-1" ng-click="payOrder='amount'">
-                Monto
-                <span ng-if="payOrder=='amount'" style="float:right">
-                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
-                </span>
-            </th>
-            <th class="col-xs-1" ng-click="payOrder='paymentNumber'">
-                Cuota
-                <span ng-if="payOrder=='paymentNumber'" style="float:right">
-                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
-                </span>
-            </th>
-            <th class="col-xs-2" ng-click="payOrder='idCompany'">
-                Empresa
-                <span ng-if="payOrder=='idCompany'" style="float:right">
-                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
-                </span>
-            </th>
-            <th class="col-xs-2" ng-click="payOrder='idOwner'">
-                Responsable
-                <span ng-if="payOrder=='idOwner'" style="float:right">
-                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
-                </span>
-            </th>
-            <th class="col-xs-3" ng-click="payOrder='status'">
-                Estado
-                <span ng-if="payOrder=='status'" style="float:right">
-                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
-                </span>
-            </th>
-        </thead>
-        <tbody>
-            <tr ng-repeat="pay in store.payments | filter:payFilter | orderBy:payOrder" class="cursor-pointer" ng-class="isSelected(pay.selected)" ng-click="pay.selected =! pay.selected">
-                <td class="text-left" ng-click="payDetail(pay.idProduct)">
-                    <span class="span-status" >
-                        &nbsp;&nbsp;&nbsp;
-                    </span>
-                    {{ pay.description }}
-                </td>
-                <td>${{ pay.amount }}</td>
-                <td>{{ pay.paymentNumber + "/" + pay.totalPays }}</td>
-                <td>{{ getCompanyName(pay.idCompany) }}</td>
-                <td>{{ getOwnerName(pay.idOwner) }}</td>
-                <td ng-click="changeStatus(pay)">
-                    <label class="label-status" ng-class="getStatusClass(pay.status)">{{ getStatusWording(pay.status)}} <span ng-if="pay.changing" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></label>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="loading-pays" ng-if="loadingPays == true">
-        <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+
+<div ng-repeat="pays in store.pays" class="p-box">
+    <div class="p-box-title"><label class="company">{{pays.companyName}} </label> <label class="company-total"> ($ {{getTotalByCompany(pays.pays)}})</label></div>
+    <div ng-repeat="pay in pays.pays" class="p-box-products">
+        <h5>{{pay.description}}</h5>
+        <label class="p-box-price">$ {{pay.amount}} </label> <label>({{pay.paymentNumber +  "/" + pay.totalPays}})</label> <label ng-if="pay.idOwner != 0"> a cargo de {{pay.ownerName}}</label>
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Dropdown
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" >
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </div>
     </div>
+</div>
+<div class="loading-pays" ng-if="loadingPays == true">
+    <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+</div>
 </div>
 <div class="text-right">
     <button class="btn btn-primary" ng-click="saveChanges()" ng-if="saveButton == true">Guardar cambios </button> 

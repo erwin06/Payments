@@ -14,7 +14,7 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
         salary: 10000
     }
 
-    $scope.getCompanyName = function(id){
+    function getCompanyName (id){
         var count = $scope.store.companies.length;
         for(var i = 0; i < count; i++){
             if($scope.store.companies[i].idCompany == id)
@@ -24,7 +24,7 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
         return "Desconocido";
     }
 
-    $scope.getOwnerName = function(id){
+    function getOwnerName (id){
         if(id == 0) return "Yo mismo";
         var count = $scope.store.owners.length;
         for(var i = 0; i < count; i++){
@@ -199,17 +199,55 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
 
         $http.post(__URL__, json)
             .success(function (response) {
+                log.info(response)
                 if (response.success) {
                     $scope.store.companies = response.optional.companies;
                     $scope.store.owners = response.optional.owners;
                     $scope.loadingPays = false;
-                    $scope.store.payments =  response.optional.payments;
+                    $scope.store.payments = response.optional.payments;
+                    $scope.store.pays = ordersPay(response.optional.payments);
                 }
             }).error(server_error);
+    }
 
+    function ordersPay(payments){
+        var response = [];
+        var prevCompany;
+        for(var i = 0; i < payments.length; i++){
+            if(prevCompany != payments[i].idCompany){
+                response.push({
+                    idCompany: payments[i].idCompany,
+                    companyName: getCompanyName(payments[i].idCompany),
+                    pays:[]
+                })
 
+                prevCompany = payments[i].idCompany
+            }
+
+            response[response.length - 1].pays.push({
+                amount: payments[i].amount,
+                description: payments[i].description,
+                idOwner: payments[i].idOwner,
+                ownerName: getOwnerName(payments[i].idOwner),
+                idProduct: payments[i].idProduct,
+                idPayment: payments[i].idPayment,
+                paymentNumber: payments[i].paymentNumber,
+                status: payments[i].status,
+                totalPays: payments[i].totalPays
+            })
+        }
+        log.info(response)
+        return response
     }
 
     loadPays();
+
+    $scope.getTotalByCompany = function(pay){
+        var result = 0
+        for(var i = 0; i < pay.length; i++){
+            result += pay[i].amount
+        }
+        return result.toFixed(2)
+    }
 
 });
