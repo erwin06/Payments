@@ -3,24 +3,34 @@
     <div class="text-right" style="margin-top: 50px">
         <h1>Administrador de pagos </h1>
     </div>
-    <!-- <div class="div-spacer-small"></div> -->
-   <!--  <div class="row">
-        <div class="col-lg-4 col-md-4 col-xs-4">
-            <div class="box bg-green-sea">
-                <label>Total a pagar</label><hr/><label>$ {{ totalToPay() }}</label>
+    <div class="div-spacer-small"></div>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-xs-4 p-mini-box">
+            <div class="p-box-title">
+                <label>Total a pagar</label>
+            </div>
+            <div class="p-mini-price">
+                <label>$ {{ data.totalToPay }}</label>
             </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-xs-4">
-            <div class="box bg-light-blue">
-                <label>Pagos de otros</label><hr/><label>$ {{ totalToPayFromOthers() }}</label>
+        <div class="col-lg-4 col-md-4 col-xs-4 p-mini-box">
+            <div class="p-box-title">
+                <label>Pagos de otros</label>
+            </div>
+            <div class="p-mini-price">
+                <label>$ {{ data.totalOthers }}</label>
             </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-xs-4">
-            <div class="box bg-orange">
-                <label>Mis pagos</label><hr/><label>$ {{ totalToPayFromMe() }}</label>
+        <div class="col-lg-4 col-md-4 col-xs-4 p-mini-box">
+            <div class="p-box-title">
+                <label>Mis pagos</label>
+            </div>
+            <div class="p-mini-price">
+                <label>$ {{ data.totalMe }}</label>
             </div>
         </div>
-    </div> -->
+    </div>
+    <div class="div-spacer-small"></div>
 </div>
 <div class="container">
     <div class="panel-data">
@@ -34,22 +44,22 @@
 <div class="container">
 
 <div ng-repeat="pays in store.pays" class="p-box">
-    <div class="p-box-title"><label class="company">{{pays.companyName}} </label> <label class="company-total"> ($ {{getTotalByCompany(pays.pays)}})</label></div>
+    <div class="p-box-title"><label class="company">{{pays.companyName}} </label> <label class="p-box-price">$ {{getTotalByCompany(pays.pays)}}</label></div>
     <div ng-repeat="pay in pays.pays" class="p-box-products">
-        <h5>{{pay.description}}</h5>
-        <label class="p-box-price">$ {{pay.amount}}</label> <label>({{pay.paymentNumber +  "/" + pay.totalPays}})</label> <label ng-if="pay.idOwner != 0"> a cargo de {{pay.ownerName}}</label>
-        <div class="dropdown">
+        <div class="dropdown cursor-pointer">
           <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            Dropdown
-            <span class="caret"></span>
+              {{getStatusWording(pay.status)}}
           </button>
-          <ul class="dropdown-menu" >
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li><a href="#">Separated link</a></li>
+          <ul class="dropdown-menu">
+            <li><a ng-click="changeStatus(pay, 1)">Para pagar</a></li>
+            <li><a ng-click="changeStatus(pay, 2)">Pagado</a></li>
+            <li><a ng-click="changeStatus(pay, 3)">Me pagaron</a></li>
+            <li><a ng-click="changeStatus(pay, 4)">No me pagaron</a></li>
+            <li><a ng-click="changeStatus(pay, 5)">Me deben</a></li>
           </ul>
         </div>
+         <label>{{pay.description}}</label>
+        <label class="p-box-price">$ {{pay.amount}}</label> <label>({{pay.paymentNumber +  "/" + pay.totalPays}})</label> <label ng-if="pay.idOwner != 0"> a cargo de {{pay.ownerName}}</label>
     </div>
 </div>
 <div class="loading-pays" ng-if="loadingPays == true">

@@ -1,5 +1,6 @@
+@import url("https://fonts.googleapis.com/css?family=Ubuntu:400,700");
 body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Ubuntu','Open Sans', sans-serif;
     background-color: white;
 }
 
@@ -216,10 +217,25 @@ body {
     padding-bottom: 20px;
 }
 
+.p-mini-box {
+    background: whitesmoke;
+    box-shadow: 3px 3px 5px -4px;
+    margin: 10px;
+    max-width: 369px;
+}
+
+.p-mini-price {
+    background: whitesmoke;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    max-width: 90%;
+    margin: auto;
+}
+
 .p-box-title {
-    border-bottom: 2px solid #ED9C52;
+    border-bottom: 2px solid #2980B9;
     padding: 15px 5px 5px 5px;
-    max-width: 95%;
+    max-width: 90%;
     margin: auto;
 
 }
@@ -239,7 +255,6 @@ body {
 
 .p-box-products {
     padding: 5px 7px;
-    /*border-bottom: 1px solid lightgray;*/
     max-width: 90%;
     margin: auto;
 }
@@ -248,4 +263,13 @@ body {
     color: darkred;
     font-size: 18px;
     font-weight: normal;
+    float: right;
+}
+
+.dropdown {
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    width: 120px;
 }

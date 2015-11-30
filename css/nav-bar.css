@@ -14,7 +14,7 @@
 	background-color: #2C3E50;
 }*/
 
-.navbar-default{
+/*.navbar-default{
     background-color: #DB802A;
     border-color: #8B4400;
     color: white;
@@ -22,11 +22,11 @@
     margin-bottom: -20px;
     border: 0px;
     border-bottom: 1px solid #8B4400;
-}
+}*/
 .navbar-default .navbar-nav>li>a {
 	color: white;
 }
-
+/*
 .navbar-default .navbar-nav>.open>a:hover, 
 .navbar-default .navbar-nav>.open>a:focus,
 .navbar-default .navbar-nav>.open>a,
@@ -35,5 +35,25 @@
 .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
 	background-color: #8B4400;
     border-color: #8B4400;
+    color: white;
+}*/
+
+.navbar-default{
+    background-color: #3498DB;
+    border-color: #3498DB;
+    color: white;
+    border-radius: 0px;
+    margin-bottom: -20px;
+    border: 0px;
+}
+
+.navbar-default .navbar-nav>.open>a:hover, 
+.navbar-default .navbar-nav>.open>a:focus,
+.navbar-default .navbar-nav>.open>a,
+.navbar-default .navbar-nav>li>a:hover, 
+.navbar-default .navbar-nav>li>a:focus,
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+	background-color: #2980B9;
+    border-color: #2980B9;
     color: white;
 }

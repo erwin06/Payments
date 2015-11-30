@@ -10,8 +10,11 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
     $scope.payOrder = "";
     $scope.saveButton = false;
     $scope.loadingPays = true;
-    $scope.personalData = {
-        salary: 10000
+    $scope.data = {
+        salary: 10000,
+        totalToPay: 0,
+        totalOthers: 0,
+        totalMe: 0
     }
 
     function getCompanyName (id){
@@ -35,24 +38,7 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
         return "Desconocido";
     }
 
-
-    $scope.getStatusClass = function (status) {
-        switch (status) {
-            case PAYING:
-                return "co-green";
-            case I_PAID:
-                return "co-dark-blue";
-            case T_PAID_ME:
-                return "co-red";
-            case T_N_PAID_ME:
-                return "co-violette";
-            case I_PAID_T_N_PAID_ME:
-                return "co-orange";
-        }
-        return "";
-    };
-
-    $scope.changeStatus = function(payment){
+    $scope.changeStatus = function(payment, status){
         payment.changing = true;
 
         var json = {
@@ -63,63 +49,70 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
             },
             data: {
                 idPayment: payment.idPayment,
-                status: payment.status == 5 ? 1 : payment.status + 1
+                status: status
             }
         }
 
         $http.post(__URL__, json)
             .success(function (response) {
+                console.log(response)
                 if (response.success) {
                     payment.status = json.data.status
                     payment.changing = false;
+                    totals()
                 }
             }).error(server_error);
     }
 
-    $scope.totalToPay = function (){
-        var total = 0;
+    function calculateTotalOthers (){
+        $scope.data.totalOthers = 0;
 
-        if(!$scope.store.payments)
-            return total;
+        if(!$scope.store.pays)
+            return;
 
-        var count = $scope.store.payments.length;
-        for(var i = 0; i < count; i++){
-            if(toPay.indexOf($scope.store.payments[i].status) != -1){
-                total += $scope.store.payments[i].amount;
-            }
-        }
-        return total.toFixed(2);
+        $scope.store.pays.forEach(function(payValue, index){
+            payValue.pays.forEach(function(payCurrent){
+                if(payCurrent.status == T_N_PAID_ME){
+                    $scope.data.totalOthers += payCurrent.amount
+                }
+            });
+        });
+
+        $scope.data.totalOthers =  $scope.data.totalOthers.toFixed(2)
     }
 
-    $scope.totalToPayFromOthers = function() {
-        var total = 0;
+    function calculateTotalMe (){
+        $scope.data.totalMe = 0;
 
-        if(!$scope.store.payments)
+        if(!$scope.store.pays)
             return total;
 
-        var count = $scope.store.payments.length;
-        for(var i = 0; i < count; i++){
-            var pay = $scope.store.payments[i];
-            if(pay.status == T_N_PAID_ME){
-                total += $scope.store.payments[i].amount;
-            }
-        }
-        return total.toFixed(2);
+        $scope.store.pays.forEach(function(payValue, index){
+            payValue.pays.forEach(function(payCurrent){
+                if(payCurrent.status in [PAYING,T_PAID_ME]){
+                    $scope.data.totalMe += payCurrent.amount
+                }
+            });
+        });
+
+        $scope.data.totalMe =  $scope.data.totalMe.toFixed(2)
     }
 
-    $scope.totalToPayFromMe = function(){
-        var total = 0;
-        if(!$scope.store.payments)
-            return total;
+    function calculateTotal() {
+        $scope.data.totalToPay = 0;
 
-        var count = $scope.store.payments.length;
-        for(var i = 0; i < count; i++){
-            var pay = $scope.store.payments[i];
-            if(pay.status == PAYING || pay.status == T_PAID_ME){
-                total += $scope.store.payments[i].amount;
-            }
-        }
-        return total.toFixed(2);
+        if(!$scope.store.pays)
+            return
+
+        $scope.store.pays.forEach(function(payValue, index){
+            payValue.pays.forEach(function(payCurrent){
+                if(toPay.indexOf(payCurrent.status) != -1){
+                    $scope.data.totalToPay += payCurrent.amount
+                }
+            });
+        });
+
+        $scope.data.totalToPay =  $scope.data.totalToPay.toFixed(2)
     }
 
     $scope.isSelected = function(status){
@@ -140,15 +133,15 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
 
         switch (status) {
             case PAYING:
-                return "Pagar";
+                return "Para pagar";
             case I_PAID:
                 return "Pagado";
             case T_PAID_ME:
-                return "No pagué, me pagaron";
+                return "Me pagaron";
             case T_N_PAID_ME:
                 return "No me pagaron";
             case I_PAID_T_N_PAID_ME:
-                return "Pagué, pero me deben";
+                return "Me deben";
         }
         return "Wtf?";
     }
@@ -206,6 +199,7 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
                     $scope.loadingPays = false;
                     $scope.store.payments = response.optional.payments;
                     $scope.store.pays = ordersPay(response.optional.payments);
+                    totals();
                 }
             }).error(server_error);
     }
@@ -248,6 +242,12 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
             result += pay[i].amount
         }
         return result.toFixed(2)
+    }
+
+    function totals(){
+        calculateTotal()
+        calculateTotalOthers()
+        calculateTotalMe()
     }
 
 });

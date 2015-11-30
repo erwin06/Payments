@@ -4,10 +4,10 @@
 var __URL__ = 'services/index.php';
 
 var PAYING = 1; // Para pagar
-var I_PAID = 2; // Pagué
-var T_PAID_ME = 3; // Me pagaron pero no pagué
-var T_N_PAID_ME = 4; // no me pagaron
-var I_PAID_T_N_PAID_ME = 5; // Pagué pero no me pagaron
+var I_PAID = 2; // Pagado
+var T_PAID_ME = 3; // Me pagaron
+var T_N_PAID_ME = 4; // No me pagaron
+var I_PAID_T_N_PAID_ME = 5; // Me deben
 
 
 var inApp = angular.module('inApp', [
