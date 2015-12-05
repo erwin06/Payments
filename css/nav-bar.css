@@ -1,42 +1,6 @@
-/*.navbar-default {
-	background-color: #34495E;
-	border-radius: 0px;
-	border-color: #34495E;
-	color: white; 
-}
-
 .navbar-default .navbar-nav>li>a {
 	color: white;
 }
-
-.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
-	color: whitesmoke;
-	background-color: #2C3E50;
-}*/
-
-/*.navbar-default{
-    background-color: #DB802A;
-    border-color: #8B4400;
-    color: white;
-    border-radius: 0px;
-    margin-bottom: -20px;
-    border: 0px;
-    border-bottom: 1px solid #8B4400;
-}*/
-.navbar-default .navbar-nav>li>a {
-	color: white;
-}
-/*
-.navbar-default .navbar-nav>.open>a:hover, 
-.navbar-default .navbar-nav>.open>a:focus,
-.navbar-default .navbar-nav>.open>a,
-.navbar-default .navbar-nav>li>a:hover, 
-.navbar-default .navbar-nav>li>a:focus,
-.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
-	background-color: #8B4400;
-    border-color: #8B4400;
-    color: white;
-}*/
 
 .navbar-default{
     background-color: #3498DB;

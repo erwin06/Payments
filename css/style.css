@@ -260,7 +260,7 @@ body {
 }
 
 .p-box-price {
-    color: darkred;
+    color: #2980B9;
     font-size: 18px;
     font-weight: normal;
     float: right;
@@ -272,4 +272,20 @@ body {
 
 .dropdown-toggle {
     width: 120px;
+}
+
+.over-div:hover{
+    background-color: lightgrey;
+    cursor: pointer;
+}
+
+.hidden-label {
+    text-decoration: none;
+    color: lightgrey;
+}
+
+.hidden-label:hover {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
 }

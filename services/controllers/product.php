@@ -55,6 +55,31 @@ class Product {
 
     }
 
+    static function deleteProduct($data, $userData){
+
+        if(!User::checkSession($userData))
+            return Error::noPermission();
+
+        $response = new Response(false, "Ups! No se pudo elimiar el producto");
+
+        $mysqli = Connection::getInstance()->getDB();
+
+        if ($stmt = $mysqli->prepare("DELETE FROM products WHERE id_product = ? AND id_user = ?")) {
+            $stmt->bind_param("ii", $data->idProduct, $data->idUser);
+            if($stmt->execute()){
+                if ($stmt = $mysqli->prepare("DELETE FROM payments WHERE id_product = ?")) {
+                    $stmt->bind_param("i", $data->idProduct);
+                    if($stmt->execute()){
+                        $response = new Response(true, "Producto eliminado");
+                    }
+                }
+            }
+        }
+
+        if(isset($stmt)) $stmt->close();
+        return isset($response) ? $response->getResponse() : Error::genericError(); 
+    }
+
   //   static function exists($name, $idUser) {
 		// return Connection::getInstance()->moreThanOne("SELECT * FROM companies WHERE id_user = '$idUser' AND name = '$name'");
   //   }

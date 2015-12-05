@@ -6,7 +6,9 @@
 	<div class="div-spacer-small"/>
     <h3>{{sData.product.description}}</h3> 
     <h4>{{sData.product.name}}</h4>
-    <div class="div-spacer-smaller"/>
+    <div class="div-spacer-smaller text-right">
+        <a class="hidden-label" ng-click="deleteProduct(sData.product.idProduct)">Borrar producto <span class="glyphicon glyphicon-trash"></span></a>
+    </div>
     <table class="table table-style">
     <thead>
     	<th class="col-xs-2">Cuota</th>

@@ -63,6 +63,10 @@ switch ($operation) {
     case 'updatePayAmount':
         $messageReturn = Pay::updatePayAmount($data, $input->userData);
         break;
+    //  ========================================================================
+    case 'deleteProduct':
+        $messageReturn = Product::deleteProduct($data, $input->userData);
+        break;
 }
 
 if ($messageReturn == null) {

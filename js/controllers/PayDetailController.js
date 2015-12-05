@@ -1,4 +1,4 @@
-inApp.controller('PayDetail', function ($scope, $http, $location,$routeParams, $cookies) {
+inApp.controller('PayDetail', function ($scope, $http, $location,$routeParams, $cookies, $rootScope) {
 
     $scope.getStatusClass = function (status) {
         switch (status) {
@@ -55,6 +55,36 @@ inApp.controller('PayDetail', function ($scope, $http, $location,$routeParams, $
                 return "Pagué, pero me deben";
         }
         return "Wtf?";
+    }
+
+    $scope.deleteProduct = function(idProduct){
+        confirm.info("¿Estás seguro que quieres eliminar?",function(button){
+            if(button == "Aceptar"){
+                var json = {
+                    operation: "deleteProduct",
+                    userData: {
+                        idSession: $cookies.idSession,
+                        idUser: $cookies.idUser
+                    },
+                    data: {
+                        idProduct: idProduct,
+                        idUser: $cookies.idUser
+                    }
+                }
+
+                $http.post(__URL__, json)
+                    .success(function (response) {
+                        if (response.success) {
+                            alert.info(response.message, function(){
+                                $location.path('/main');
+                                $rootScope.$apply();
+                            });
+                        } else {
+                            alert.error(response.message)
+                        }
+                    }).error(server_error);
+            }
+        });
     }
 
     $scope.keyPress = function(payment){

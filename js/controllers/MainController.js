@@ -85,7 +85,7 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
         $scope.data.totalMe = 0;
 
         if(!$scope.store.pays)
-            return total;
+            return 0;
 
         $scope.store.pays.forEach(function(payValue, index){
             payValue.pays.forEach(function(payCurrent){
@@ -127,6 +127,10 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
     
     $scope.goTo = function(a){
         $location.path(a)
+    }
+
+    $scope.goToPay = function(payId){
+        $location.path('/pay-detail/' + payId)
     }
 
     $scope.getStatusWording = function(status){

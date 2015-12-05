@@ -45,7 +45,7 @@
 
 <div ng-repeat="pays in store.pays" class="p-box">
     <div class="p-box-title"><label class="company">{{pays.companyName}} </label> <label class="p-box-price">$ {{getTotalByCompany(pays.pays)}}</label></div>
-    <div ng-repeat="pay in pays.pays" class="p-box-products">
+    <div ng-repeat="pay in pays.pays" class="p-box-products over-div">
         <div class="dropdown cursor-pointer">
           <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               {{getStatusWording(pay.status)}}
@@ -58,8 +58,12 @@
             <li><a ng-click="changeStatus(pay, 5)">Me deben</a></li>
           </ul>
         </div>
-         <label>{{pay.description}}</label>
-        <label class="p-box-price">$ {{pay.amount}}</label> <label>({{pay.paymentNumber +  "/" + pay.totalPays}})</label> <label ng-if="pay.idOwner != 0"> a cargo de {{pay.ownerName}}</label>
+        <span ng-click="goToPay(pay.idProduct)">
+            <label>{{pay.description}}</label>
+            <label class="p-box-price">$ {{pay.amount}}</label> 
+            <label>({{pay.paymentNumber +  "/" + pay.totalPays}})</label>
+            <label ng-if="pay.idOwner != 0"> a cargo de {{pay.ownerName}}</label>
+        <span>
     </div>
 </div>
 <div class="loading-pays" ng-if="loadingPays == true">
