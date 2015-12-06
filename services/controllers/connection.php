@@ -12,7 +12,7 @@ class Connection {
 
     static public function getInstance() {
         if (self::$instancia == null) {
-            self::$instancia = new Connection("localhost", "root", "", "m2000315_payment");
+            self::$instancia = new Connection("localhost", "root", "GOfa20sawa", "m2000315_payment");
         }
         return self::$instancia;
     }
