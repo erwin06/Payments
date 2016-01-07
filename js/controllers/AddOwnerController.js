@@ -1,31 +1,19 @@
-inApp.controller('addOwner', function ($scope, $modalInstance, $cookies, $http) {
+inApp.controller('addOwner', function ($scope, $modalInstance, OwnerService) {
 	
 	$scope.data = {}
 
 	$scope.add = function () {
 
-		var json = {
-			operation: "addOwner",
-			userData: {
-				idSession: $cookies.idSession,
-				idUser: $cookies.idUser
-			},
-			data: {
-				name: $scope.data.name
-			}
-		}
-
 		notification.info("Agregando...")
 
-		$http.post(__URL__, json)
-            .success(function (response) {
-                if (response.success) {
-                	alert.info(response.message);
-                	$modalInstance.close();
-                } else {
-                	alert.error(response.message);
-                }
-            }).error(server_error);
+		OwnerService.addOwner(function(response){
+			if(response.succ){
+				alert.hide();
+				$modalInstance.close();
+			} else {
+				alert.error(response.message)
+			}
+		}, $scope.data.name)
 	};
 
 	$scope.cancel = function () {

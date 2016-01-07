@@ -80,36 +80,36 @@ class Product {
         return isset($response) ? $response->getResponse() : Error::genericError(); 
     }
 
-  //   static function exists($name, $idUser) {
-		// return Connection::getInstance()->moreThanOne("SELECT * FROM companies WHERE id_user = '$idUser' AND name = '$name'");
-  //   }
+    static function getAllProducts($userData){
+        
+        if(!User::checkSession($userData))
+            return Error::noPermission();
 
-    // static function getCompanies($userData){
-    //     if(!User::checkSession($userData))
-    //         return Error::noPermission();
+        $response = new Response(false, "Ups! Algo no salió como esperaba");
+        $products = array();
 
-    //     $idUser = $userData->idUser;
-    //     $mysqli = Connection::getInstance()->getDB();
-    //     if ($stmt = $mysqli->prepare("SELECT id_company, name FROM companies WHERE id_user = $idUser")) {
-    //         if($stmt->execute()){
-    //             $stmt->bind_result($id_company, $name);
-    //             $result = array();
-    //             while($stmt->fetch()){
-    //                 $item = array();
-    //                 $item["idCompany"] = $id_company;
-    //                 $item["name"] = $name;
-    //                 array_push($result, $item);
-    //             }
+        $mysqli = Connection::getInstance()->getDB();
 
-    //             $response = new Response(true, "Companias recuperadas", $result);
-    //         } else {
-    //             $response = new Response(false, "Ups! Algo no salió bien :(");
-    //         }
-    //     }
+        if ($stmt = $mysqli->prepare("select products.id_product as id_product, products.description as description, products.id_owner as id_owner, products.id_company as id_company, companies.name as company_name, owners.name as owner_name from products INNER JOIN companies ON products.id_company = companies.id_company left JOIN owners ON products.id_owner = owners.id_owner WHERE products.id_user = ?")) {
+            $stmt->bind_param("i", $userData->idUser);
+            if($stmt->execute()){
+                $stmt->bind_result($id_product, $description, $id_owner, $id_company, $company_name, $owner_name);
+                while($stmt->fetch()){
+                    $pay = array();
+                    $pay["idProduct"] = $id_product;
+                    $pay["description"] = $description;
+                    $pay["idOwner"] = $id_owner;
+                    $pay["ownerName"] = $owner_name;
+                    $pay["idCompany"] = $id_company;
+                    $pay["companyName"] = $company_name;
+                    array_push($products,$pay);
+                }
 
-    //     if(isset($stmt)) $stmt->close();
-    //     return isset($response) ? $response->getResponse() : Error::genericError();
+                $response = new Response(true, "Recuperado",$products);
+            }
+        }
 
-    // }
-
+        if(isset($stmt)) $stmt->close();
+        return isset($response) ? $response->getResponse() : Error::genericError(); 
+    }
 }

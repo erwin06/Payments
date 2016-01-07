@@ -64,6 +64,9 @@ switch ($operation) {
         $messageReturn = Pay::updatePayAmount($data, $input->userData);
         break;
     //  ========================================================================
+    case 'getAllProducts':
+        $messageReturn = Product::getAllProducts($input->userData);
+        break;
     case 'deleteProduct':
         $messageReturn = Product::deleteProduct($data, $input->userData);
         break;

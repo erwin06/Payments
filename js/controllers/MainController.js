@@ -254,4 +254,9 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
         calculateTotalMe()
     }
 
+    $scope.getPriceClass = function(status){
+        if(toPay.indexOf(status) != -1)
+            return "co-red"
+    }
+
 });

@@ -57,7 +57,7 @@ inApp.controller('newPay', function($scope, $location, $rootScope, $modal, $cook
         });
 
         modalInstance.result.then(function(selectedItem) {
-            loadCompanies();
+            loadCompanies(selectedItem);
         });
 
     }
@@ -75,7 +75,7 @@ inApp.controller('newPay', function($scope, $location, $rootScope, $modal, $cook
 
     }
 
-    function loadCompanies() {
+    function loadCompanies(setCompany) {
         var json = {
             operation: "getCompanies",
             userData: {

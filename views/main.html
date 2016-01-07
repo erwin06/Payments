@@ -60,7 +60,7 @@
         </div>
         <span ng-click="goToPay(pay.idProduct)">
             <label>{{pay.description}}</label>
-            <label class="p-box-price">$ {{pay.amount}}</label> 
+            <label class="p-box-price" ng-class="getPriceClass(pay.status)">$ {{pay.amount}}</label> 
             <label>({{pay.paymentNumber +  "/" + pay.totalPays}})</label>
             <label ng-if="pay.idOwner != 0"> a cargo de {{pay.ownerName}}</label>
         <span>

@@ -1,9 +1,7 @@
-inApp.controller('Menu', function ($scope, $cookieStore, $location) {
+inApp.controller('Menu', function ($scope, LoginService) {
 
 	$scope.logOut = function(){
-		$cookieStore.remove('idUser');
-        $cookieStore.remove('idSession');
-        $location.path('/login');
+		LoginService.logOut()
 	}
 
 });
