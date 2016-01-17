@@ -1,7 +1,7 @@
 /* @import url("https://fonts.googleapis.com/css?family=Ubuntu:400,700"); */
 @font-face {
     font-family:'AvenirLT';
-    src:url(../fonts/AvenirLT.otf)
+    src:url(../fonts/AvenirLT.otf) format("opentype");
 }
 
 body {

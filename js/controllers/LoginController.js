@@ -15,7 +15,7 @@ inApp.controller('Login', function ($scope, $location, $cookies, LoginService, $
                 $location.path('/main');
 				$rootScope.$apply();
 			} else {
-				alert.error(reponse.message);
+				alert.error(response.message);
 			}
 		},$scope.sData.email, $scope.sData.password)
 	}

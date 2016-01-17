@@ -21,7 +21,6 @@ $data = isset($input->data) ? $input->data : null;
 
 $messageReturn = null;
 
-
 switch ($operation) {
     case 'checkSession':
         $messageReturn = User::checkSession($input->userData);
