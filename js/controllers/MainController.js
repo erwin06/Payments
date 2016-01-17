@@ -189,8 +189,8 @@ inApp.controller('main', function ($scope, $cookies, $location, $http, $routePar
                 idUser: $cookies.idUser
             },
             data: {
-                month:$scope.currentMonth + 1,
-                year:$scope.currentYear
+                month:parseInt($scope.currentMonth) + 1,
+                year:parseInt($scope.currentYear)
             }
         }
 
