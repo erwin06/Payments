@@ -1,8 +1,10 @@
-inApp.controller('newPay', function($scope, $location, $rootScope, $modal, $cookies, $http) {
+inApp.controller('newPay', function($scope, $location, $rootScope, $modal, $cookies, $http, PaymentService) {
 
     $scope.months = _MONTHS;
     $scope.years = [2014, 2015, 2016, 2017, 2018, 2019, 2020];
-    $scope.data = {};
+    $scope.data = {
+        paymentType: "c"
+    };
     $scope.companies = [];
     $scope.owners = [];
 
@@ -11,41 +13,58 @@ inApp.controller('newPay', function($scope, $location, $rootScope, $modal, $cook
 
     $scope.savePay = function() {
 
-        var json = {
-            operation: "addPay",
-            userData: {
-                idSession: $cookies.idSession,
-                idUser: $cookies.idUser
-            },
-            data: {
-                name: $scope.data.name,
-                idCompany: $scope.data.company,
-                amount: $scope.data.amount,
-                totalPays: $scope.data.totalPays,
-                month: $scope.data.month,
-                year: $scope.data.year,
-                idOwner: $scope.data.owner
-            }
-        }
-
         notification.info("Guardando...");
 
-        $http.post(__URL__, json)
-            .success(function(response) {
-                if (response.success) {
-                    confirm.info("Pago guardado... Desea agregar otro más?", function(result) {
-                        if (result == yes_another) {
-                            $scope.data = {};
-                            $scope.$apply();
-                        } else {
-                            $location.path("/main");
-                            $rootScope.$apply();
-                        }
-                    }, [yes_another, no_thanks])
-                }
-            }).error(server_error);
+        if($scope.data.paymentType == "c")
+            addPayment()
+        else
+            addRecurrentPayment()
 
+    }
 
+    function addRecurrentPayment(){
+        PaymentService.addRecurrentPayment(function(result){
+
+            if(result.succ){
+                confirm.info("Pago guardado... Desea agregar otro más?", function(resultConfirm) {
+                    alert.hide();
+                    if (resultConfirm == yes_another) {
+                        $scope.data = { paymentType: $scope.data.paymentType };
+                        $scope.$apply();
+                    } else {
+                        $location.path("/main");
+                        $rootScope.$apply();
+                    }
+                }, [yes_another, no_thanks])
+            }
+
+        }, $scope.data.name, $scope.data.amount)
+    }
+
+    function addPayment() {
+
+        PaymentService.addPayment(function(result){
+
+            if(result.succ){
+                confirm.info("Pago guardado... Desea agregar otro más?", function(resultConfirm) {
+                    alert.hide();
+                    if (resultConfirm == yes_another) {
+                        $scope.data = { paymentType: $scope.data.paymentType };
+                        $scope.$apply();
+                    } else {
+                        $location.path("/main");
+                        $rootScope.$apply();
+                    }
+                }, [yes_another, no_thanks])
+            }
+
+        },{ name: $scope.data.name,
+            idCompany: $scope.data.company,
+            amount: $scope.data.amount,
+            totalPays: $scope.data.totalPays,
+            month: $scope.data.month,
+            year: $scope.data.year,
+            idOwner: $scope.data.owner});
 
     }
 

@@ -1,10 +1,12 @@
-inApp.controller('main', function ($scope, $cookies, $location, $http) {
+inApp.controller('main', function ($scope, $cookies, $location, $http, $routeParams) {
+
+
 
     var toPay = [PAYING,T_N_PAID_ME, T_PAID_ME];
     var payed = [I_PAID,I_PAID_T_N_PAID_ME];
 
-    $scope.currentMonth = new Date().getMonth();
-    $scope.currentYear = new Date().getFullYear();
+    $scope.currentMonth = $routeParams.day?$routeParams.day:new Date().getMonth();
+    $scope.currentYear = $routeParams.year?$routeParams.year:new Date().getFullYear();
     $scope.store = {};
     $scope.pay = {};
     $scope.payOrder = "";
@@ -160,7 +162,7 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
             $scope.currentMonth = 11;
             $scope.currentYear--;
         }
-        loadPays();
+        $location.path("/main/" + $scope.currentYear + "/" + $scope.currentMonth)
     }
 
     $scope.nextMonth = function(){
@@ -170,7 +172,7 @@ inApp.controller('main', function ($scope, $cookies, $location, $http) {
             $scope.currentMonth = 0;
             $scope.currentYear++;
         }
-        loadPays();
+        $location.path("/main/" + $scope.currentYear + "/" + $scope.currentMonth)
     }
 
     $scope.payDetail = function(idProduct){

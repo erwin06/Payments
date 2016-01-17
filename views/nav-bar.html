@@ -1,30 +1,17 @@
 <link rel="stylesheet" href="css/nav-bar.css" >
-<nav class="navbar navbar-default" ng-controller="Menu">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-left cursor-pointer">
-        <li><a href="#/main">Principal</a></li>
-        <li><a href="#/new-pay">Nuevo pago</a></li>
-        <li><a href="#/about">Acerca de...</a></li>
-        <li><a ng-click="logOut()">Salir</a></li>
-        <li class="dropdown">
-          <a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ver ...</a>
-          <ul class="dropdown-menu">
-            <li><a href="#/all-products">Todos los productos</a></li>
-            <li><a href="#/all-companies">Todas las empresas</a></li>
-          </ul>
-        </li>
+<div class="container" ng-controller="Menu">
+  <div class="col-sm-4">
+    <img src="resource/logo.png" class="py-logo"/>
+  </div>
+  <div class="col-sm-8 py-nav-bar">
+    <button ng-click="goTo('/main')" class="py-nav-button" ng-class="getClass('main')"> Principal </button>
+    <button ng-click="goTo('/new-pay')" class="py-nav-button" ng-class="getClass('new-pay')"> Nuevo pago </button>
+    <li class="dropdown">
+      <button ng-class="getClass('see-all')" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="py-nav-button">Ver ...</button>
+      <ul class="dropdown-menu">
+        <li><a href="#/see-all-products">Todos los productos</a></li>
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
+    </li>
+    <button ng-click="logOut()" class="py-nav-button"> Salir </button>
+  </div>
+</div>

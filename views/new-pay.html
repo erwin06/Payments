@@ -2,13 +2,21 @@
 <div class="container" ng-controller="newPay">
 	<div class="center-div">
 		<h1>Nuevo Pago</h1>
+		
 		<form ng-submit="savePay()">
+			<div class="form-group">
+				<label>Tipo de pago</label>
+				<select class="form-control" ng-model="data.paymentType">
+					<option value="c">Pago en cuotas</option>
+					<option value="r">Para recurrente</option>
+				</select>
+			</div>
 			<div class="form-group">
 				<label>Producto</label>
 				<input type="text" class="form-control" ng-model="data.name" placeholder="Guitarra"
 				required>
 			</div>
-			<div class="form-group">
+			<div class="form-group" ng-if="data.paymentType == 'c'">
 				<label>Empresa</label>
 				<select class="form-control" ng-model="data.company" required>
 					<option value="">Selecciona una empresa</option>
@@ -20,29 +28,29 @@
 			</div>
 			<div class="form-group">
 				<label>Precio</label>
-				<input type="number" step="0.01" min="1" class="form-control" ng-model="data.amount" placeholder="3000"
-				required>
+				<input ng-if="data.paymentType == 'c'" type="number" step="0.01" min="1" class="form-control" ng-model="data.amount" placeholder="3000" required>
+				<input ng-if="data.paymentType == 'r'" type="number" step="0.01" min="1" class="form-control" ng-model="data.amount" placeholder="3000">
 			</div>
-			<div class="form-group">
+			<div class="form-group" ng-if="data.paymentType == 'c'">
 				<label>Cantidad de cuotas</label>
 				<input type="number" step="1" min="1" class="form-control" ng-model="data.totalPays" placeholder="12"
 				required>
 			</div>
-			<div class="form-group">
+			<div class="form-group" ng-if="data.paymentType == 'c'">
 				<label>Mes comienzo</label>
 				<select class="form-control" ng-model="data.month" required>
 					<option value="">Selecciona un mes</option>
 					<option ng-repeat="month in months" value="{{month.number}}">{{month.text}}</option>
 				</select>
 			</div>
-			<div class="form-group">
+			<div class="form-group" ng-if="data.paymentType == 'c'">
 				<label>Año de comienzo</label>
 				<select class="form-control" ng-model="data.year" required>
 				<option value="">Selecciona un año</option>
 					<option ng-repeat="year in years" value="{{year}}">{{year}}</option>
 				</select>
 			</div>
-			<div class="form-group">
+			<div class="form-group" ng-if="data.paymentType == 'c'">
 				<label>Reponsable</label>
 				<select class="form-control" ng-model="data.owner" required>
 					<option value="">Selecciona un responsable</option>

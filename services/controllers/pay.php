@@ -47,7 +47,7 @@ class Pay {
         }
 
 
-        $response = new Response(true, "Mierda, andubo todo bien! ");
+        $response = new Response(true, "Mierda, anduvo todo bien! ");
 
 
 
@@ -153,11 +153,6 @@ class Pay {
 
     static function updatePayAmount($data, $userData){
 
-        // if(!preg_match('[0-9](\.[0-9][0-9])?$',$data->amount)){
-        //     $response = new Response(false, "No es un monto válido");
-        //     return $response->getResponse();
-        // }
-
         if(!User::checkSession($userData))
             return Error::noPermission();
 
@@ -212,6 +207,37 @@ class Pay {
 
                 $result["payments"] = $pays;
                 $response = new Response(true, "Result OK", $result);
+            }
+        }
+
+        if(isset($stmt)) $stmt->close();
+        return isset($response) ? $response->getResponse() : Error::genericError();
+    }
+
+    static function addRecurrentPay($data, $userData){
+
+        if(!User::checkSession($userData))
+            return Error::noPermission();
+
+        // --- Validación de datos
+        
+        if(!isset($data->name))
+            return Error::genericError();
+
+        // --- Validación de datos
+        if(!Connection::getInstance()->moreThanOne("SELECT * FROM recurrents WHERE id_user = '$userData->idUser' AND description = '$data->name'")){
+            return Error::genericError(); 
+        }
+
+        $mysqli = Connection::getInstance()->getDB();
+
+        for($i = 1; $i <= $data->totalPays; $i++){
+            // Inserto los pagos
+            if ($stmt = $mysqli->prepare("INSERT INTO recurrents (id_user, description, amount) VALUES (?,?,?)")) {
+                $stmt->bind_param("isd", $userData->idUser, $data->description, (isset($data->amount)?$data->amount:0));
+                if($stmt->execute()){
+                    $response = new Response(true, "Se cargó con éxito");
+                }
             }
         }
 

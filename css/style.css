@@ -1,6 +1,11 @@
-@import url("https://fonts.googleapis.com/css?family=Ubuntu:400,700");
+/* @import url("https://fonts.googleapis.com/css?family=Ubuntu:400,700"); */
+@font-face {
+    font-family:'AvenirLT';
+    src:url(../fonts/AvenirLT.otf)
+}
+
 body {
-    font-family: 'Ubuntu','Open Sans', sans-serif;
+    font-family: 'AvenirLT';
     background-color: white;
 }
 

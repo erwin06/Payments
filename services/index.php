@@ -51,6 +51,9 @@ switch ($operation) {
     case 'addPay': 
         $messageReturn = Pay::addPay($data, $input->userData);
         break;
+    case 'addRecurrentPay': 
+        $messageReturn = Pay::addRecurrentPay($data, $input->userData);
+        break;
     case 'getPays':
         $messageReturn = Pay::getPays($data, $input->userData);
         break;

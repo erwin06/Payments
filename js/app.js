@@ -28,6 +28,11 @@ var inApp = angular.module('inApp', [
                     controller: 'main',
                     resolve: {"check":function($cookies, $http, $location){isLogged($cookies, $http, $location)}}
                 })
+                .when('/main/:year/:day', {
+                    templateUrl: 'views/main.html',
+                    controller: 'main',
+                    resolve: {"check":function($cookies, $http, $location){isLogged($cookies, $http, $location)}}
+                })
                 .when('/login', {
                     templateUrl: 'views/login.html',
                     resolve: {"check":function($cookies, $http, $location){isLogged($cookies, $http, $location, "login")}}
@@ -44,7 +49,7 @@ var inApp = angular.module('inApp', [
                     templateUrl: 'views/new-pay.html',
                     resolve: {"check":function($cookies, $http, $location){isLogged($cookies, $http, $location)}}
                 })
-                .when('/all-products', {
+                .when('/see-all-products', {
                     templateUrl: 'views/all-products.html',
                     resolve: {"check":function($cookies, $http, $location){isLogged($cookies, $http, $location)}}
                 })
