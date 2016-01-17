@@ -17,6 +17,12 @@ function getMonthName(index){
     return _MONTHS[index - 1];
 }
 
+function contains(ob, sElement){
+    if(ob.toString().indexOf(sElement) == -1)
+        return false;
+    return true
+}
+
 /**
  * Reemplaza un texto en todos los lugares que encuentre
  *

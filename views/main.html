@@ -1,6 +1,5 @@
 <div ng-include src="'views/nav-bar.html'"></div>
 <div class="container">
-    <!-- <div class="div-spacer-small"></div> -->
     <div class="row">
         <div class="col-lg-4 col-md-4 col-xs-4 p-mini-box">
             <div class="p-box-title">
@@ -35,39 +34,59 @@
             <small ng-click="previusMonth()"><span class="glyphicon glyphicon-arrow-left cursor-pointer"></span></small>
             <label style="min-width: 130px; text-align: center">{{getMonthName(currentMonth)}} {{currentYear}}</label>
             <small ng-click="nextMonth()"><span class="glyphicon glyphicon-arrow-right cursor-pointer"></span></small>
+            <span style="padding-left: 50px"> 
+                <label style="padding-right: 5px">Mostrar: </label>
+                <li class="dropdown">
+                   <a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="psy-nav-button">{{ getFilterLabel() }}</a>
+                  <ul class="dropdown-menu cursor-pointer">
+                    <li>
+                        <a ng-click="data.filterStatus = 1">{{ getFilterLabel(1) }}</a>
+                    </li>
+                    <li>
+                        <a ng-click="data.filterStatus = 2">{{ getFilterLabel(2) }}</a>
+                    </li>
+                  </ul>
+                </li>
+            </span>
         </div>
+
     </div>
+
 </div>
 <div class="container">
-
-<div ng-repeat="pays in store.pays" class="p-box">
-    <div class="p-box-title"><label class="company">{{pays.companyName}} </label> <label class="p-box-price">$ {{getTotalByCompany(pays.pays)}}</label></div>
-    <div ng-repeat="pay in pays.pays" class="p-box-products over-div">
-        <div class="dropdown cursor-pointer">
-          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              {{getStatusWording(pay.status)}}
-          </button>
-          <ul class="dropdown-menu">
-            <li><a ng-click="changeStatus(pay, 1)">Para pagar</a></li>
-            <li><a ng-click="changeStatus(pay, 2)">Pagado</a></li>
-            <li><a ng-click="changeStatus(pay, 3)">Me pagaron</a></li>
-            <li><a ng-click="changeStatus(pay, 4)">No me pagaron</a></li>
-            <li><a ng-click="changeStatus(pay, 5)">Me deben</a></li>
-          </ul>
+    <div ng-if="!loadingPays">
+        <div ng-repeat="pays in storePays = (store.pays | filter: filterList(pays.pays))" class="p-box">
+            <div class="p-box-title">
+                <label class="company">{{pays.companyName}} </label> 
+                <label class="p-box-price">$ {{getTotalByCompany(pays.pays)}}</label>
+            </div>
+            <div ng-repeat="pay in pays.pays" class="p-box-products over-div" 
+                ng-if="showPay(pay.status)">
+                <div class="dropdown cursor-pointer">
+                  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> {{getStatusWording(pay.status)}} </button>
+                  <ul class="dropdown-menu">
+                    <li><a ng-click="changeStatus(pay, 1)">Para pagar</a></li>
+                    <li><a ng-click="changeStatus(pay, 2)">Pagado</a></li>
+                    <li><a ng-click="changeStatus(pay, 3)">Me pagaron</a></li>
+                    <li><a ng-click="changeStatus(pay, 4)">No me pagaron</a></li>
+                    <li><a ng-click="changeStatus(pay, 5)">Me deben</a></li>
+                  </ul>
+                </div>
+                <span ng-click="goToPay(pay.idProduct)">
+                    <label>{{pay.description}}</label>
+                    <label class="p-box-price" ng-class="getPriceClass(pay.status)">$ {{pay.amount}}</label> 
+                    <label>({{pay.paymentNumber +  "/" + pay.totalPays}})</label>
+                    <label ng-if="pay.idOwner != 0"> a cargo de {{pay.ownerName}}</label>
+                <span>
+            </div>
         </div>
-        <span ng-click="goToPay(pay.idProduct)">
-            <label>{{pay.description}}</label>
-            <label class="p-box-price" ng-class="getPriceClass(pay.status)">$ {{pay.amount}}</label> 
-            <label>({{pay.paymentNumber +  "/" + pay.totalPays}})</label>
-            <label ng-if="pay.idOwner != 0"> a cargo de {{pay.ownerName}}</label>
-        <span>
+        <div ng-if="storePays.length == 0 " class="text-center">
+            <h2>No hay nada que pagar este mes! Ósom!<span ng-class="glyphicon glyphicon-sunglasses"></span></h2> 
+        </div>
     </div>
-</div>
-<div class="loading-pays" ng-if="loadingPays == true">
-    <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
-</div>
-</div>
-<div class="text-right">
-    <button class="btn btn-primary" ng-click="saveChanges()" ng-if="saveButton == true">Guardar cambios </button> 
+
+    <div class="loading-pays" ng-if="loadingPays">
+        <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+    </div>
 </div>
 <div class="div-spacer-small"></div>

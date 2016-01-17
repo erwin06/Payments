@@ -16,7 +16,8 @@ inApp.controller('main', function ($scope, $cookies, $location, $http, $routePar
         salary: 10000,
         totalToPay: 0,
         totalOthers: 0,
-        totalMe: 0
+        totalMe: 0,
+        filterStatus: 1
     }
 
     function getCompanyName (id){
@@ -203,7 +204,6 @@ inApp.controller('main', function ($scope, $cookies, $location, $http, $routePar
                     $scope.store.companies = response.optional.companies;
                     $scope.store.owners = response.optional.owners;
                     $scope.loadingPays = false;
-                    $scope.store.payments = response.optional.payments;
                     $scope.store.pays = ordersPay(response.optional.payments);
                     totals();
                 }
@@ -236,7 +236,6 @@ inApp.controller('main', function ($scope, $cookies, $location, $http, $routePar
                 totalPays: payments[i].totalPays
             })
         }
-        log.info(response)
         return response
     }
 
@@ -245,7 +244,7 @@ inApp.controller('main', function ($scope, $cookies, $location, $http, $routePar
     $scope.getTotalByCompany = function(pay){
         var result = 0
         for(var i = 0; i < pay.length; i++){
-            result += pay[i].amount
+            result += contains(toPay, pay[i].status)?pay[i].amount:0
         }
         return result.toFixed(2)
     }
@@ -259,6 +258,36 @@ inApp.controller('main', function ($scope, $cookies, $location, $http, $routePar
     $scope.getPriceClass = function(status){
         if(toPay.indexOf(status) != -1)
             return "co-red"
+    }
+
+    $scope.getFilterLabel = function(status){
+        switch(status?status:$scope.data.filterStatus){
+            case 1:
+                return "Solo lo que tengo que pagar"
+            case 2: 
+                return "Todos los pagos"
+        }
+    }
+
+    $scope.showPay = function(status){
+        if($scope.data.filterStatus == 2)
+            return true
+
+        if(contains(toPay, status))
+            return true
+    }
+
+    // $scope.showNoPaysToPays = function(){
+    //     $
+    // }
+    $scope.filterList = function(){
+        return function(pays) {
+            if($scope.data.filterStatus == 2)
+                return true
+            if($scope.getTotalByCompany(pays.pays) == "0.00")
+                return false
+            return true
+        }
     }
 
 });
