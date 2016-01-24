@@ -290,4 +290,24 @@ inApp.controller('main', function ($scope, $cookies, $location, $http, $routePar
         }
     }
 
+  var ttttt = {
+        operation: "getRecurrentPayments",
+        userData: {
+            idSession: $cookies.idSession,
+            idUser: $cookies.idUser
+        },
+        data: {
+            month:parseInt($scope.currentMonth) + 1,
+            year:parseInt($scope.currentYear)
+        }
+    }
+
+    $http.post(__URL__, ttttt)
+        .success(function (response) {
+            console.log("acá")
+            console.log(response)
+        }).error(function(response){
+
+        });
+
 });

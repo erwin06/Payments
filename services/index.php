@@ -10,6 +10,7 @@ include("controllers/company.php");
 include("controllers/owner.php");
 include("controllers/pay.php");
 include("controllers/product.php");
+include("controllers/recurrentPay.php");
 
 // include("controllers/menu.php");
 
@@ -50,9 +51,6 @@ switch ($operation) {
     case 'addPay': 
         $messageReturn = Pay::addPay($data, $input->userData);
         break;
-    case 'addRecurrentPay': 
-        $messageReturn = Pay::addRecurrentPay($data, $input->userData);
-        break;
     case 'getPays':
         $messageReturn = Pay::getPays($data, $input->userData);
         break;
@@ -64,6 +62,13 @@ switch ($operation) {
         break;
     case 'updatePayAmount':
         $messageReturn = Pay::updatePayAmount($data, $input->userData);
+        break;
+    //  ========================================================================
+    case 'addRecurrentPay': 
+        $messageReturn = RecurrentPay::addRecurrentPay($data, $input->userData);
+        break;
+    case 'getRecurrentPayments':
+        $messageReturn = RecurrentPay::getRecurrentPayments($data, $input->userData);
         break;
     //  ========================================================================
     case 'getAllProducts':

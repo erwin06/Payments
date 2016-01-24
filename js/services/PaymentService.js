@@ -16,8 +16,14 @@ inApp.service('PaymentService', function($http, $cookies){
         userData: { idSession: $cookies.idSession, idUser: $cookies.idUser }, data: {description: description, amount: (amount?amount:0)}}
 
         $http.post(__URL__, json)
-            .success(function(response) { cb({ succ: response.success, error: response.message })})
-            .error(function(){ cb({ succ: false, message: "Ups! Algo no salió como esperaba"})});
+        .success(function(response) { 
+            console.log(response) 
+            cb({ succ: response.success, message: response.message })
+        })
+        .error(function(response){ 
+            console.log(response) 
+            cb({ succ: false, message: "Ups! Algo no salió como esperaba"})
+        });
     }
 
 });

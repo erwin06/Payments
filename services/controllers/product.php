@@ -90,7 +90,7 @@ class Product {
 
         $mysqli = Connection::getInstance()->getDB();
 
-        if ($stmt = $mysqli->prepare("select products.id_product as id_product, products.description as description, products.id_owner as id_owner, products.id_company as id_company, companies.name as company_name, owners.name as owner_name from products INNER JOIN companies ON products.id_company = companies.id_company left JOIN owners ON products.id_owner = owners.id_owner WHERE products.id_user = ?")) {
+        if ($stmt = $mysqli->prepare("SELECT products.id_product as id_product, products.description as description, products.id_owner as id_owner, products.id_company as id_company, companies.name as company_name, owners.name as owner_name from products INNER JOIN companies ON products.id_company = companies.id_company left JOIN owners ON products.id_owner = owners.id_owner WHERE products.id_user = ?")) {
             $stmt->bind_param("i", $userData->idUser);
             if($stmt->execute()){
                 $stmt->bind_result($id_product, $description, $id_owner, $id_company, $company_name, $owner_name);

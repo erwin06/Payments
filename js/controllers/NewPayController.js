@@ -36,6 +36,8 @@ inApp.controller('newPay', function($scope, $location, $rootScope, $modal, $cook
                         $rootScope.$apply();
                     }
                 }, [yes_another, no_thanks])
+            } else {
+                alert.error(result.message)
             }
 
         }, $scope.data.name, $scope.data.amount)
