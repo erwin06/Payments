@@ -13,7 +13,6 @@ inApp.controller('Login', function ($scope, $location, $cookies, LoginService, $
 			if (response.succ) {
 				alert.hide();
                 $location.path('/main');
-				$rootScope.$apply();
 			} else {
 				alert.error(response.message);
 			}

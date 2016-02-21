@@ -53,6 +53,30 @@
     </div>
 
 </div>
+<!-- ================================================================================ -->
+<div class="container">
+    <div class="p-box">
+        <div class="p-box-title">
+            <label class="company">Pagos recurrentes</label> 
+        </div>
+        <div ng-repeat="recurrent in store.recurrents" class="p-box-products over-div" 
+            ng-if="showPay(recurrent.status)">
+
+            <button ng-if="showButtonDoPay(recurrent.status)" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ng-click="payRecurrent(recurrent.idRecurrent)"> Pagar </button>
+
+            <span>
+                <label ng-if="showButtonDoPay(recurrent.status)">{{recurrent.description}}</label>
+                <label ng-if="!showButtonDoPay(recurrent.status)">
+                    Se generó un pago de $ {{recurrent.payedAmount}} para: {{pay.description}}
+                </label>
+                <label class="p-box-price" ng-class="getPriceClass(pay.status)">
+                    {{ recurrent.payedAmount? "$ " + recurrent.payedAmount: ( recurrent.originalAmount != 0 ? "$ " + recurrent.originalAmount :"Sin precio" ) }}
+                </label>
+            <span>
+        </div>
+    </div>
+</div>
+<!-- ================================================================================ -->
 <div class="container">
     <div ng-if="!loadingPays">
         <div ng-repeat="pays in storePays = (store.pays | filter: filterList(pays.pays))" class="p-box">

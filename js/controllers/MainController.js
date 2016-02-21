@@ -1,4 +1,4 @@
-inApp.controller('main', function ($scope, $cookies, $location, $http, $routeParams) {
+inApp.controller('main', function ($scope, $cookies, $location, $http, $routeParams, $modal) {
 
 
 
@@ -239,7 +239,31 @@ inApp.controller('main', function ($scope, $cookies, $location, $http, $routePar
         return response
     }
 
+    function loadRecurrentPayments() {
+
+        var json = {
+            operation: "getRecurrentPayments",
+            userData: {
+                idSession: $cookies.idSession,
+                idUser: $cookies.idUser
+            },
+            data: {
+                month:parseInt($scope.currentMonth) + 1,
+                year:parseInt($scope.currentYear)
+            }
+        }
+
+        $http.post(__URL__, json)
+            .success(function (response) {
+                $scope.store.recurrents = response.optional;
+                console.log(response)
+            }).error(function(response){
+
+            });
+    }
+
     loadPays();
+    loadRecurrentPayments();
 
     $scope.getTotalByCompany = function(pay){
         var result = 0
@@ -269,17 +293,22 @@ inApp.controller('main', function ($scope, $cookies, $location, $http, $routePar
         }
     }
 
+    $scope.isPayed = function(status){
+        return (status && contains(toPay, status)) ? true : false 
+    }
+
     $scope.showPay = function(status){
-        if($scope.data.filterStatus == 2)
+        if(!status || $scope.data.filterStatus == 2)
             return true
 
         if(contains(toPay, status))
             return true
     }
 
-    // $scope.showNoPaysToPays = function(){
-    //     $
-    // }
+    $scope.showButtonDoPay = function(status){
+        return (status && contains(toPay, status)) ? false : true
+    }
+
     $scope.filterList = function(){
         return function(pays) {
             if($scope.data.filterStatus == 2)
@@ -290,24 +319,28 @@ inApp.controller('main', function ($scope, $cookies, $location, $http, $routePar
         }
     }
 
-  var ttttt = {
-        operation: "getRecurrentPayments",
-        userData: {
-            idSession: $cookies.idSession,
-            idUser: $cookies.idUser
-        },
-        data: {
-            month:parseInt($scope.currentMonth) + 1,
-            year:parseInt($scope.currentYear)
-        }
+    $scope.payRecurrent = function(idRecurrent){
+
+        var modalInstance = $modal.open({
+            templateUrl: 'views/mini-templates/pay-recurrent.html',
+            controller: 'PayRecurrent',
+            resolve: {
+                idRecurrent: function () {
+                    return idRecurrent;
+                },
+                month: function(){
+                    return $scope.currentMonth
+                },
+                year: function(){
+                    return $scope.currentYear
+                }
+              }
+        });
+
+        modalInstance.result.then(function() {
+            //loadOwners();
+        });
     }
 
-    $http.post(__URL__, ttttt)
-        .success(function (response) {
-            console.log("acá")
-            console.log(response)
-        }).error(function(response){
-
-        });
 
 });

@@ -90,11 +90,13 @@ class RecurrentPay {
 
         $mysqli = Connection::getInstance()->getDB();
 
-        if ($stmt = $mysqli->prepare("INSERT INTO recurrent_payments (amount, month, year, id_recurrent, status,id_user) VALUES (?,?,?,?,?,?)")) {
-            $stmt->bind_param("diiiii",$data->amount, $data->month, $data->year, $data->idRecurrent, $data->status, $userData->id_user);
+        if ($stmt = $mysqli->prepare("INSERT INTO recurrent_payments (amount, month, year, id_recurrent, id_user, status) VALUES (?,?,?,?,?,2)")) {
+            $stmt->bind_param("diiii",$data->amount, $data->month, $data->year, $data->idRecurrent, $userData->idUser);
             if($stmt->execute()){
                 $response = new Response(true, "Se cargó correctamente");
             }
+
+            var_dump($mysqli->error);
         }        
 
         if(isset($stmt)) $stmt->close();
@@ -110,25 +112,22 @@ class RecurrentPay {
         $mysqli = Connection::getInstance()->getDB();
 
         if ($stmt = $mysqli->prepare("SELECT id_recurrent, id_user, description, amount FROM recurrents WHERE id_user = ? AND id_recurrent = ?")) {
-            $stmt->bind_param("ii",$data->idRecurrent, $userData->idUser);
+            $stmt->bind_param("ii", $userData->idUser, $data->idRecurrent);
             if($stmt->execute()){
                 $stmt->bind_result($id_recurrent, $id_user, $description,$amount);
-                $pays = array();
-                while($stmt->fetch()){
-                    $pay = array();
-                    $pay["idPayment"] = $id_payment;
-                    $pay["paymentNumber"] = $payment_number;
-                    $pay["status"] = $status;
-                    $pay["amount"] = $amount;
-                    $pay["month"] = $month;
-                    $pay["year"] = $year;
-                    array_push($pays, $pay);
+                $recurrent = array();
+                if($stmt->fetch()){
+                    $recurrent["idRecurrent"] = $id_recurrent;
+                    $recurrent["idUser"] = $id_user;
+                    $recurrent["description"] = $description;
+                    $recurrent["amount"] = $amount;
                 }
-
-                $result["payments"] = $pays;
-                $response = new Response(true, "Result OK", $result);
+                $response = new Response(true, "Result OK", $recurrent);
             }
         }
+
+        if(isset($stmt)) $stmt->close();
+        return isset($response) ? $response->getResponse() : Error::genericError();
 
     }
 

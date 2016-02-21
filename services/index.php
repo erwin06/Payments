@@ -70,6 +70,12 @@ switch ($operation) {
     case 'getRecurrentPayments':
         $messageReturn = RecurrentPay::getRecurrentPayments($data, $input->userData);
         break;
+    case 'getRecurrentById':
+        $messageReturn = RecurrentPay::getRecurrentById($data, $input->userData);
+        break;
+    case 'generatePayment':
+        $messageReturn = RecurrentPay::generatePayment($data, $input->userData);
+        break;
     //  ========================================================================
     case 'getAllProducts':
         $messageReturn = Product::getAllProducts($input->userData);
