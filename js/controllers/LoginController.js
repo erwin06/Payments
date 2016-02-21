@@ -1,8 +1,8 @@
 inApp.controller('Login', function ($scope, $location, $cookies, LoginService, $rootScope) {
 
 	$scope.sData = {
-		password: "him15425",
-		email: "erwin.bader06@gmail.com"
+		password: "",
+		email: ""
 	};
 
 	$scope.login = function (){

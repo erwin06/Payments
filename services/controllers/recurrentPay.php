@@ -93,10 +93,8 @@ class RecurrentPay {
         if ($stmt = $mysqli->prepare("INSERT INTO recurrent_payments (amount, month, year, id_recurrent, id_user, status) VALUES (?,?,?,?,?,2)")) {
             $stmt->bind_param("diiii",$data->amount, $data->month, $data->year, $data->idRecurrent, $userData->idUser);
             if($stmt->execute()){
-                $response = new Response(true, "Se cargó correctamente");
+                $response = new Response(true, "result ok");
             }
-
-            var_dump($mysqli->error);
         }        
 
         if(isset($stmt)) $stmt->close();

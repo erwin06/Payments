@@ -7,7 +7,7 @@ inApp.service('RecurrentService', function($http, $cookies){
 
         $http.post(__URL__, json)
     	    .success(function (response) {
-            console.log(response)
+                console.log(response)
     	    	cb({succ:response.success, message: response.message})
     	    }).error(function(){cb({message: "Ups! Algo no salió como esperaba" })});
     }

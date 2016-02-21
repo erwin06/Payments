@@ -256,6 +256,7 @@ inApp.controller('main', function ($scope, $cookies, $location, $http, $routePar
         $http.post(__URL__, json)
             .success(function (response) {
                 $scope.store.recurrents = response.optional;
+                console.log("here")
                 console.log(response)
             }).error(function(response){
 
@@ -319,17 +320,19 @@ inApp.controller('main', function ($scope, $cookies, $location, $http, $routePar
         }
     }
 
-    $scope.payRecurrent = function(idRecurrent){
+    $scope.payRecurrent = function(recurrent){
+        
+        console.log(recurrent);
 
         var modalInstance = $modal.open({
             templateUrl: 'views/mini-templates/pay-recurrent.html',
             controller: 'PayRecurrent',
             resolve: {
                 idRecurrent: function () {
-                    return idRecurrent;
+                    return recurrent.idRecurrent;
                 },
                 month: function(){
-                    return $scope.currentMonth
+                    return ($scope.currentMonth + 1)
                 },
                 year: function(){
                     return $scope.currentYear
@@ -337,8 +340,13 @@ inApp.controller('main', function ($scope, $cookies, $location, $http, $routePar
               }
         });
 
-        modalInstance.result.then(function() {
-            //loadOwners();
+        modalInstance.result.then(function(result) {
+            console.log("resultado");
+            console.log(result);
+            console.log(recurrent);
+            if(result.result){
+                recurrent.status = I_PAID
+            }
         });
     }
 

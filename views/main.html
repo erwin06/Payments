@@ -62,7 +62,7 @@
         <div ng-repeat="recurrent in store.recurrents" class="p-box-products over-div" 
             ng-if="showPay(recurrent.status)">
 
-            <button ng-if="showButtonDoPay(recurrent.status)" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ng-click="payRecurrent(recurrent.idRecurrent)"> Pagar </button>
+            <button ng-if="showButtonDoPay(recurrent.status)" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ng-click="payRecurrent(recurrent)"> Pagar </button>
 
             <span>
                 <label ng-if="showButtonDoPay(recurrent.status)">{{recurrent.description}}</label>

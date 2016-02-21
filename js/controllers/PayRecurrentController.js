@@ -14,9 +14,14 @@ inApp.controller('PayRecurrent', function ($scope, $modalInstance, idRecurrent, 
 
 		notification.info("Agregando...")
 
-		RecurrentService.generatePayment(function(aver){
-			console.log(aver)
-			alert.hide()
+		RecurrentService.generatePayment(function(result){
+			if(result.succ){
+				alert.hide();
+			} else { 
+				alert.error("Ups! Algo no salió como esperabamos");
+			}
+			$modalInstance.close({result: result.succ})	
+			
 		}, idRecurrent, $scope.recurrent.amount, month, year);
 	};
 
