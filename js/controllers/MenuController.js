@@ -5,6 +5,7 @@ inApp.controller('Menu', function ($scope, LoginService, $location) {
 	}
 
 	$scope.goTo = function(page) {
+		console.log(page);
 		$location.path(page);
 	}
 

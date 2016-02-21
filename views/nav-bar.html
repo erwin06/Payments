@@ -1,17 +1,30 @@
-<link rel="stylesheet" href="css/nav-bar.css" >
-<div class="container" ng-controller="Menu">
-  <div class="col-sm-4">
-    <img src="resource/logo.png" class="py-logo"/>
-  </div>
-  <div class="col-sm-8 py-nav-bar">
-    <button ng-click="goTo('/main')" class="py-nav-button" ng-class="getClass('main')"> Principal </button>
-    <button ng-click="goTo('/new-pay')" class="py-nav-button" ng-class="getClass('new-pay')"> Nuevo pago </button>
-    <li class="dropdown">
-      <button ng-class="getClass('see-all')" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="py-nav-button">Ver ...</button>
-      <ul class="dropdown-menu">
-        <li><a href="#/see-all-products">Todos los productos</a></li>
+<nav class="navbar navbar-default" ng-controller="Menu">
+  <div class="container-fluid">
+
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Payments Admin</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><button type="button" ng-click="goTo('/main')" class="btn py-nav-button" ng-class="getClass('main')"> 
+          Principal </button></li>
+        <li><button type="button" ng-click="goTo('/new-pay')" class="btn py-nav-button" ng-class="getClass('new-pay')"> 
+          Nuevo pago </button></li>
+        <li><button type="button" ng-click="goTo('/see-all-products')" class="btn py-nav-button" ng-class="getClass('see-all-products')"> 
+          Ver todos los productos </button></li>
       </ul>
-    </li>
-    <button ng-click="logOut()" class="py-nav-button"> Salir </button>
+
+    
+      <form class="navbar-form navbar-right" role="search">
+        <button type="button" ng-click="logOut()" class="btn btn-py-actionn"> Salir </button>
+      </form>
+    </div>
   </div>
-</div>
+</nav>

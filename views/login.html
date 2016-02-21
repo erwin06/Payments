@@ -1,7 +1,8 @@
 <div class="container" ng-controller="Login">
 	<div class="center-div">
-		<div class="text-center"><img src="resource/logo.png" class="py-logo"/></div>
+		<div class="div-spacer-small"></div>
 		<h1>Ingresar </h1>
+		<div class="div-spacer-smaller"></div>
 		<form ng-submit="login()">
 			<div class="form-group">
 				<label>Email</label>
@@ -13,7 +14,7 @@
 				<input type="password" class="form-control" ng-model="sData.password" placeholder="Mi super contraseña"
 				requiered>
 			</div>
-			<button type="submit" class="btn btn-info">Ingresar</button>
+			<button type="submit" class="btn btn-py-action">Ingresar</button>
 		</form>
 		<br/>
 		<a ng-href="#/register"> No estás registrado? Registrate </a>

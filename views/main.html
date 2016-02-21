@@ -57,7 +57,7 @@
 <div class="container">
     <div class="p-box">
         <div class="p-box-title">
-            <label class="company">Pagos recurrentes</label> 
+            <label style="font-size: 17px;">Pagos recurrentes</label> 
         </div>
         <div ng-repeat="recurrent in store.recurrents" class="p-box-products over-div" 
             ng-if="showPay(recurrent.status)">
@@ -81,7 +81,7 @@
     <div ng-if="!loadingPays">
         <div ng-repeat="pays in storePays = (store.pays | filter: filterList(pays.pays))" class="p-box">
             <div class="p-box-title">
-                <label class="company">{{pays.companyName}} </label> 
+                <label style="font-size: 17px;">{{pays.companyName}} </label> 
                 <label class="p-box-price">$ {{getTotalByCompany(pays.pays)}}</label>
             </div>
             <div ng-repeat="pay in pays.pays" class="p-box-products over-div" 

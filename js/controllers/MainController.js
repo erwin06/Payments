@@ -128,9 +128,9 @@ inApp.controller('main', function ($scope, $cookies, $location, $http, $routePar
     // -------- Funciones reales -----------------------------------------------
     // -------------------------------------------------------------------------
     
-    $scope.goTo = function(a){
-        $location.path(a)
-    }
+    // $scope.goTo = function(a){
+    //     $location.path(a)
+    // }
 
     $scope.goToPay = function(payId){
         $location.path('/pay-detail/' + payId)

@@ -1,12 +1,18 @@
+/*#f7f7f8*/
 /* @import url("https://fonts.googleapis.com/css?family=Ubuntu:400,700"); */
-@font-face {
+/*@font-face {
     font-family:'AvenirLT';
     src:url(../fonts/avenirLT.otf) format("opentype");
-}
+}*/
 
 body {
-    font-family: 'AvenirLT';
-    background-color: white;
+    font-family: 'Helvetica';
+    background-color: #f7f7f8;
+    font-weight: lighter;
+}
+
+label {
+    font-weight: lighter;
 }
 
 .center-div {
@@ -219,58 +225,53 @@ body {
 
 
 .p-box {
-    background: whitesmoke;
+    background: WHITE;
     margin: 25px 0px;
-    box-shadow: 3px 3px 5px -4px;
-    padding-bottom: 20px;
+    padding-bottom: 15px;
+    border: 1px solid #00acec;
 }
 
 .p-mini-box {
-    background: whitesmoke;
+    background: white;
     box-shadow: 3px 3px 5px -4px;
     margin: 10px;
     max-width: 369px;
+    padding: 0;
 }
 
 .p-mini-price {
-    background: whitesmoke;
     padding-bottom: 20px;
-    padding-top: 20px;
-    max-width: 90%;
-    margin: auto;
+    max-width: 90%; 
+    font-size: 40px;
+    text-align: center;
 }
 
 .p-box-title {
-    border-bottom: 2px solid #2980B9;
-    padding: 15px 5px 5px 5px;
-    max-width: 90%;
+    padding: 5px 5px 5px 5px;
     margin: auto;
-
+    background-color: #00acec;
+    color: white;
+    margin-bottom: 15px;
 }
 
 .p-box > div > .company {
     font-size: 19px;
-    color: #292929;
-    font-weight: normal;
 }
 
 .p-box > div > .company-total {
     color: #292929;
     font-size: 12px;
     padding-right: 10px;
-    font-weight: normal;
 }
 
 .p-box-products {
     padding: 5px 7px;
-    max-width: 90%;
     margin: auto;
 }
 
 .p-box-price {
-    color: #2980B9;
+    color: white;
     font-size: 18px;
-    font-weight: normal;
     float: right;
 }
 
@@ -283,7 +284,6 @@ body {
 }
 
 .over-div:hover{
-    background-color: lightgrey;
     cursor: pointer;
 }
 
@@ -297,3 +297,16 @@ body {
     color: black;
     cursor: pointer;
 }
+
+
+.btn-py-action {
+    color: #fff;
+    background-color: #34495E;
+    border-color: #2C3E50;
+}
+
+.btn-py-action:hover{
+    color: #fff;
+    background-color: #2C3E50;
+}
+
