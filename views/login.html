@@ -1,24 +1,24 @@
 <div class="container" ng-controller="Login">
 	<div class="center-div">
-		<div class="div-spacer-small"></div>
-		<h1>Ingresar </h1>
-		<div class="div-spacer-smaller"></div>
-		<form ng-submit="login()">
-			<div class="form-group">
-				<label>Email</label>
-				<input type="email" class="form-control" ng-model="sData.email" placeholder="sheldon@cooper.com"
-				 equiered>
-			</div>
-			<div class="form-group">
-				<label>Contraseña </label>
-				<input type="password" class="form-control" ng-model="sData.password" placeholder="Mi super contraseña"
-				requiered>
-			</div>
-			<button type="submit" class="btn btn-py-action">Ingresar</button>
-		</form>
-		<br/>
-		<a ng-href="#/register"> No estás registrado? Registrate </a>
+	
+		<h2 class="color-ws">Payments Admin</h2>
+		<h4 class="color-ws">Ingresar</h4>
+	
+		<div class="login-form">
+			<form ng-submit="login()">
+	            <div class="form-group">
+	              <input type="email" class="form-control login-field" value="" placeholder="Ingresa tu E-mail" ng-model="sData.email">
+	              <label class="login-field-icon fui-user" for="login-name"></label>
+	            </div>
+
+	            <div class="form-group">
+	              <input type="password" class="form-control login-field" value="" placeholder="y tu contraseña!" ng-model="sData.password" id="login-pass">
+	              <label class="login-field-icon fui-lock" for="login-pass"></label>
+	            </div>
+
+	            <button type="submit" class="btn btn-primary btn-lg btn-block" href="#">Ingresar</button>
+	            <a class="login-link" href="#/register">¿No tienes cuenta? Registrate!</a>
+            </form>
+         </div>
 	</div>
 </div>
-
-

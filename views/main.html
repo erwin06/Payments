@@ -1,110 +1,100 @@
 <div ng-include src="'views/nav-bar.html'"></div>
+
 <div class="container">
-    <div class="row">
-        <div class="col-lg-4 col-md-4 col-xs-4 p-mini-box">
-            <div class="p-box-title">
-                <label>Total a pagar</label>
-            </div>
-            <div class="p-mini-price">
-                <label>$ {{ data.totalToPay }}</label>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-xs-4 p-mini-box">
-            <div class="p-box-title">
-                <label>Pagos de otros</label>
-            </div>
-            <div class="p-mini-price">
-                <label>$ {{ data.totalOthers }}</label>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-xs-4 p-mini-box">
-            <div class="p-box-title">
-                <label>Mis pagos</label>
-            </div>
-            <div class="p-mini-price">
-                <label>$ {{ data.totalMe }}</label>
-            </div>
-        </div>
+    <div class="col-sm-4 col-xs-12">
+      <div class="tile">
+        <p class="btn btn-primary btn-large btn-block simple-cursor">Total a pagar</p>
+        <h3 class="black-blue">$ {{ data.totalToPay }}</h3>
+      </div>
     </div>
-    <div class="div-spacer-small"></div>
+    <div class="col-sm-4 col-xs-12">
+      <div class="tile">
+        <p class="btn btn-primary btn-large btn-block simple-cursor">Lo que otros tienen que pagar</p>
+        <h3 class="black-blue">$ {{ data.totalOthers }}</h3>
+      </div>
+    </div>
+    <div class="col-sm-4 col-xs-12">
+      <div class="tile">
+        <p class="btn btn-primary btn-large btn-block simple-cursor">Lo que yo tengo que pagar</p>
+        <h3 class="black-blue">$ {{ data.totalMe }}</h3>
+      </div>
+    </div>
 </div>
+
 <div class="container">
-    <div class="panel-data">
-        <div class="title">
-            <small ng-click="previusMonth()"><span class="glyphicon glyphicon-arrow-left cursor-pointer"></span></small>
-            <label style="min-width: 130px; text-align: center">{{getMonthName(currentMonth)}} {{currentYear}}</label>
-            <small ng-click="nextMonth()"><span class="glyphicon glyphicon-arrow-right cursor-pointer"></span></small>
-            <span style="padding-left: 50px"> 
-                <label style="padding-right: 5px">Mostrar: </label>
-                <li class="dropdown">
-                   <a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="psy-nav-button">{{ getFilterLabel() }}</a>
-                  <ul class="dropdown-menu cursor-pointer">
-                    <li>
-                        <a ng-click="data.filterStatus = 1">{{ getFilterLabel(1) }}</a>
-                    </li>
-                    <li>
-                        <a ng-click="data.filterStatus = 2">{{ getFilterLabel(2) }}</a>
-                    </li>
-                  </ul>
-                </li>
-            </span>
-        </div>
-
+    <div class="title color-ws margin-10">
+        <label ng-click="previusMonth()"><span class="glyphicon glyphicon-arrow-left cursor-pointer"></span></label>
+        <label style="min-width: 130px; text-align: center">{{getMonthName(currentMonth)}} {{currentYear}}</label>
+        <label ng-click="nextMonth()"><span class="glyphicon glyphicon-arrow-right cursor-pointer"></span></label>
+        <span style="padding-left: 50px"></span>
+            <label class="radio" style="display: inline">
+                <input type="radio" ng-model="data.filterStatus" name="optionsRadios" id="optionsRadios1" value="1" class="custom-radio"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+                {{getFilterLabel(1)}}
+            </label>
+             <label class="radio" style="display: inline; margin-left: 10px">
+                <input type="radio" ng-model="data.filterStatus" name="optionsRadios" id="optionsRadios1" value="2" class="custom-radio"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+                {{getFilterLabel(2)}}
+            </label>
+        </span>
     </div>
-
 </div>
 <!-- ================================================================================ -->
 <div class="container">
-    <div class="p-box">
+    <div class="tile color-black-bluem text-center">
         <div class="p-box-title">
             <label style="font-size: 17px;">Pagos recurrentes</label> 
+            <hr/>
         </div>
         <div ng-repeat="recurrent in store.recurrents" class="p-box-products over-div" 
             ng-if="showPay(recurrent.status)">
 
-            <button ng-if="showButtonDoPay(recurrent.status)" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ng-click="payRecurrent(recurrent)"> Pagar </button>
 
-            <span>
-                <label ng-if="showButtonDoPay(recurrent.status)">{{recurrent.description}}</label>
-                <label ng-if="!showButtonDoPay(recurrent.status)">
-                    Se generó un pago de $ {{recurrent.payedAmount}} para: {{pay.description}}
-                </label>
-                <label class="p-box-price" ng-class="getPriceClass(pay.status)">
-                    {{ recurrent.payedAmount? "$ " + recurrent.payedAmount: ( recurrent.originalAmount != 0 ? "$ " + recurrent.originalAmount :"Sin precio" ) }}
-                </label>
-            <span>
-        </div>
-    </div>
-</div>
-<!-- ================================================================================ -->
-<div class="container">
-    <div ng-if="!loadingPays">
-        <div ng-repeat="pays in storePays = (store.pays | filter: filterList(pays.pays))" class="p-box">
-            <div class="p-box-title">
-                <label style="font-size: 17px;">{{pays.companyName}} </label> 
-                <label class="p-box-price">$ {{getTotalByCompany(pays.pays)}}</label>
-            </div>
-            <div ng-repeat="pay in pays.pays" class="p-box-products over-div" 
-                ng-if="showPay(pay.status)">
-                <div class="dropdown cursor-pointer">
-                  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> {{getStatusWording(pay.status)}} </button>
-                  <ul class="dropdown-menu">
-                    <li><a ng-click="changeStatus(pay, 1)">Para pagar</a></li>
-                    <li><a ng-click="changeStatus(pay, 2)">Pagado</a></li>
-                    <li><a ng-click="changeStatus(pay, 3)">Me pagaron</a></li>
-                    <li><a ng-click="changeStatus(pay, 4)">No me pagaron</a></li>
-                    <li><a ng-click="changeStatus(pay, 5)">Me deben</a></li>
-                  </ul>
-                </div>
-                <span ng-click="goToPay(pay.idProduct)">
-                    <label>{{pay.description}}</label>
-                    <label class="p-box-price" ng-class="getPriceClass(pay.status)">$ {{pay.amount}}</label> 
-                    <label>({{pay.paymentNumber +  "/" + pay.totalPays}})</label>
-                    <label ng-if="pay.idOwner != 0"> a cargo de {{pay.ownerName}}</label>
+            <div class="text-left py-product">
+                <button ng-if="showButtonDoPay(recurrent.status)" class="btn btn-primary dropdown-toggle" 
+                    type="button" ng-click="payRecurrent(recurrent)"> Pagar </button>
+
+                <span>
+                    <label ng-if="showButtonDoPay(recurrent.status)">{{recurrent.description}}</label>
+                    <label ng-if="!showButtonDoPay(recurrent.status)">
+                        Se generó un pago de $ {{recurrent.payedAmount}} para: {{pay.description}}
+                    </label>
+                    <label class="py-box-price" ng-class="getPriceClass(pay.status)">
+                        {{ recurrent.payedAmount? "$ " + recurrent.payedAmount: ( recurrent.originalAmount != 0 ? "$ " + recurrent.originalAmount :"Sin precio" ) }}
+                    </label>
                 <span>
             </div>
         </div>
-        <div ng-if="storePays.length == 0 " class="text-center">
+    </div>
+</div>
+
+<div class="container">
+    <div ng-if="!loadingPays">
+        <div ng-repeat="pays in storePays = (store.pays | filter: filterList(pays.pays))" class="tile text-center">
+            <div>
+                <label style="font-size: 17px;">{{pays.companyName}} </label> 
+                <label>($ {{getTotalByCompany(pays.pays)}})</label>
+                <hr/>
+            </div>
+            <div ng-repeat="pay in pays.pays" ng-if="showPay(pay.status)" class="py-product">
+                <div class="dropdown cursor-pointer text-left">
+                  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> {{getStatusWording(pay.status)}} <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a ng-click="changeStatus(pay, 1)">Para pagar</a></li>
+                        <li><a ng-click="changeStatus(pay, 2)">Pagado</a></li>
+                        <li><a ng-click="changeStatus(pay, 3)">Me pagaron</a></li>
+                        <li><a ng-click="changeStatus(pay, 4)">No me pagaron</a></li>
+                        <li><a ng-click="changeStatus(pay, 5)">Me deben</a></li>
+                    </ul>
+                    <span ng-click="goToPay(pay.idProduct)">
+                        <label>{{pay.description}}</label>
+                        <label class="py-box-price">$ {{pay.amount}}</label> 
+                        <label>({{pay.paymentNumber +  "/" + pay.totalPays}})</label>
+                        <label ng-if="pay.idOwner != 0"> a cargo de {{pay.ownerName}}</label>
+                    <span>
+                </div>
+            </div>
+        </div>
+        <div ng-if="storePays.length == 0 " class="text-center color-ws">
             <h2>No hay nada que pagar este mes! Ósom!</h2> 
             <h1><span class="glyphicon glyphicon-sunglasses"></span></h1>
         </div>
@@ -114,4 +104,3 @@
         <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
     </div>
 </div>
-<div class="div-spacer-small"></div>

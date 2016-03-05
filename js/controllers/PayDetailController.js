@@ -3,15 +3,15 @@ inApp.controller('PayDetail', function ($scope, $http, $location,$routeParams, $
     $scope.getStatusClass = function (status) {
         switch (status) {
             case PAYING:
-                return "co-green";
+                return "btn-success";
             case I_PAID:
-                return "co-dark-blue";
+                return "btn-info";
             case T_PAID_ME:
-                return "co-red";
+                return "btn-danger";
             case T_N_PAID_ME:
-                return "co-violette";
+                return "btn-default";
             case I_PAID_T_N_PAID_ME:
-                return "co-orange";
+                return "btn-warning";
         }
         return "";
     };

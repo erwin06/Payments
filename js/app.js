@@ -62,6 +62,11 @@ var inApp = angular.module('inApp', [
                     controller: 'PayDetail',
                     resolve: {"check":function($cookies, $http, $location){isLogged($cookies, $http, $location)}}
                 })
+                .when('/log-out',{
+                    resolve: {"logOut":function(LoginService){
+                        LoginService.logOut();
+                    }}
+                })
                 .otherwise({
                     redirectTo: '/login'
                 });

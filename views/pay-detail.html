@@ -2,8 +2,7 @@
 <div class="loading-pays" ng-if="loading == true">
     <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
 </div>
-<div ng-if="loading == false" class="container">
-	<div class="div-spacer-small"/>
+<div ng-if="loading == false" class="container color-ws">
     <h3>{{sData.product.description}}</h3> 
     <h4>{{sData.product.name}}</h4>
     <div class="div-spacer-smaller text-right">
@@ -21,12 +20,15 @@
     		<td>{{pay.paymentNumber}}</td>
     		<td>
                 <label style="display: inline">$</label> 
-                <input class="input-amount" ng-model="pay.amount" ng-enter="keyPress(pay)" ng-readonly="pay.amountChanging"/>
+                <input class="color-black-blue" ng-model="pay.amount" ng-enter="keyPress(pay)" ng-readonly="pay.amountChanging"/>
                 <span ng-if="pay.amountChanging" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
             </td>
     		<td>{{pay.month + "/" + pay.year}}</td>
-    		<td ng-click="changeStatus(pay)">
-    		 	<label class="label-status" ng-class="getStatusClass(pay.status)">{{ getStatusWording(pay.status)}} <span ng-if="pay.changing" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></label>
+    		<td>
+                <button class="btn btn-block btn-lg" ng-class="getStatusClass(pay.status)" ng-click="changeStatus(pay)">
+                    {{ getStatusWording(pay.status)}}
+                    <span ng-if="pay.changing" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+                </button>
     		</td>
     	</tr>
     </tbody>

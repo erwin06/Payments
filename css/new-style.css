@@ -1,0 +1,42 @@
+html {
+	background-color: #34495e;
+}
+
+.center-div {
+    margin: auto;
+    max-width: 500px;
+}
+
+.margin-10 {
+	margin: 10px
+}
+
+.color-black-blue {
+	color: #34495e;
+}
+
+.simple-cursor {
+	cursor: default;
+}
+
+.color-ws {
+	color: whitesmoke;
+}
+
+hr {
+	margin-top: 5px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #34495e;
+    max-width: 80%;
+}
+
+.py-product {
+	max-width: 80%;
+	margin: auto;
+	padding: 5px;
+}
+
+.py-box-price {
+	float: right;
+}

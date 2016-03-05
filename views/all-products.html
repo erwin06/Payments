@@ -1,9 +1,8 @@
 <div ng-include src="'views/nav-bar.html'"></div>
-<div class="div-spacer-smaller text-right"></div>
 <div class="container" ng-controller="AllProducts">
-	<div ng-repeat="product in store.products" class="p-box">
+	<div ng-repeat="product in store.products" class="tile">
 	    <div class="padding-5">
-	    	<h3 class="company">{{product.description}} {{(product.ownerName? 'a cargo de ' + product.ownerName :'')}}</h3>
+	    	<h3>{{product.description}} {{(product.ownerName? 'a cargo de ' + product.ownerName :'')}}</h3>
 	    	<label>{{product.companyName}}</label>
 	    	<span class="glyphicon glyphicon-trash hidden-label" style="float: right; font-size: 25px" ng-click="deleteProduct(product.idProduct)"></span>
 	    </div>
