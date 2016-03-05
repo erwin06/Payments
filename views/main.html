@@ -42,7 +42,7 @@
 <div class="container">
     <div class="tile color-black-bluem text-center">
         <div class="p-box-title">
-            <label style="font-size: 17px;">Pagos recurrentes</label> 
+            <label style="font-size: 17px;font-variant: small-caps;">Pagos recurrentes</label> 
             <hr/>
         </div>
         <div ng-repeat="recurrent in store.recurrents" class="p-box-products over-div" 
@@ -50,7 +50,7 @@
 
 
             <div class="text-left py-product">
-                <button ng-if="showButtonDoPay(recurrent.status)" class="btn btn-primary dropdown-toggle" 
+                <button ng-if="showButtonDoPay(recurrent.status)" class="btn btn-primary dropdown-toggle min-button" 
                     type="button" ng-click="payRecurrent(recurrent)"> Pagar </button>
 
                 <span>
@@ -71,13 +71,13 @@
     <div ng-if="!loadingPays">
         <div ng-repeat="pays in storePays = (store.pays | filter: filterList(pays.pays))" class="tile text-center">
             <div>
-                <label style="font-size: 17px;">{{pays.companyName}} </label> 
+                <label style="font-size: 17px;font-variant: small-caps;">{{pays.companyName}} </label> 
                 <label>($ {{getTotalByCompany(pays.pays)}})</label>
                 <hr/>
             </div>
             <div ng-repeat="pay in pays.pays" ng-if="showPay(pay.status)" class="py-product">
                 <div class="dropdown cursor-pointer text-left">
-                  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> {{getStatusWording(pay.status)}} <span class="caret"></span></button>
+                  <button class="min-button btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> {{getStatusWording(pay.status)}} a´ca!<span class="caret"></span></button>
                     <ul class="dropdown-menu">
                         <li><a ng-click="changeStatus(pay, 1)">Para pagar</a></li>
                         <li><a ng-click="changeStatus(pay, 2)">Pagado</a></li>

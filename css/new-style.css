@@ -40,3 +40,23 @@ hr {
 .py-box-price {
 	float: right;
 }
+
+@media (max-width: 768px) {
+	.py-product{
+		max-width: 100%;
+	}
+
+	.py-product > .btn {
+		padding: 3px 4px;
+	}
+
+	.py-product > .dropdown > .btn {
+		padding: 3px 4px;
+	}
+}
+
+/*@media (min-width: 100px) {*/
+	
+	
+/*}*/
+
