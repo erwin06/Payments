@@ -77,7 +77,7 @@
             </div>
             <div ng-repeat="pay in pays.pays" ng-if="showPay(pay.status)" class="py-product">
                 <div class="dropdown cursor-pointer text-left">
-                  <button class="min-button btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> {{getStatusWording(pay.status)}} a´ca!<span class="caret"></span></button>
+                  <button class="min-button btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> {{getStatusWording(pay.status)}}<span class="caret"></span></button>
                     <ul class="dropdown-menu">
                         <li><a ng-click="changeStatus(pay, 1)">Para pagar</a></li>
                         <li><a ng-click="changeStatus(pay, 2)">Pagado</a></li>
