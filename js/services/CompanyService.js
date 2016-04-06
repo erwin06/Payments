@@ -13,4 +13,15 @@ inApp.service('CompanyService', function($http, $cookies){
 		$http.post(__URL__, json)
             .success(function (response) { cb({ succ: response.success, message: response.message }) }).error(function(){ cb({ succ: false, message: "Ups! Algo no salió como esperaba" }) });
     }
+
+    this.getCompanies = function(cb){
+
+        var json = {operation: "getCompanies",userData:{idSession: $cookies.idSession, idUser: $cookies.idUser}}
+
+        $http.post(__URL__, json)
+            .success(function (response) {
+                cb({succ:response.success, message: response.message, companies: response.optional})
+            }).error(function(){cb({message: "Ups! Algo no salió como esperaba" })});
+
+    }
 });

@@ -53,7 +53,7 @@ var inApp = angular.module('inApp', [
                     templateUrl: 'views/all-products.html',
                     resolve: {"check":function($cookies, $http, $location){isLogged($cookies, $http, $location)}}
                 })
-                .when('/all-companies', {
+                .when('/see-all-companies', {
                     templateUrl: 'views/all-companies.html',
                     resolve: {"check":function($cookies, $http, $location){isLogged($cookies, $http, $location)}}
                 })

@@ -1,0 +1,8 @@
+<div ng-include src="'views/nav-bar.html'"></div>
+<div class="container" ng-controller="AllCompanies">
+	<div ng-repeat="companies in store.companies" class="tile">
+	    <div class="padding-5">
+	    	<h3>{{companies.name}}</h3>
+	    </div>
+	</div>
+</div>
