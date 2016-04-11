@@ -1,0 +1,26 @@
+<div class="container form-login" ng-controller="Login">
+	<form class="form-horizontal" ng-submit="login()">
+	  <fieldset>
+	    <legend>Administrador de pagos</legend>
+	    <div class="form-group" ng-class="getClass(data.user)">
+	      <label class="col-lg-2 control-label">Email</label>
+	      <div class="col-lg-10">
+	        <input type="text" class="form-control" ng-model="data.user.value" placeholder="Sheldon@Cooper.com">
+	        <div class="input-info" ng-if="data.user.isEmpty">Revisa este dato</div>
+	      </div>
+	    </div>
+	    <div class="form-group" ng-class="getClass(data.password)">
+	      <label class="col-lg-2 control-label">Password</label>
+	      <div class="col-lg-10">
+	        <input type="password" class="form-control" ng-model="data.password.value" placeholder="Bazinga">
+	        <div class="input-info" ng-if="data.password.isEmpty">Revisa este dato</div>
+	      </div>
+	    </div>
+	    <div class="form-group">
+	      <div class="col-lg-10 col-lg-offset-2">
+	        <button type="submit" class="btn btn-primary">Ingresar</button>
+	      </div>
+	    </div>
+	  </fieldset>
+	</form>
+</div>
